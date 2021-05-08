@@ -30,7 +30,8 @@ public class MyClient implements ActionListener{
 	private final static int PORT = 12322;
 	public MyClient() {
 		 console = new Scanner(System.in);
-		 initApp();
+		 initWindow();
+//		 initApp();
 	}
 	public void createObjectFlows() throws IOException {
 		objectInputStream = new ObjectInputStream(socketClient.getInputStream());
@@ -54,21 +55,18 @@ public class MyClient implements ActionListener{
 	
 	public void initApp() {
 			try {
-				System.out.println("eyyyyyy");
 				createSocket();
 //				createFlowsInAndOut();
-				System.out.println("222222222");
 				createObjectFlows();
-				System.out.println("33333");
 				initWindow();
+				console = new Scanner(System.in);
 				do {
 						String comunication = dataInputStream.readUTF(); //leemos un objeto
-						System.out.println(comunication + "hhoooho");
-//						comunication = console.next();
-						dataOutputStream.writeUTF(comunication);
+//						comunication =
 							switch (comunication) {
 							case ADD_PERSON:
-								objectOutputStream.writeObject((Person) jfMainWindow.getPersonCreated());
+//								objectOutputStream.writeObject((Person) jfMainWindow.getPersonCreated());
+								dataOutputStream.writeUTF(comunication);
 								break;
 	
 							default:

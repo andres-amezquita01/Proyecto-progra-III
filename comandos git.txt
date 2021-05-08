@@ -1,0 +1,18 @@
+git add . => añade todos los archivos con cambios que se hicieron
+git status => ve el estado de los cambios, muestra que lineas se modificaron de cada archivo
+git commit -m "aqui va el comentario" para subir un cambio obligatoriamente toca hacer un commit
+git push => sube los cambios que se hicieron
+
+git branch => muestra las ramas que hay en el proyecto
+git branch nuevaRama => crea la rama "nuevaRama" pero solo la crea, no se cambia a esa rama
+git checkout nuevaRama => cambia de la rama donde se este a la rama "nuevaRama"
+git checkout -b nuevaRama => crea la rama "nuevaRama" y se cambia de una a esa rama, es como hacer git branch y git checkout en un solo paso
+git branch -m nombreAntiguo nombreNuevo => cambia el nombre de la rama por el nuevo nombre
+git branch -d nuevaRama => ELIMINA la rama "nuevaRama" hay que tener cuidado con usarlo xd
+git branch -h => muestra todos los comandos que podemos usar
+
+
+
+
+
+

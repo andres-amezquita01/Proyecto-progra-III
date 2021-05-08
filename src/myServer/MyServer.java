@@ -108,7 +108,7 @@ public class MyServer {
 								message = objectInputStream.readUTF();
 									switch(message) {
 										case ADD_PERSON:
-//											addPersonToMasterAndTreeFile((Person)objectInputStream.readObject());
+											addPersonToMasterAndTreeFile((Person)objectInputStream.readObject());
 											break;
 										case "opcion 2":
 											break;
