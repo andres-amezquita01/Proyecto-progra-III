@@ -1,8 +1,18 @@
 git add . => añade todos los archivos con cambios que se hicieron
 git status => ve el estado de los cambios, muestra que lineas se modificaron de cada archivo
-git commit -m "aqui va el comentario" para subir un cambio obligatoriamente toca hacer un commit
+***COMMIT***
+git commit para subir un cambio obligatoriamente toca hacer un commit
+apenas haga git commit se abre el vim que es un editor de texto para escribir ahi el comentario
+una vez escrito el comentario usa esc para dejar de comentar y escribe :wq para guardar y salir del vim
+con eso ya estara hecho el commit
+
+
 git push => sube los cambios que se hicieron
 
+git pull => descarga y actualiza el proyecto con todos los cambios que alguien haya hecho, es importante
+hacerlo siempre que vayamos a iniciar a trabajar para evitar trabajar sobre el proyecto desactualizado.
+
+****CREAR, CAMBIAR, ELIMINAR RAMA****
 git branch => muestra las ramas que hay en el proyecto
 git branch nuevaRama => crea la rama "nuevaRama" pero solo la crea, no se cambia a esa rama
 git checkout nuevaRama => cambia de la rama donde se este a la rama "nuevaRama"
@@ -10,6 +20,47 @@ git checkout -b nuevaRama => crea la rama "nuevaRama" y se cambia de una a esa r
 git branch -m nombreAntiguo nombreNuevo => cambia el nombre de la rama por el nuevo nombre
 git branch -d nuevaRama => ELIMINA la rama "nuevaRama" hay que tener cuidado con usarlo xd
 git branch -h => muestra todos los comandos que podemos usar
+
+
+***MERGE***
+aca se usa para mezclar los cambios de una rama donde se esta trabajando
+con la rama principal, por ejemplo tenemos la rama master que es nuestro proyecto
+principal y darwin creo la rama "ramaServidor" que es una copia de la rama master solo
+que en ramaServidor iba trabajando sobre el servidor y modelo, una vez ya tiene listo el servidor
+quiere agregarlo al proyecto principal, entonces hace
+
+1) git checkout master => para cambiar de la ramaServidor a la rama principal del proyecto
+2) git merge ramaServidor => aca es o importante, por que fusiona los cambios que hizo del servidor a la rama principal del proyecto.
+
+
+RESUMIENDO
+
+1)crean su rama de trabajo con 
+  1.1 -git branch nuevaRama  => aca solo la crean
+  1.2 git checkout nuevaRama => aca ya cambian de la rama master a SU rama para trabajar ahi
+
+2)cuando quieran subir una modificacion a su rama lo hacen asi:
+ 2.1 git add archivo.java => se usa este add solo para subir el archivo que se modifico
+ 2.2 git add . => este es mas bacano por que sube todo, yo recomiendo usar este en lugar del anterior
+ 2.3 git status => les muestra los archivos que se acabaron de modificar
+ 2.4 git commit => esto es re importante, sin hacer un commit no se puede subir el cambio
+ 2.5 apenas hagan git commit se les abre el vim que es un editor de texto, ahi escriben el comentario
+     por ejemplo "se modifico el boton añadir", apenas acaben de escribir tienen que cerrar el vim y guardar
+     para eso hacen => tecla esc  y escriben :wq	
+ 2.6 git push => ahi se les abre un panel donde meten su usuario y contraseña y listo ya quedo subido todo
+
+3)supongamos que Felipe termino su parte de la interfaz que estaba trabajando
+ en la rama "felipeInterfaz" entonces ya solo queda modificar el proyecto principal
+ que esta en la rama "main" ahi es donde toca hacer un merge, lo ideal seria ponernos de acuerdo para hacerlo
+ sin embargo los comandos para hacerlo son
+ 3.1 git checkout main => aca cambia de su rama "felipeInterfaz" a la rama "main" donde esta el proyecto principal
+     una vez en la rama del proyecto principal hace:
+ 3.2 git merge felipeInterfaz => fusiona los cambios que hizo en la rama "felipeInterfaz" al proyecto principal.
+
+
+
+
+
 
 
 
