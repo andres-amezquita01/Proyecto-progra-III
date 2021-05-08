@@ -26,12 +26,19 @@ public class MyClient implements ActionListener{
 	private ObjectInputStream objectInputStream;
 	private ObjectOutputStream objectOutputStream;
 	private JFMainWindow jfMainWindow;
+	private int flatAddPerson;
 	private final static String ADD_PERSON = "Añadir persona";
-	private final static int PORT = 12322;
+	private final static int PORT = 1111;
 	public MyClient() {
+<<<<<<< HEAD
 		 console = new Scanner(System.in);
 		 initWindow();
 //		 initApp();
+=======
+//		 console = new Scanner(System.in);
+//		 initWindow();
+		 initApp();
+>>>>>>> version1Darwin
 	}
 	public void createObjectFlows() throws IOException {
 		objectInputStream = new ObjectInputStream(socketClient.getInputStream());
@@ -57,6 +64,7 @@ public class MyClient implements ActionListener{
 			try {
 				createSocket();
 //				createFlowsInAndOut();
+<<<<<<< HEAD
 				createObjectFlows();
 				initWindow();
 				console = new Scanner(System.in);
@@ -73,7 +81,36 @@ public class MyClient implements ActionListener{
 								break;
 							}
 				} while (true);
+=======
+				objectOutputStream = new ObjectOutputStream(socketClient.getOutputStream());
+//				createFlowsInAndOut();
+				dataOutputStream = new DataOutputStream(socketClient.getOutputStream());
+				initWindow();
+//				console = new Scanner(System.in);
+				do {
+					
+						dataOutputStream.writeInt(flatAddPerson);
+						
+						switch (flatAddPerson) {
+						case 1:
+							System.out.println("ddddd");
+							dataOutputStream.writeInt(flatAddPerson);
+							objectOutputStream.writeObject((Person) jfMainWindow.getPersonCreated());
+							
+							flatAddPerson =0;
+							break;
+
+						default:
+							break;
+						}
+						
+//						comunication =
+//								objectOutputStream.writeObject((Person) jfMainWindow.getPersonCreated());
+//								dataOutputStream.writeUTF(comunication);
+					
+>>>>>>> version1Darwin
 				
+				}while(true);
 				
 			} catch (IOException e) {
 				System.out.println("No hay un servidor disponible");
@@ -96,28 +133,9 @@ public class MyClient implements ActionListener{
 	public void actionPerformed(ActionEvent event) {
 		switch (Commands.valueOf(event.getActionCommand())) {
 		case C_CREATE_PERSON:
-			System.out.println(this.jfMainWindow.getPersonCreated());
+//			System.out.println(this.jfMainWindow.getPersonCreated());
+			flatAddPerson = 1;
 			break;
 		}		
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

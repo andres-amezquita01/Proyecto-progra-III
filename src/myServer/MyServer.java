@@ -20,7 +20,7 @@ import persistence.MyMasterPersonFile;
 import utilities.ComplementDatas;
 
 public class MyServer {
-	private final static int PORT = 12322;
+	private final static int PORT = 1111;
 	private ServerSocket serverSocket;
 	
 	private FileHandler fileHandler;
@@ -100,30 +100,46 @@ public class MyServer {
 					try {
 //						DataOutputStream dataOut = new DataOutputStream(socketClient.getOutputStream());
 //						DataInputStream objectIn = new DataInputStream(socketClient.getInputStream());
+						System.out.println("dpodoopdpododpo");
 						ObjectInputStream objectInputStream  = new ObjectInputStream(socketClient.getInputStream());
-						ObjectOutputStream objectOutputStream = new ObjectOutputStream(socketClient.getOutputStream());
+						DataInputStream dataInputStream = new DataInputStream(socketClient.getInputStream());
+//						DataOutputStream dataOutputStream = new DataOutputStream(socketClient.getOutputStream());
 						String message = "1)Agregar persona\n2)login";
 							while(!message.equals("salir") ) {
+<<<<<<< HEAD
 								objectOutputStream.writeUTF(message);
 								message = objectInputStream.readUTF();
 									switch(message) {
 										case ADD_PERSON:
 											addPersonToMasterAndTreeFile((Person)objectInputStream.readObject());
+=======
+//								dataOutputStream.writeUTF(message);
+//								message = dataInputStream.readUTF();
+								int flat = dataInputStream.readInt();
+									switch(flat) {
+										case 1:
+											System.out.println("rrrrrrr");
+											addPersonToMasterAndTreeFile((Person)objectInputStream.readObject());
+//											Person person = (Person) objectInputStream.readObject();
+//											System.out.println(person.getFirstName());
+>>>>>>> version1Darwin
 											break;
-										case "opcion 2":
-											break;
-										case "opcion 3":
+									default:
 											break;
 									}
 							}
+							System.out.println("ultimooo");
 							String messageOut = "Vuelve pronto...";
-							objectOutputStream.writeUTF(messageOut);
-							objectInputStream.close();
-							objectOutputStream.close();
+//							dataOutputStream.writeUTF(messageOut);
+//							objectInputStream.close();
+//							dataOutputStream.close();
 //					} catch (IOException | ClassNotFoundException e) {
 					} catch (IOException  e) {
 
 						writeInLog(e.getMessage());
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 				}
 		}).start();;
