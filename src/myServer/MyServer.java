@@ -106,13 +106,6 @@ public class MyServer {
 //						DataOutputStream dataOutputStream = new DataOutputStream(socketClient.getOutputStream());
 						String message = "1)Agregar persona\n2)login";
 							while(!message.equals("salir") ) {
-<<<<<<< HEAD
-								objectOutputStream.writeUTF(message);
-								message = objectInputStream.readUTF();
-									switch(message) {
-										case ADD_PERSON:
-											addPersonToMasterAndTreeFile((Person)objectInputStream.readObject());
-=======
 //								dataOutputStream.writeUTF(message);
 //								message = dataInputStream.readUTF();
 								int flat = dataInputStream.readInt();
@@ -122,7 +115,6 @@ public class MyServer {
 											addPersonToMasterAndTreeFile((Person)objectInputStream.readObject());
 //											Person person = (Person) objectInputStream.readObject();
 //											System.out.println(person.getFirstName());
->>>>>>> version1Darwin
 											break;
 									default:
 											break;
