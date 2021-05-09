@@ -5,6 +5,10 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 public class Person implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private long id;//8 Byte
 	private String firstName;//20 caracteres => 40 Bytes
 	private String lastName;//20 caracteres => 40 Bytes

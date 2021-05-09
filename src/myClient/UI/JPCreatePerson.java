@@ -2,16 +2,13 @@ package myClient.UI;
 
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.awt.SecondaryLoop;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.JToolTip;
-import javax.swing.text.Utilities;
 
 import com.placeholder.PlaceHolder;
 import com.toedter.calendar.JDateChooser;
@@ -49,6 +46,7 @@ public class JPCreatePerson extends JPanel{
 		jtPersonId = new JTextField();
 		jtPersonId.setBorder(BorderFactory.createTitledBorder(ConstantsUI.ITEM_PERSON_ID));
 //		    TextPrompt placeholder = new TextPrompt("Apellido Paterno", jTcodeStudent);
+		@SuppressWarnings("unused")
 		PlaceHolder holder = new PlaceHolder(jtPersonId, "N° identificacion, solo numeros por favor.");
 		mcbSelectGender = new MyComboBox("");
 		mcbSelectGender.setBorder(BorderFactory.createTitledBorder(ConstantsUI.T_BOX_GENDER));

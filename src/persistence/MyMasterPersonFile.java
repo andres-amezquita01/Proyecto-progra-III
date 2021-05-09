@@ -143,7 +143,7 @@ public class MyMasterPersonFile extends RandomAccessFile{
 	}
 	
 	public static void main(String[] args) throws IOException {
-		System.out.println(new MyMasterPersonFile("resources/out/masterFile/myMasterFile.Person").read(0).getFirstName());
+		System.out.println(new MyMasterPersonFile("resources/out/masterFile/myMasterFile.Person").read(0));
 	}
 	
 }

@@ -17,8 +17,16 @@ import javax.swing.ListCellRenderer;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 import myClient.UI.ConstantsUI;
 
-
+/**
+ * 
+ * @author Andres Felipe Amezquita Gordillo
+ *
+ */
 public class MyComboBox extends JComboBox<String>{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int arcW;
 	private int arcH;
 	public MyComboBox() {
