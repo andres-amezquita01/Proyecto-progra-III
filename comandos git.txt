@@ -1,11 +1,11 @@
-****SUBIR CAMBIOS****
 git add . => añade todos los archivos con cambios que se hicieron
 git status => ve el estado de los cambios, muestra que lineas se modificaron de cada archivo
 ***COMMIT***
 git commit para subir un cambio obligatoriamente toca hacer un commit
-	apenas haga git commit se abre el vim que es un editor de texto para escribir ahi el comentario
-	una vez escrito el comentario usa esc para dejar de comentar y escribe :wq para guardar y salir del vim
-	con eso ya estara hecho el commit
+apenas haga git commit se abre el vim que es un editor de texto para escribir ahi el comentario
+una vez escrito el comentario usa esc para dejar de comentar y escribe :wq para guardar y salir del vim
+con eso ya estara hecho el commit
+
 
 git push => sube los cambios que se hicieron
 
