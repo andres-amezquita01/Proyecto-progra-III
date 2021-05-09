@@ -1,7 +1,6 @@
-/binarySearchTree/
-/model/
 /myClient/
 /myServer/
 /persistence/
-/test/
+/model/
+/binarySearchTree/
 /utilities/
