@@ -1910,3 +1910,19 @@ May 08, 2021 6:35:56 PM myServer.MyServer writeInLog
 INFO: desde: 127.0.0.1
 May 08, 2021 6:35:56 PM myServer.MyServer writeInLog
 INFO: Esperando un cliente...
+may 08, 2021 6:57:52 PM myServer.MyServer writeInLog
+INFORMACIÓN: cargando binaryTree
+may 08, 2021 6:57:52 PM myServer.MyServer writeInLog
+INFORMACIÓN: cargando archivo maestro...
+may 08, 2021 6:57:52 PM myServer.MyServer writeInLog
+INFORMACIÓN: completado.
+may 08, 2021 6:57:52 PM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 08, 2021 6:57:58 PM myServer.MyServer writeInLog
+INFORMACIÓN: se ha conectado 127.0.0.1
+may 08, 2021 6:57:58 PM myServer.MyServer writeInLog
+INFORMACIÓN: desde: 127.0.0.1
+may 08, 2021 6:57:58 PM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 08, 2021 6:58:14 PM myServer.MyServer writeInLog
+INFORMACIÓN: Connection reset
