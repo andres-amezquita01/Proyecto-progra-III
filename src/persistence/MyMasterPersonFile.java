@@ -142,8 +142,14 @@ public class MyMasterPersonFile extends RandomAccessFile{
 		this.writeChars(a);//80 metodo string => bytes
 	}
 	
+	public long numberPersonsInFile() throws IOException {
+		return this.length()/RECORD_SIZE;
+	}
+	
 	public static void main(String[] args) throws IOException {
-		System.out.println(new MyMasterPersonFile("resources/out/masterFile/myMasterFile.Person").read(0));
+		
+		System.out.println(new MyMasterPersonFile("resources/out/masterFile/myMasterFile.Person").read(2).getFirstName());
+//		System.out.println(new MyMasterPersonFile("resources/out/masterFile/myMasterFile.Person").read(0).getFirstName().replace("_", ""));
 	}
 	
 }

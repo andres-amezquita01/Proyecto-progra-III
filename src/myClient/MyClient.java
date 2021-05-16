@@ -2,6 +2,7 @@ package myClient;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -9,8 +10,15 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
+import model.GraphFamily;
 import model.Person;
+import model.RelationType;
+import myClient.UI.FamilyRelations;
 import myClient.UI.JFMainWindow;
 
 
@@ -23,6 +31,8 @@ public class MyClient implements ActionListener{
 	private JFMainWindow jfMainWindow;
 	private int flatAddPerson;
 	private final static int PORT = 1111;
+	private Map<Long, String> mapFamiliesRelations;
+	private FamilyRelations familyRelations;
 	public MyClient() {
 		 initApp();
 	}
@@ -46,6 +56,15 @@ public class MyClient implements ActionListener{
 			socketClient =  new Socket("localhost", PORT);
 	}
 	
+	public void readBasicInfoPerson(long index) throws IOException {
+		mapFamiliesRelations = new HashMap<Long, String>();
+		for (int i = 0; i < index; i++) {
+			mapFamiliesRelations.put(dataInputStream.readLong(), dataInputStream.readUTF());
+		}
+	}
+	
+	
+	
 	public void initApp() {
 			try {
 				createSocket();
@@ -53,21 +72,37 @@ public class MyClient implements ActionListener{
 				objectOutputStream = new ObjectOutputStream(socketClient.getOutputStream());
 //				createFlowsInAndOut();
 				dataOutputStream = new DataOutputStream(socketClient.getOutputStream());
+				dataInputStream = new DataInputStream(socketClient.getInputStream());
 				initWindow();
 //				console = new Scanner(System.in);
+				readBasicInfoPerson(dataInputStream.readLong());
+				
+//				for (Entry<Long, String> entry : mapFamiliesRelations.entrySet()) {
+//					String values = (entry.getKey() + "/" + entry.getValue()).replaceAll("_", "");
+//				    System.out.println(values);
+//				}
+				
+				
+				
 				do {
-					
 						dataOutputStream.writeInt(flatAddPerson);
 						
 						switch (flatAddPerson) {
 						case 1:
-							System.out.println("ddddd");
 							dataOutputStream.writeInt(flatAddPerson);
 							objectOutputStream.writeObject((Person) jfMainWindow.getPersonCreated());
-							
+							familyRelations = new FamilyRelations(mapFamiliesRelations, this);
+							flatAddPerson =0;
+//							new FamilyRelations(null);
+							break;
+						case 2:
+							dataOutputStream.writeInt(flatAddPerson);
+							objectOutputStream.writeObject(new GraphFamily(jfMainWindow.getPersonCreated().getId()
+							, RelationType.values()[familyRelations.getComboBoxOne().getSelectedIndex()],
+							(long) mapFamiliesRelations.keySet().toArray()[familyRelations.getComboBoxTwo().getSelectedIndex()]));
+							familyRelations.dispatchEvent(new WindowEvent(familyRelations, WindowEvent.WINDOW_CLOSING));
 							flatAddPerson =0;
 							break;
-
 						default:
 							break;
 						}
@@ -91,7 +126,6 @@ public class MyClient implements ActionListener{
 
 	}
 	
-	
 	public static void main(String[] args) {
 		new MyClient();
 	}
@@ -102,6 +136,19 @@ public class MyClient implements ActionListener{
 		case C_CREATE_PERSON:
 //			System.out.println(this.jfMainWindow.getPersonCreated());
 			flatAddPerson = 1;
+			break;
+		case ADD_RELATION_FAMILY:
+			flatAddPerson =2;
+//			System.out.println("flat: " +familyRelations.getComboBoxOne().getSelectedIndex());
+//			System.out.println("flat 2: " + mapFamiliesRelations.keySet().toArray()[familyRelations.getComboBoxTwo().getSelectedIndex()]);
+//			System.out.println(RelationType.values()[familyRelations.getComboBoxOne().getSelectedIndex()]);
+			break;
+			
+		case PANEL_ONE:
+			jfMainWindow.showPanels("1");
+			break;
+		case PANEL_TWO:
+			jfMainWindow.showPanels("2");
 			break;
 		}		
 	}

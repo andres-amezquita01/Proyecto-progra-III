@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
@@ -15,6 +16,7 @@ import com.toedter.calendar.JDateChooser;
 
 import model.Gender;
 import model.Person;
+import model.RelationType;
 import myClient.Commands;
 import myClient.items.MyComboBox;
 import myClient.items.RoundedJButton;
@@ -32,7 +34,6 @@ public class JPCreatePerson extends JPanel{
 	private JTextField jtProfile;
 	private JTextField jtPassPort;
 	private RoundedJButton jBCreate, jBCancelCreate;
-	
 	public JPCreatePerson(ActionListener actionListener) {
 		setBackground(Color.white);
 		initComponents(actionListener);

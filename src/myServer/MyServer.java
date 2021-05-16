@@ -1,19 +1,24 @@
 package myServer;
 
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 import binarySearchTree.IConverterDatas;
 import binarySearchTree.MyBinarySearchTree;
+import model.GraphFamily;
 import model.Person;
+import persistence.MyFileFamiliesRelationsShip;
 import persistence.MyMasterPersonFile;
 import utilities.ComplementDatas;
 
@@ -26,12 +31,14 @@ public class MyServer {
 	private MyBinarySearchTree<String> myBinarySearchTree;
 	private MyMasterPersonFile myMasterPersonFile;
 	private ComplementDatas complementDatas;
+	private MyFileFamiliesRelationsShip familiesRelationsShip;
 
 	public MyServer( )  {
 		createFileLogger();
 		createSockets();
 		try {
 			initTreeAndMasterFile();
+			familiesRelationsShip = new MyFileFamiliesRelationsShip("resources/out/graphRelationsFamilies/relations.graph");
 		} catch (FileNotFoundException e) {
 			writeInLog(e.getMessage());
 		}
@@ -90,6 +97,15 @@ public class MyServer {
 		
 	}
 	
+	private void sendDataBasicPersons(DataOutputStream dataOutputStream) throws IOException {
+		for (int i = 0; i < myMasterPersonFile.numberPersonsInFile(); i++) {
+			Person person = myMasterPersonFile.read(i);
+			String name= (person.getFirstName() +" " + person.getLastName()).replace("_", ""); 
+			dataOutputStream.writeLong(person.getId());
+			dataOutputStream.writeUTF(name);
+		}
+	}
+	
 	private void createThread(Socket socketClient) {
 			new Thread(new Runnable() {
 				@Override
@@ -99,7 +115,11 @@ public class MyServer {
 //						DataInputStream objectIn = new DataInputStream(socketClient.getInputStream());
 						System.out.println("dpodoopdpododpo");
 						ObjectInputStream objectInputStream  = new ObjectInputStream(socketClient.getInputStream());
+//						ObjectOutputStream objectOutputStream = new ObjectOutputStream(socketClient.getOutputStream());
 						DataInputStream dataInputStream = new DataInputStream(socketClient.getInputStream());
+						DataOutputStream dataOutputStream = new DataOutputStream(socketClient.getOutputStream());
+						dataOutputStream.writeLong(myMasterPersonFile.numberPersonsInFile());
+						sendDataBasicPersons(dataOutputStream);
 //						DataOutputStream dataOutputStream = new DataOutputStream(socketClient.getOutputStream());
 						String message = "1)Agregar persona\n2)login";
 							while(!message.equals("salir") ) {
@@ -108,10 +128,14 @@ public class MyServer {
 								int flat = dataInputStream.readInt();
 									switch(flat) {
 										case 1:
-											System.out.println("rrrrrrr");
 											addPersonToMasterAndTreeFile((Person)objectInputStream.readObject());
 //											Person person = (Person) objectInputStream.readObject();
 //											System.out.println(person.getFirstName());
+											
+											break;
+										case 2: 
+											addRelationFamlily((GraphFamily) objectInputStream.readObject());
+											
 											break;
 									default:
 											break;
@@ -136,6 +160,15 @@ public class MyServer {
 	
 	public Person readObject(ObjectInputStream objectInputStream) throws ClassNotFoundException, IOException {
 		return (Person) objectInputStream.readObject();
+	}
+	
+	
+	public void addRelationFamlily(GraphFamily family) {
+		try {
+			familiesRelationsShip.add(family);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void addPersonToMasterAndTreeFile(Person person) {
