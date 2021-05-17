@@ -82,8 +82,7 @@ public class MyClient implements ActionListener{
 //				    System.out.println(values);
 //				}
 				
-				
-				
+				int o = 0;
 				do {
 						dataOutputStream.writeInt(flatAddPerson);
 						
@@ -110,8 +109,14 @@ public class MyClient implements ActionListener{
 //						comunication =
 //								objectOutputStream.writeObject((Person) jfMainWindow.getPersonCreated());
 //								dataOutputStream.writeUTF(comunication);
-					
-				
+					o++;
+				System.out.println(o);
+//				try {
+//					Thread.sleep(1000);
+//				} catch (InterruptedException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
 				}while(true);
 				
 			} catch (IOException e) {
@@ -134,21 +139,26 @@ public class MyClient implements ActionListener{
 	public void actionPerformed(ActionEvent event) {
 		switch (Commands.valueOf(event.getActionCommand())) {
 		case C_CREATE_PERSON:
-//			System.out.println(this.jfMainWindow.getPersonCreated());
 			flatAddPerson = 1;
 			break;
 		case ADD_RELATION_FAMILY:
 			flatAddPerson =2;
-//			System.out.println("flat: " +familyRelations.getComboBoxOne().getSelectedIndex());
-//			System.out.println("flat 2: " + mapFamiliesRelations.keySet().toArray()[familyRelations.getComboBoxTwo().getSelectedIndex()]);
-//			System.out.println(RelationType.values()[familyRelations.getComboBoxOne().getSelectedIndex()]);
 			break;
-			
-		case PANEL_ONE:
-			jfMainWindow.showPanels("1");
+		case C_MENU_SHOW_CREATE_PERSON_PANEL:
+			jfMainWindow.showPanelPerson();
 			break;
 		case PANEL_TWO:
-			jfMainWindow.showPanels("2");
+			jfMainWindow.showPanel2();
+			break;
+		case C_LOGIN_ENTRY:
+			System.out.println("entro");
+			jfMainWindow.setPane();
+			break;
+		case C_LOGIN_RECOVER_PASSWORD:
+			System.out.println("recuperar contraseña");
+			break;
+		case C_LOGIN_REGISTRY:
+			System.out.println("¿registrarse?");
 			break;
 		}		
 	}

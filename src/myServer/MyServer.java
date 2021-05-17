@@ -113,7 +113,7 @@ public class MyServer {
 					try {
 //						DataOutputStream dataOut = new DataOutputStream(socketClient.getOutputStream());
 //						DataInputStream objectIn = new DataInputStream(socketClient.getInputStream());
-						System.out.println("dpodoopdpododpo");
+						System.out.println("server start");
 						ObjectInputStream objectInputStream  = new ObjectInputStream(socketClient.getInputStream());
 //						ObjectOutputStream objectOutputStream = new ObjectOutputStream(socketClient.getOutputStream());
 						DataInputStream dataInputStream = new DataInputStream(socketClient.getInputStream());
@@ -129,7 +129,8 @@ public class MyServer {
 									switch(flat) {
 										case 1:
 											addPersonToMasterAndTreeFile((Person)objectInputStream.readObject());
-//											Person person = (Person) objectInputStream.readObject();
+											System.out.println(flat);
+											Person person = (Person) objectInputStream.readObject();
 //											System.out.println(person.getFirstName());
 											
 											break;
