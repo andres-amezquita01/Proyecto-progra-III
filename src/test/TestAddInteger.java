@@ -56,6 +56,7 @@ public class TestAddInteger {
 		for (int i = 0; i < myBinarySearchTree.getNumberOfNodes(); i++) {
 			System.out.println(myBinarySearchTree.read(i));
 		}
+		System.out.println(myBinarySearchTree.search(11176));
 	}
 }
 

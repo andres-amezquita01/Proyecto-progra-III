@@ -71,6 +71,33 @@ public class MyBinarySearchTree<T> {
 		}
 		return father;
 	}
+	public Information<T> search(T key) throws IOException {
+		Information<T> found = search(key, this.myPersistenceBinaryTree.readByIndex(this.myPersistenceBinaryTree.getIndexRoot()));
+		if(found != null) {
+			return found;
+		}else {
+			return null;
+		}
+		
+	}
+	private Information<T> search(T key,MyBSTNode<T> father) throws IOException{
+		MyBSTNode<T> aux = father;
+		Information<T> information = father.information;
+		if(father.index != -1) {
+			if(comparator.compare(father.information.key,key) == 0) {
+				information = father.information;
+			}
+			if(comparator.compare(key, father.information.key) > 0 ) {
+				information = search(key, this.myPersistenceBinaryTree.readByIndex(father.rightSon));
+			}
+			if(comparator.compare(key, father.information.key)  < 0 ) {
+				information = search(key, this.myPersistenceBinaryTree.readByIndex(father.leftSon));
+			}
+			return information;
+		}else {
+			return null;
+		}
+	}
 	public ArrayList<T> traverseInOrder() throws IOException{
 		ArrayList<T> aux = new ArrayList<T>();
 		this.root = myPersistenceBinaryTree.readByIndex(0);
