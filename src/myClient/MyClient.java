@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import model.GraphFamily;
+import model.Password;
 import model.Person;
 import model.RelationType;
 import myClient.UI.FamilyRelations;
@@ -102,6 +103,14 @@ public class MyClient implements ActionListener{
 							familyRelations.dispatchEvent(new WindowEvent(familyRelations, WindowEvent.WINDOW_CLOSING));
 							flatAddPerson =0;
 							break;
+						case 3:
+							dataOutputStream.writeInt(flatAddPerson);
+							Password password = jfMainWindow.getUserCreated();
+							System.out.println(password);
+							objectOutputStream.writeObject(password);
+							flatAddPerson =0;
+
+							break;
 						default:
 							break;
 						}
@@ -110,7 +119,7 @@ public class MyClient implements ActionListener{
 //								objectOutputStream.writeObject((Person) jfMainWindow.getPersonCreated());
 //								dataOutputStream.writeUTF(comunication);
 					o++;
-				System.out.println(o);
+//				System.out.println(o);
 //				try {
 //					Thread.sleep(1000);
 //				} catch (InterruptedException e) {
@@ -152,6 +161,7 @@ public class MyClient implements ActionListener{
 			break;
 		case C_LOGIN_ENTRY:
 			System.out.println("entro");
+			flatAddPerson = 3;
 			jfMainWindow.setPane();
 			break;
 		case C_LOGIN_RECOVER_PASSWORD:

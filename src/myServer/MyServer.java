@@ -15,10 +15,13 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 import binarySearchTree.IConverterDatas;
+import binarySearchTree.Information;
 import binarySearchTree.MyBinarySearchTree;
 import model.GraphFamily;
+import model.Password;
 import model.Person;
 import persistence.MyFileFamiliesRelationsShip;
+import persistence.MyMasterPasswordFile;
 import persistence.MyMasterPersonFile;
 import utilities.ComplementDatas;
 
@@ -32,8 +35,9 @@ public class MyServer {
 	private MyMasterPersonFile myMasterPersonFile;
 	private ComplementDatas complementDatas;
 	private MyFileFamiliesRelationsShip familiesRelationsShip;
-
-	public MyServer( )  {
+	private MyBinarySearchTree<String> myBinarySearchTreePassword;
+	private MyMasterPasswordFile myMasterPasswordFile;
+	public MyServer( ) throws IOException  {
 		createFileLogger();
 		createSockets();
 		try {
@@ -45,7 +49,7 @@ public class MyServer {
 		initApp();
 	}
 	
-	public void initTreeAndMasterFile() throws FileNotFoundException {
+	public void initTreeAndMasterFile() throws IOException {
 		this.complementDatas = new ComplementDatas();
 		writeInLog("cargando binaryTree");
 		this.myBinarySearchTree = new MyBinarySearchTree<>("resources/out/trees/byName.tree", new Comparator<String>() {
@@ -74,6 +78,34 @@ public class MyServer {
 				return 30;
 			}
 		});
+		this.myBinarySearchTreePassword = new MyBinarySearchTree<>(
+				"resources/out/passwords/myBST.passwords"
+				, new Comparator<String>() {
+					@Override
+					public int compare(String o1, String o2) {
+						return o1.compareTo(o2);
+					}
+				},new IConverterDatas<String>() {
+					@Override
+					public byte[] keyToByte(String key) {
+						if(key != null) {
+							key = complementDatas.stringSize(key, 30);
+							return key.getBytes();
+						}else {
+							key = complementDatas.stringSize(" ", 30);
+							return key.getBytes();
+						}
+					}
+					@Override
+					public String byteToKey(byte[] byteArray) {
+						return new String(byteArray);
+					}
+					@Override
+					public int sizeKey() {
+						return 30;
+					}
+				});
+		this.myMasterPasswordFile = new MyMasterPasswordFile("resources/out/passwords/myMasterFile.passwords");
 		writeInLog("cargando archivo maestro...");
 		this.myMasterPersonFile = new MyMasterPersonFile("resources/out/masterFile/myMasterFile.Person");
 		writeInLog("completado.");
@@ -138,6 +170,9 @@ public class MyServer {
 											addRelationFamlily((GraphFamily) objectInputStream.readObject());
 											
 											break;
+										case 3:
+											addRegistryUser((Password) objectInputStream.readObject());
+											break;
 									default:
 											break;
 									}
@@ -159,6 +194,16 @@ public class MyServer {
 		}).start();;
 	}
 	
+	public void addRegistryUser(Password password)  {
+		try {
+			myBinarySearchTreePassword.add(new Information<String>(password.getUser(), this.myMasterPasswordFile.add(password)));
+			System.out.println(password);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	public Person readObject(ObjectInputStream objectInputStream) throws ClassNotFoundException, IOException {
 		return (Person) objectInputStream.readObject();
 	}
@@ -174,8 +219,8 @@ public class MyServer {
 	
 	public void addPersonToMasterAndTreeFile(Person person) {
 		try {
-			this.myMasterPersonFile.add(person);
-			this.myBinarySearchTree.add(person.getFirstName());
+			long indexMasterFile = this.myMasterPersonFile.add(person);
+			this.myBinarySearchTree.add(new Information<String>(person.getFirstName(),indexMasterFile));
 			System.out.println(person);
 		} catch (IOException e) {
 			writeInLog(e.getMessage());
@@ -219,7 +264,7 @@ public class MyServer {
 		logger.info(message);
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		new MyServer();
 	}
 	

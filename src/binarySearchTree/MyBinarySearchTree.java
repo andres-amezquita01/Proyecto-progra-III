@@ -10,37 +10,60 @@ import persistence.MyPersistenceBinarytree;
 public class MyBinarySearchTree<T> {
 	private MyBSTNode<T> root;
 	private Comparator<T> comparator;
-	private MyPersistenceBinarytree<T> bTreePersistence;
-	public MyBinarySearchTree(String name,Comparator<T> comparator, IConverterDatas<T> iConverterDatas) throws FileNotFoundException {
-		this.bTreePersistence = new MyPersistenceBinarytree<>(name, iConverterDatas);
+	private MyPersistenceBinarytree<T> myPersistenceBinaryTree;
+	/**
+	 * Constructor para un nuevo BST
+	 * @param name
+	 * @param comparator
+	 * @param iConverterDatas
+	 * @throws IOException 
+	 */
+	public MyBinarySearchTree(String name,Comparator<T> comparator, IConverterDatas<T> iConverterDatas) throws IOException {
+		this.myPersistenceBinaryTree = new MyPersistenceBinarytree<>(name, iConverterDatas);
 		this.comparator = comparator;
+		if(this.myPersistenceBinaryTree.length() == 0) {
+			this.myPersistenceBinaryTree.writeHeader(0, iConverterDatas.sizeKey());
+		}
 	}
-	public void add(T information) throws IOException,Exception {
-		if(this.root == null) {
-			root = new MyBSTNode<T>(information);
-			bTreePersistence.record(root);
+	/**
+	 * Añade una llave y valor al arbol binario
+	 * @param information
+	 * @throws IOException
+	 * @throws Exception
+	 */
+	public void add(Information<T> information) throws IOException,Exception {
+		if(this.myPersistenceBinaryTree.length() == myPersistenceBinaryTree.SIZE_HEADER) {
+			this.root = new MyBSTNode<T>(information);
+			long indexRoot = myPersistenceBinaryTree.record(root);
+			this.myPersistenceBinaryTree.setIndexRoot(indexRoot);
 		}else {
-			this.root = bTreePersistence.readByIndex(0);
+			this.root = myPersistenceBinaryTree.readByIndex(this.myPersistenceBinaryTree.getIndexRoot());
 			add(information, this.root);
 		}
 	}
 	
-	
-	public MyBSTNode<T> add(T information,MyBSTNode<T> father) throws Exception{
-		if(comparator.compare(information, father.information) != 0) {//no esta duplicado
-			if (comparator.compare(information, father.information) > 0) {//si el nuevo elemento es mayor al padre
+	/**
+	 * Añade recursivamente una informacion al arbol binario
+	 * @param information
+	 * @param father
+	 * @return
+	 * @throws Exception
+	 */
+	public MyBSTNode<T> add(Information<T> information,MyBSTNode<T> father) throws Exception{
+		if(comparator.compare(information.key, father.information.key) != 0) {//no esta duplicado
+			if (comparator.compare(information.key, father.information.key) > 0) {//si el nuevo elemento es mayor al padre
 				if (father.rightSon == -1) {//si el hijo derecho es null
-					father.rightSon = bTreePersistence.record(new MyBSTNode<>(information));//le grabamos al padre la posicion del nuevo hijo derecho.
-					bTreePersistence.recordByIndex(father.index, father);//reescribimos al padre con el indice del hijo derecho modificado
+					father.rightSon = myPersistenceBinaryTree.record(new MyBSTNode<>(information));//le grabamos al padre la posicion del nuevo hijo derecho.
+					myPersistenceBinaryTree.recordByIndex(father.index, father);//reescribimos al padre con el indice del hijo derecho modificado
 				}else {
-					add(information,bTreePersistence.readByIndex(father.rightSon));//nos vamos por la derecha.
+					add(information,myPersistenceBinaryTree.readByIndex(father.rightSon));//nos vamos por la derecha.
 				}
-			}else if (comparator.compare(information, father.information) < 0) {//si el nuevo elemento es menor al padre.
+			}else if (comparator.compare(information.key, father.information.key) < 0) {//si el nuevo elemento es menor al padre.
 				if (father.leftSon == -1) {//si el hijo izquierdo es null
-					father.leftSon =bTreePersistence.record(new MyBSTNode<>(information));//grabamos al hijo izquierdo y le damos el indice donde quedo guardado al padre.
-					bTreePersistence.recordByIndex(father.index, father);//reescribimos al padre con el indice del hijo izquierdo modificado.
+					father.leftSon =myPersistenceBinaryTree.record(new MyBSTNode<>(information));//grabamos al hijo izquierdo y le damos el indice donde quedo guardado al padre.
+					myPersistenceBinaryTree.recordByIndex(father.index, father);//reescribimos al padre con el indice del hijo izquierdo modificado.
 				}else {
-					add(information,bTreePersistence.readByIndex(father.leftSon));//sino nos vamos por el hij izquierdo.
+					add(information,myPersistenceBinaryTree.readByIndex(father.leftSon));//sino nos vamos por el hij izquierdo.
 				}
 			}
 		}else {
@@ -50,7 +73,7 @@ public class MyBinarySearchTree<T> {
 	}
 	public ArrayList<T> traverseInOrder() throws IOException{
 		ArrayList<T> aux = new ArrayList<T>();
-		this.root = bTreePersistence.readByIndex(0);
+		this.root = myPersistenceBinaryTree.readByIndex(0);
 		if(this.root != null) {
 			inOrder(this.root,aux);
 		}
@@ -58,13 +81,16 @@ public class MyBinarySearchTree<T> {
 	}
 	private void inOrder(MyBSTNode<T> node,ArrayList<T> list)throws IOException {
 	    if (node != null) {
-	    	if(node.leftSon!=-1)inOrder(bTreePersistence.readByIndex(node.leftSon),list);
-	        list.add(node.information);
-	        if(node.rightSon != -1)inOrder(bTreePersistence.readByIndex(node.rightSon),list);
+	    	if(node.leftSon!=-1)inOrder(myPersistenceBinaryTree.readByIndex(node.leftSon),list);
+	        list.add(node.information.key);
+	        if(node.rightSon != -1)inOrder(myPersistenceBinaryTree.readByIndex(node.rightSon),list);
 	    }
 	    
 	}
 	public MyBSTNode<T> read(long index) throws IOException{
-		return bTreePersistence.readByIndex(index);
+		return myPersistenceBinaryTree.readByIndex(index);
+	}
+	public long getNumberOfNodes() throws IOException {
+		return myPersistenceBinaryTree.getNumberOfNodes();
 	}
 }

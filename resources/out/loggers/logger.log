@@ -2888,3 +2888,273 @@ may 17, 2021 12:10:08 AM myServer.MyServer writeInLog
 INFORMACIÓN: Esperando un cliente...
 may 17, 2021 12:10:35 AM myServer.MyServer writeInLog
 INFORMACIÓN: Connection reset
+may 17, 2021 12:14:24 AM myServer.MyServer writeInLog
+INFORMACIÓN: cargando binaryTree
+may 17, 2021 12:14:25 AM myServer.MyServer writeInLog
+INFORMACIÓN: cargando archivo maestro...
+may 17, 2021 12:14:25 AM myServer.MyServer writeInLog
+INFORMACIÓN: completado.
+may 17, 2021 12:14:25 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 17, 2021 12:14:31 AM myServer.MyServer writeInLog
+INFORMACIÓN: se ha conectado 127.0.0.1
+may 17, 2021 12:14:31 AM myServer.MyServer writeInLog
+INFORMACIÓN: desde: 127.0.0.1
+may 17, 2021 12:14:31 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 17, 2021 12:15:03 AM myServer.MyServer writeInLog
+INFORMACIÓN: Connection reset
+may 17, 2021 12:15:26 AM myServer.MyServer writeInLog
+INFORMACIÓN: se ha conectado 127.0.0.1
+may 17, 2021 12:15:26 AM myServer.MyServer writeInLog
+INFORMACIÓN: desde: 127.0.0.1
+may 17, 2021 12:15:26 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 17, 2021 12:15:42 AM myServer.MyServer writeInLog
+INFORMACIÓN: invalid type code: 02
+may 17, 2021 12:17:25 AM myServer.MyServer writeInLog
+INFORMACIÓN: se ha conectado 127.0.0.1
+may 17, 2021 12:17:25 AM myServer.MyServer writeInLog
+INFORMACIÓN: desde: 127.0.0.1
+may 17, 2021 12:17:25 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 17, 2021 12:18:43 AM myServer.MyServer writeInLog
+INFORMACIÓN: Connection reset
+may 17, 2021 9:55:18 AM myServer.MyServer writeInLog
+INFORMACIÓN: cargando binaryTree
+may 17, 2021 9:55:18 AM myServer.MyServer writeInLog
+INFORMACIÓN: resources\out\passwords\myBST.passwords (El sistema no puede encontrar la ruta especificada)
+may 17, 2021 9:55:18 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 17, 2021 9:55:32 AM myServer.MyServer writeInLog
+INFORMACIÓN: cargando binaryTree
+may 17, 2021 9:55:33 AM myServer.MyServer writeInLog
+INFORMACIÓN: resources\out\passwords\myBST.passwords (El sistema no puede encontrar la ruta especificada)
+may 17, 2021 9:55:33 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 17, 2021 9:55:38 AM myServer.MyServer writeInLog
+INFORMACIÓN: se ha conectado 127.0.0.1
+may 17, 2021 9:55:38 AM myServer.MyServer writeInLog
+INFORMACIÓN: desde: 127.0.0.1
+may 17, 2021 9:55:38 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 17, 2021 9:58:25 AM myServer.MyServer writeInLog
+INFORMACIÓN: cargando binaryTree
+may 17, 2021 9:58:26 AM myServer.MyServer writeInLog
+INFORMACIÓN: resources\out\passwords\myBST.passwords (El sistema no puede encontrar la ruta especificada)
+may 17, 2021 9:58:26 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 17, 2021 9:58:29 AM myServer.MyServer writeInLog
+INFORMACIÓN: se ha conectado 127.0.0.1
+may 17, 2021 9:58:29 AM myServer.MyServer writeInLog
+INFORMACIÓN: desde: 127.0.0.1
+may 17, 2021 9:58:29 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 17, 2021 10:00:56 AM myServer.MyServer writeInLog
+INFORMACIÓN: cargando binaryTree
+may 17, 2021 10:00:56 AM myServer.MyServer writeInLog
+INFORMACIÓN: cargando archivo maestro...
+may 17, 2021 10:00:56 AM myServer.MyServer writeInLog
+INFORMACIÓN: completado.
+may 17, 2021 10:00:56 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 17, 2021 10:00:59 AM myServer.MyServer writeInLog
+INFORMACIÓN: se ha conectado 127.0.0.1
+may 17, 2021 10:00:59 AM myServer.MyServer writeInLog
+INFORMACIÓN: desde: 127.0.0.1
+may 17, 2021 10:00:59 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 17, 2021 10:01:04 AM myServer.MyServer writeInLog
+INFORMACIÓN: invalid type code: 00
+may 17, 2021 10:02:04 AM myServer.MyServer writeInLog
+INFORMACIÓN: se ha conectado 127.0.0.1
+may 17, 2021 10:02:04 AM myServer.MyServer writeInLog
+INFORMACIÓN: desde: 127.0.0.1
+may 17, 2021 10:02:04 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 17, 2021 10:02:08 AM myServer.MyServer writeInLog
+INFORMACIÓN: invalid type code: 00
+may 17, 2021 10:12:59 AM myServer.MyServer writeInLog
+INFORMACIÓN: cargando binaryTree
+may 17, 2021 10:12:59 AM myServer.MyServer writeInLog
+INFORMACIÓN: cargando archivo maestro...
+may 17, 2021 10:12:59 AM myServer.MyServer writeInLog
+INFORMACIÓN: completado.
+may 17, 2021 10:12:59 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 17, 2021 10:13:02 AM myServer.MyServer writeInLog
+INFORMACIÓN: se ha conectado 127.0.0.1
+may 17, 2021 10:13:02 AM myServer.MyServer writeInLog
+INFORMACIÓN: desde: 127.0.0.1
+may 17, 2021 10:13:02 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 17, 2021 10:13:06 AM myServer.MyServer writeInLog
+INFORMACIÓN: invalid type code: 00
+may 17, 2021 10:13:45 AM myServer.MyServer writeInLog
+INFORMACIÓN: cargando binaryTree
+may 17, 2021 10:13:45 AM myServer.MyServer writeInLog
+INFORMACIÓN: cargando archivo maestro...
+may 17, 2021 10:13:45 AM myServer.MyServer writeInLog
+INFORMACIÓN: completado.
+may 17, 2021 10:13:45 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 17, 2021 10:13:50 AM myServer.MyServer writeInLog
+INFORMACIÓN: se ha conectado 127.0.0.1
+may 17, 2021 10:13:50 AM myServer.MyServer writeInLog
+INFORMACIÓN: desde: 127.0.0.1
+may 17, 2021 10:13:50 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 17, 2021 10:13:53 AM myServer.MyServer writeInLog
+INFORMACIÓN: invalid type code: 00
+may 17, 2021 10:18:46 AM myServer.MyServer writeInLog
+INFORMACIÓN: cargando binaryTree
+may 17, 2021 10:18:46 AM myServer.MyServer writeInLog
+INFORMACIÓN: cargando archivo maestro...
+may 17, 2021 10:18:46 AM myServer.MyServer writeInLog
+INFORMACIÓN: completado.
+may 17, 2021 10:18:46 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 17, 2021 10:18:55 AM myServer.MyServer writeInLog
+INFORMACIÓN: se ha conectado 127.0.0.1
+may 17, 2021 10:18:55 AM myServer.MyServer writeInLog
+INFORMACIÓN: desde: 127.0.0.1
+may 17, 2021 10:18:55 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 17, 2021 10:18:59 AM myServer.MyServer writeInLog
+INFORMACIÓN: invalid type code: 00
+may 17, 2021 10:20:08 AM myServer.MyServer writeInLog
+INFORMACIÓN: cargando binaryTree
+may 17, 2021 10:20:08 AM myServer.MyServer writeInLog
+INFORMACIÓN: cargando archivo maestro...
+may 17, 2021 10:20:08 AM myServer.MyServer writeInLog
+INFORMACIÓN: completado.
+may 17, 2021 10:20:08 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 17, 2021 10:20:11 AM myServer.MyServer writeInLog
+INFORMACIÓN: se ha conectado 127.0.0.1
+may 17, 2021 10:20:11 AM myServer.MyServer writeInLog
+INFORMACIÓN: desde: 127.0.0.1
+may 17, 2021 10:20:11 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 17, 2021 10:20:49 AM myServer.MyServer writeInLog
+INFORMACIÓN: Connection reset
+may 17, 2021 10:21:44 AM myServer.MyServer writeInLog
+INFORMACIÓN: cargando binaryTree
+may 17, 2021 10:21:44 AM myServer.MyServer writeInLog
+INFORMACIÓN: cargando archivo maestro...
+may 17, 2021 10:21:44 AM myServer.MyServer writeInLog
+INFORMACIÓN: completado.
+may 17, 2021 10:21:44 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 17, 2021 10:21:48 AM myServer.MyServer writeInLog
+INFORMACIÓN: se ha conectado 127.0.0.1
+may 17, 2021 10:21:48 AM myServer.MyServer writeInLog
+INFORMACIÓN: desde: 127.0.0.1
+may 17, 2021 10:21:48 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 17, 2021 10:21:52 AM myServer.MyServer writeInLog
+INFORMACIÓN: invalid type code: 00
+may 17, 2021 10:22:15 AM myServer.MyServer writeInLog
+INFORMACIÓN: cargando binaryTree
+may 17, 2021 10:22:15 AM myServer.MyServer writeInLog
+INFORMACIÓN: cargando archivo maestro...
+may 17, 2021 10:22:15 AM myServer.MyServer writeInLog
+INFORMACIÓN: completado.
+may 17, 2021 10:22:15 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 17, 2021 10:22:18 AM myServer.MyServer writeInLog
+INFORMACIÓN: se ha conectado 127.0.0.1
+may 17, 2021 10:22:18 AM myServer.MyServer writeInLog
+INFORMACIÓN: desde: 127.0.0.1
+may 17, 2021 10:22:18 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 17, 2021 10:22:22 AM myServer.MyServer writeInLog
+INFORMACIÓN: invalid type code: 00
+may 17, 2021 10:24:12 AM myServer.MyServer writeInLog
+INFORMACIÓN: cargando binaryTree
+may 17, 2021 10:24:13 AM myServer.MyServer writeInLog
+INFORMACIÓN: cargando archivo maestro...
+may 17, 2021 10:24:13 AM myServer.MyServer writeInLog
+INFORMACIÓN: completado.
+may 17, 2021 10:24:13 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 17, 2021 10:24:15 AM myServer.MyServer writeInLog
+INFORMACIÓN: se ha conectado 127.0.0.1
+may 17, 2021 10:24:15 AM myServer.MyServer writeInLog
+INFORMACIÓN: desde: 127.0.0.1
+may 17, 2021 10:24:15 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 17, 2021 10:24:27 AM myServer.MyServer writeInLog
+INFORMACIÓN: invalid type code: 00
+may 17, 2021 10:27:27 AM myServer.MyServer writeInLog
+INFORMACIÓN: cargando binaryTree
+may 17, 2021 10:27:27 AM myServer.MyServer writeInLog
+INFORMACIÓN: cargando archivo maestro...
+may 17, 2021 10:27:27 AM myServer.MyServer writeInLog
+INFORMACIÓN: completado.
+may 17, 2021 10:27:27 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 17, 2021 10:27:30 AM myServer.MyServer writeInLog
+INFORMACIÓN: se ha conectado 127.0.0.1
+may 17, 2021 10:27:30 AM myServer.MyServer writeInLog
+INFORMACIÓN: desde: 127.0.0.1
+may 17, 2021 10:27:30 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 17, 2021 10:27:34 AM myServer.MyServer writeInLog
+INFORMACIÓN: Connection reset
+may 17, 2021 10:27:41 AM myServer.MyServer writeInLog
+INFORMACIÓN: se ha conectado 127.0.0.1
+may 17, 2021 10:27:41 AM myServer.MyServer writeInLog
+INFORMACIÓN: desde: 127.0.0.1
+may 17, 2021 10:27:41 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 17, 2021 10:27:47 AM myServer.MyServer writeInLog
+INFORMACIÓN: invalid type code: 00
+may 17, 2021 10:29:36 AM myServer.MyServer writeInLog
+INFORMACIÓN: cargando binaryTree
+may 17, 2021 10:29:36 AM myServer.MyServer writeInLog
+INFORMACIÓN: cargando archivo maestro...
+may 17, 2021 10:29:36 AM myServer.MyServer writeInLog
+INFORMACIÓN: completado.
+may 17, 2021 10:29:36 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 17, 2021 10:29:39 AM myServer.MyServer writeInLog
+INFORMACIÓN: se ha conectado 127.0.0.1
+may 17, 2021 10:29:39 AM myServer.MyServer writeInLog
+INFORMACIÓN: desde: 127.0.0.1
+may 17, 2021 10:29:39 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 17, 2021 10:31:35 AM myServer.MyServer writeInLog
+INFORMACIÓN: null
+may 17, 2021 10:31:35 AM myServer.MyServer writeInLog
+INFORMACIÓN: invalid type code: 00
+may 17, 2021 10:32:22 AM myServer.MyServer writeInLog
+INFORMACIÓN: se ha conectado 127.0.0.1
+may 17, 2021 10:32:22 AM myServer.MyServer writeInLog
+INFORMACIÓN: desde: 127.0.0.1
+may 17, 2021 10:32:22 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 17, 2021 10:32:58 AM myServer.MyServer writeInLog
+INFORMACIÓN: null
+may 17, 2021 10:32:58 AM myServer.MyServer writeInLog
+INFORMACIÓN: invalid type code: 00
+may 17, 2021 10:34:14 AM myServer.MyServer writeInLog
+INFORMACIÓN: cargando binaryTree
+may 17, 2021 10:34:14 AM myServer.MyServer writeInLog
+INFORMACIÓN: cargando archivo maestro...
+may 17, 2021 10:34:14 AM myServer.MyServer writeInLog
+INFORMACIÓN: completado.
+may 17, 2021 10:34:14 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 17, 2021 10:34:18 AM myServer.MyServer writeInLog
+INFORMACIÓN: se ha conectado 127.0.0.1
+may 17, 2021 10:34:18 AM myServer.MyServer writeInLog
+INFORMACIÓN: desde: 127.0.0.1
+may 17, 2021 10:34:18 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 17, 2021 10:34:26 AM myServer.MyServer writeInLog
+INFORMACIÓN: se ha conectado 127.0.0.1
+may 17, 2021 10:34:26 AM myServer.MyServer writeInLog
+INFORMACIÓN: desde: 127.0.0.1
+may 17, 2021 10:34:26 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...

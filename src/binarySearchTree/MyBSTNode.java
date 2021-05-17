@@ -2,7 +2,7 @@ package binarySearchTree;
 
 
 public class MyBSTNode<T> {
-	protected T information;
+	protected Information<T> information;
 	protected long leftSon;
 	protected long rightSon;
 	protected long index;
@@ -10,7 +10,7 @@ public class MyBSTNode<T> {
 	 * Crea un nodo hoja.
 	 * @param information
 	 */
-	public MyBSTNode(T information) {
+	public MyBSTNode(Information<T> information) {
 		this.information = information;
 		this.leftSon = -1;
 		this.rightSon = -1;
@@ -22,13 +22,13 @@ public class MyBSTNode<T> {
 	 * @param leftSon hijo izquierdo.
 	 * @param rightSon hijo derecho.
 	 */
-	public MyBSTNode(T information, long leftSon, long rightSon) {
+	public MyBSTNode(Information<T> information, long leftSon, long rightSon) {
 		this.information = information;
 		this.leftSon = leftSon;
 		this.rightSon = rightSon;
 	}
 	
-	public T getInformation() {
+	public Information<T> getInformation() {
 		return information;
 	}
 	public long getRightSon() {
@@ -40,7 +40,7 @@ public class MyBSTNode<T> {
 	public long getIndex() {
 		return index;
 	}
-	public void setInformation(T information) {
+	public void setInformation(Information<T> information) {
 		this.information = information;
 	}
 	public void setRightSon(long rightSon) {

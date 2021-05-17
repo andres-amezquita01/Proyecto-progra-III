@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.JToolTip;
 import javax.swing.SwingConstants;
 
+import model.Password;
 import myClient.Commands;
 import myClient.items.RoundedJButton;
 
@@ -116,4 +117,7 @@ public class JPLoggin extends JPanel{
 			add(box);
 
 		}
+	public Password createPassword() {
+		return new Password(textUser.getText(), textPass.getText());
+	}
 }

@@ -146,11 +146,11 @@ public class MyMasterPersonFile extends RandomAccessFile{
 		return this.length()/RECORD_SIZE;
 	}
 	
-	public static void main(String[] args) throws IOException {
+//	public static void main(String[] args) throws IOException {
 		
-		System.out.println(new MyMasterPersonFile("resources/out/masterFile/myMasterFile.Person").read(2).getFirstName());
+//		System.out.println(new MyMasterPersonFile("resources/out/masterFile/myMasterFile.Person").read(2).getFirstName());
 //		System.out.println(new MyMasterPersonFile("resources/out/masterFile/myMasterFile.Person").read(0).getFirstName().replace("_", ""));
-	}
+//	}
 	
 }
 

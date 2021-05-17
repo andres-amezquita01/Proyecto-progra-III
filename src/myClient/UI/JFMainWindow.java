@@ -11,6 +11,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+
+import model.Password;
 import model.Person;
 
 public class JFMainWindow extends JFrame {
@@ -90,7 +92,9 @@ public class JFMainWindow extends JFrame {
 	public Person getPersonCreated() {
 		return jPcreateStudent.createPerson();
 	}
-
+	public Password getUserCreated() {
+		return jpLoggin.createPassword();
+	}
 	public void showPanels(String string) {
 		cardLayout.show(container, string);
 	}
