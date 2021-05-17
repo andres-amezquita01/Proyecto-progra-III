@@ -1,7 +1,8 @@
 package binarySearchTree;
 
+import java.io.Serializable;
 
-public class MyBSTNode<T> {
+public class MyBSTNode<T> implements Serializable {
 	protected Information<T> information;
 	protected long leftSon;
 	protected long rightSon;

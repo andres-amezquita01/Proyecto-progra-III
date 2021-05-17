@@ -15,6 +15,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.swing.JFrame;
+
 import model.GraphFamily;
 import model.Password;
 import model.Person;
@@ -82,8 +84,6 @@ public class MyClient implements ActionListener{
 //					String values = (entry.getKey() + "/" + entry.getValue()).replaceAll("_", "");
 //				    System.out.println(values);
 //				}
-				
-				int o = 0;
 				do {
 						dataOutputStream.writeInt(flatAddPerson);
 						
@@ -109,7 +109,6 @@ public class MyClient implements ActionListener{
 							System.out.println(password);
 							objectOutputStream.writeObject(password);
 							flatAddPerson =0;
-
 							break;
 						default:
 							break;
@@ -118,7 +117,6 @@ public class MyClient implements ActionListener{
 //						comunication =
 //								objectOutputStream.writeObject((Person) jfMainWindow.getPersonCreated());
 //								dataOutputStream.writeUTF(comunication);
-					o++;
 //				System.out.println(o);
 //				try {
 //					Thread.sleep(1000);
@@ -155,6 +153,9 @@ public class MyClient implements ActionListener{
 			break;
 		case C_MENU_SHOW_CREATE_PERSON_PANEL:
 			jfMainWindow.showPanelPerson();
+			break;
+		case PANEL_ONE:
+			jfMainWindow.showPanel1();
 			break;
 		case PANEL_TWO:
 			jfMainWindow.showPanel2();

@@ -59,7 +59,7 @@ public class JFMainWindow extends JFrame {
 //		containerFinal.getRootPane().setBorder(BorderFactory.createMatteBorder(0, 30, 4, 30, Color.white));
 		this.setExtendedState(MAXIMIZED_BOTH);
 		container = new JPanel();
-		jPanel1 = new JPOption1();
+		jPanel1 = new JPOption1(actionListener);
 		cardLayout = new CardLayout();
 		container.setBackground(Color.WHITE);
 

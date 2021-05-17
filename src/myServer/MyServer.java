@@ -9,7 +9,9 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
@@ -20,6 +22,7 @@ import binarySearchTree.MyBinarySearchTree;
 import model.GraphFamily;
 import model.Password;
 import model.Person;
+import model.RelationType;
 import persistence.MyFileFamiliesRelationsShip;
 import persistence.MyMasterPasswordFile;
 import persistence.MyMasterPersonFile;
@@ -32,16 +35,20 @@ public class MyServer {
 	private FileHandler fileHandler;
 	private Logger logger;
 	private MyBinarySearchTree<String> myBinarySearchTree;
+
 	private MyMasterPersonFile myMasterPersonFile;
 	private ComplementDatas complementDatas;
 	private MyFileFamiliesRelationsShip familiesRelationsShip;
 	private MyBinarySearchTree<String> myBinarySearchTreePassword;
 	private MyMasterPasswordFile myMasterPasswordFile;
+	
+	
 	public MyServer( ) throws IOException  {
 		createFileLogger();
 		createSockets();
 		try {
 			initTreeAndMasterFile();
+			
 			familiesRelationsShip = new MyFileFamiliesRelationsShip("resources/out/graphRelationsFamilies/relations.graph");
 		} catch (FileNotFoundException e) {
 			writeInLog(e.getMessage());
@@ -108,14 +115,22 @@ public class MyServer {
 		this.myMasterPasswordFile = new MyMasterPasswordFile("resources/out/passwords/myMasterFile.passwords");
 		writeInLog("cargando archivo maestro...");
 		this.myMasterPersonFile = new MyMasterPersonFile("resources/out/masterFile/myMasterFile.Person");
+//		System.out.println("dddd: " + myBinarySearchTree.read(0).getIndex());
 		writeInLog("completado.");
+		
 	}
+	
+	public MyBinarySearchTree<String> getMyBinarySearchTree() {
+		return myBinarySearchTree;
+	}
+
 	/**
 	 * Inicializa el servidor.
 	 */
 	private void initApp() {
 		while(true) {
 				try {
+					
 					writeInLog("Esperando un cliente...");
 					Socket socketClient = serverSocket.accept();
 					writeInLog("se ha conectado " + socketClient.getInetAddress().getHostName());
@@ -161,9 +176,9 @@ public class MyServer {
 									switch(flat) {
 										case 1:
 											addPersonToMasterAndTreeFile((Person)objectInputStream.readObject());
-											System.out.println(flat);
-											Person person = (Person) objectInputStream.readObject();
+//											Person person = (Person) objectInputStream.readObject();
 //											System.out.println(person.getFirstName());
+											
 											
 											break;
 										case 2: 
@@ -193,6 +208,20 @@ public class MyServer {
 				}
 		}).start();;
 	}
+	
+	
+	
+	public Map<Long,RelationType> relationsFamilies(Long idPerson) throws IOException{
+		Map<Long, RelationType> aux = new HashMap<>();
+		for (int i = 0; i < familiesRelationsShip.numberRelationsInFile(); i++) {
+			if (familiesRelationsShip.read(i).getIdPersonOne()==idPerson) {
+				aux.put(familiesRelationsShip.read(i).getIdPersonTwo(),
+						familiesRelationsShip.read(i).getRelationType());
+			}
+		}
+		return aux;
+	}
+	
 	
 	public void addRegistryUser(Password password)  {
 		try {
@@ -265,7 +294,9 @@ public class MyServer {
 	}
 	
 	public static void main(String[] args) throws IOException {
+		
 		new MyServer();
+		
 	}
 	
 	

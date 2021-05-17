@@ -16,53 +16,56 @@ public class JPMenu extends JPanel{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private RoundedJButton createPerson,jButtonOption1,jButtonOption2,jButtoOption3;
+	private RoundedJButton createPerson,option1,option2,option3;
 	private JPCreatePerson jpcreatePerson;
 
 	public JPMenu(ActionListener listener,JPanel cont) {
 		jpcreatePerson = new JPCreatePerson(listener);
-		new JPOption1();
+		new JPOption1(listener);
+		this.setBackground(Color.WHITE);
 		this.setLayout(new FlowLayout());
 		initComponenets(listener,cont);
 	}
 
 	private void initComponenets(ActionListener listener,JPanel cont) {
-		this.setBackground(Color.white);
-		createPerson = new RoundedJButton(15, 15, ConstantsUI.BUTTON_MENU_SHOW_PANEL_CREATE_PERSON, ConstantsUI.COLOR_DARCK_BLUE, Color.WHITE, 
-				ConstantsUI.FONT_MAIN_WINDOW_LABELS, Commands.C_MENU_SHOW_CREATE_PERSON_PANEL.toString(), listener );
-		jButtonOption1 = new RoundedJButton(15, 15, ConstantsUI.BUTTON_OPTION_1, ConstantsUI.COLOR_DARCK_BLUE, Color.WHITE, 
-				ConstantsUI.FONT_MAIN_WINDOW_LABELS, Commands.PANEL_TWO.toString(), listener );
+		createPerson = new RoundedJButton(15, 15, "Crear Persona", ConstantsUI.COLOR_DARCK_BLUE, Color.WHITE, 
+				ConstantsUI.FONT_MAIN_WINDOW_LABELS, Commands.PANEL_ONE.name(), listener );
+		option1 = new RoundedJButton(15, 15, "Buscar Relaciones Familiares", ConstantsUI.COLOR_DARCK_BLUE, Color.WHITE, 
+				ConstantsUI.FONT_MAIN_WINDOW_LABELS, Commands.PANEL_TWO.name(), listener );
+
+
+
 		this.add(createPerson);
-		this.add(jButtonOption1);
+		this.add(option1);
 
 	}
 
 	public JButton getPerson() {
-		return jButtoOption3;
+		return option3;
 	}
 
 	public RoundedJButton getOption1() {
-		return jButtonOption1;
+		return option1;
 	}
 
 	public void setOption1(RoundedJButton option1) {
-		this.jButtonOption1 = option1;
+		this.option1 = option1;
 	}
 
 	public RoundedJButton getOption2() {
-		return jButtonOption2;
+		return option2;
 	}
 
 	public void setOption2(RoundedJButton option2) {
-		this.jButtonOption2 = option2;
+		this.option2 = option2;
 	}
 
 	public RoundedJButton getOption3() {
-		return jButtoOption3;
+		return option3;
 	}
 
 	public void setOption3(RoundedJButton option3) {
-		this.jButtoOption3 = option3;
+		this.option3 = option3;
 	}
 
 	public JPCreatePerson getJpcreatePerson() {

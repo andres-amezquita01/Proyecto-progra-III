@@ -2,12 +2,14 @@ package binarySearchTree;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 
 import persistence.MyPersistenceBinarytree;
+import utilities.ComplementDatas;
 
-public class MyBinarySearchTree<T> {
+public class MyBinarySearchTree<T> implements Serializable {
 	private MyBSTNode<T> root;
 	private Comparator<T> comparator;
 	private MyPersistenceBinarytree<T> myPersistenceBinaryTree;
@@ -120,4 +122,41 @@ public class MyBinarySearchTree<T> {
 	public long getNumberOfNodes() throws IOException {
 		return myPersistenceBinaryTree.getNumberOfNodes();
 	}
+	
+	public static void main(String[] args) throws Exception {
+		ComplementDatas complementDatas = new ComplementDatas();
+		MyBinarySearchTree<String> D = new MyBinarySearchTree<String>("resources/out/trees/byName.tree", new Comparator<String>() {
+			@Override
+			public int compare(String o1, String o2) {
+				return o1.compareTo(o2);
+			}
+		}, new IConverterDatas<String>() {
+
+			@Override
+			public byte[] keyToByte(String key) {
+				if(key != null) {
+					key = complementDatas.stringSize(key, 30);
+					return key.getBytes();
+				}else {
+					key = complementDatas.stringSize(" ", 30);
+					return key.getBytes();
+				}
+			}
+			@Override
+			public String byteToKey(byte[] byteArray) {
+				return new String(byteArray);
+			}
+			@Override
+			public int sizeKey() {
+				return 30;
+			}
+		});
+		
+//		D.add(new Information<String>("DarwinVargas", 111));
+//		
+		
+		System.out.println(D.read(3).information.key);
+	}
+	
+	
 }

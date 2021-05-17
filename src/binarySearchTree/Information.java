@@ -1,6 +1,8 @@
 package binarySearchTree;
 
-public class Information<T> {
+import java.io.Serializable;
+
+public class Information<T> implements Serializable {
 	protected T key;
 	protected long indexInMasterFile;
 	

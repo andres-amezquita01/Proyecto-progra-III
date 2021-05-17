@@ -52,5 +52,10 @@ public class MyFileFamiliesRelationsShip extends RandomAccessFile {
 		System.out.println(new MyFileFamiliesRelationsShip("resources/out/graphRelationsFamilies/relations.graph").read(1).toString());
 	
 	}
+
+
+	public long numberRelationsInFile() throws IOException {
+		return this.length()/RECORD_SIZE;
+	}
 	
 }
