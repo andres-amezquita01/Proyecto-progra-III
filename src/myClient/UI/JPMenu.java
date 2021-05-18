@@ -29,9 +29,9 @@ public class JPMenu extends JPanel{
 
 	private void initComponenets(ActionListener listener,JPanel cont) {
 		createPerson = new RoundedJButton(15, 15, "Crear Persona", ConstantsUI.COLOR_DARCK_BLUE, Color.WHITE, 
-				ConstantsUI.FONT_MAIN_WINDOW_LABELS, Commands.PANEL_ONE.name(), listener );
+				ConstantsUI.FONT_MAIN_WINDOW_LABELS, Commands.C_MENU_SHOW_CREATE_PERSON_PANEL.name(), listener );
 		option1 = new RoundedJButton(15, 15, "Buscar Relaciones Familiares", ConstantsUI.COLOR_DARCK_BLUE, Color.WHITE, 
-				ConstantsUI.FONT_MAIN_WINDOW_LABELS, Commands.PANEL_TWO.name(), listener );
+				ConstantsUI.FONT_MAIN_WINDOW_LABELS, Commands.C_MENU_SHOW_SEARCH_RELATION_FAMILY_PANEL.name(), listener );
 
 
 

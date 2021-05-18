@@ -33,7 +33,7 @@ public class JPOption1 extends JPanel{
 		combox.setBackground(Color.WHITE);
 		
 		search = new RoundedJButton(15, 15, "SEARCH", ConstantsUI.COLOR_DARCK_BLUE, Color.WHITE, 
-				ConstantsUI.FONT_MAIN_WINDOW_LABELS, Commands.SEARCH_RELATIONS_FAMILIES.name(), actionListener ){
+				ConstantsUI.FONT_MAIN_WINDOW_LABELS, Commands.C_MENU_SEARCH_RELATIONS_FAMILIES.name(), actionListener ){
             private static final long serialVersionUID = 1L;
             @Override
             public JToolTip createToolTip() {

@@ -1,6 +1,7 @@
 package myClient.UI;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import javax.swing.Box;
@@ -10,6 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JToolTip;
 import javax.swing.SwingConstants;
+
+import com.placeholder.PlaceHolder;
 
 import model.Password;
 import myClient.Commands;
@@ -38,11 +41,14 @@ public class JPLoggin extends JPanel{
 			labelLogin.setForeground(ConstantsUI.COLOR_WHITE);
 			labelLogin.setFont(ConstantsUI.FONT_MENU);
 			textUser = new JTextField(10);
-			textUser.setText(ConstantsUI.ITEM_PERSON_NAME);
+//			textUser.setText(ConstantsUI.ITEM_PERSON_NAME);
 			textPass = new JTextField(10);
-			textPass.setText(ConstantsUI.PASSWORD);
+//			textPass.setText(ConstantsUI.PASSWORD);
+			PlaceHolder holder = new PlaceHolder(textUser, ConstantsUI.REGISTRY_USER);
+			PlaceHolder holder_2 = new PlaceHolder(textPass, ConstantsUI.PASSWORD);
+
 			buttonLongin = new RoundedJButton(15, 15, ConstantsUI.START,Color.black, Color.WHITE, 
-					ConstantsUI.FONT_MAIN_WINDOW_LABELS, Commands.C_LOGIN_ENTRY.toString(), controller ){
+					ConstantsUI.FONT_MAIN_WINDOW_LABELS, Commands.C_LOGIN_BUTTON_ENTRY.toString(), controller ){
 	            private static final long serialVersionUID = 1L;
 	            @Override
 	            public JToolTip createToolTip() {
@@ -55,7 +61,7 @@ public class JPLoggin extends JPanel{
 	        };;
 			buttonLongin.setBorderPainted(false);
 			buttonCheckIn =  new RoundedJButton(15, 15, ConstantsUI.REGISTRY, ConstantsUI.COLOR_DARCK_BLUE, Color.WHITE, 
-					ConstantsUI.FONT_MAIN_WINDOW_LABELS, Commands.C_LOGIN_REGISTRY.toString(), controller ){
+					ConstantsUI.FONT_MAIN_WINDOW_LABELS, Commands.C_LOGIN_BUTTON_REGISTRY.toString(), controller ){
 	            private static final long serialVersionUID = 1L;
 	            @Override
 	            public JToolTip createToolTip() {
@@ -73,7 +79,7 @@ public class JPLoggin extends JPanel{
 
 			
 			buttonRecoveredPassWord = new RoundedJButton(15, 15, ConstantsUI.RECOVER_PASSWORD, ConstantsUI.COLOR_DARCK_BLUE, Color.WHITE, 
-					ConstantsUI.FONT_MAIN_WINDOW_LABELS, Commands.C_LOGIN_RECOVER_PASSWORD.toString(), controller ){
+					ConstantsUI.FONT_MAIN_WINDOW_LABELS, Commands.C_LOGIN_BUTTON_RECOVER_PASSWORD.toString(), controller ){
 	            private static final long serialVersionUID = 1L;
 	            @Override
 	            public JToolTip createToolTip() {
@@ -89,7 +95,9 @@ public class JPLoggin extends JPanel{
 			buttonRecoveredPassWord.setBorderPainted(false);
 			//metodo para hacer trasnparentes los botones
 			buttonRecoveredPassWord.setContentAreaFilled(false);
-			add (Box.createRigidArea (new Dimension (150,150)));
+			Component component = Box.createRigidArea (new Dimension (150,150));
+			component.setBackground(ConstantsUI.COLOR_LIGTH_RED);
+			add (component);
 			Box boxLabelLogin = Box.createHorizontalBox();
 			boxLabelLogin.add(labelLogin);
 			boxLabelLogin.add(new Box.Filler(minSize, prefSize, maxSize));

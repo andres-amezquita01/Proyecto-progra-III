@@ -74,9 +74,13 @@ public class MyBinarySearchTree<T> implements Serializable {
 		return father;
 	}
 	public Information<T> search(T key) throws IOException {
+		if(myPersistenceBinaryTree.length() != MyPersistenceBinarytree.SIZE_HEADER) {
 		Information<T> found = search(key, this.myPersistenceBinaryTree.readByIndex(this.myPersistenceBinaryTree.getIndexRoot()));
 		if(found != null) {
 			return found;
+		}else {
+			return null;
+		}
 		}else {
 			return null;
 		}
@@ -90,10 +94,18 @@ public class MyBinarySearchTree<T> implements Serializable {
 				information = father.information;
 			}
 			if(comparator.compare(key, father.information.key) > 0 ) {
-				information = search(key, this.myPersistenceBinaryTree.readByIndex(father.rightSon));
+				if(father.rightSon!=-1) {
+					information = search(key, this.myPersistenceBinaryTree.readByIndex(father.rightSon));
+				}else {
+					return null;
+				}
 			}
 			if(comparator.compare(key, father.information.key)  < 0 ) {
-				information = search(key, this.myPersistenceBinaryTree.readByIndex(father.leftSon));
+				if(father.leftSon != -1) {
+					information = search(key, this.myPersistenceBinaryTree.readByIndex(father.leftSon));
+				}else {
+					return null;
+				}
 			}
 			return information;
 		}else {

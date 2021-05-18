@@ -23,6 +23,7 @@ import model.GraphFamily;
 import model.Password;
 import model.Person;
 import model.RelationType;
+import myClient.UI.ConstantsUI;
 import persistence.MyFileFamiliesRelationsShip;
 import persistence.MyMasterPasswordFile;
 import persistence.MyMasterPersonFile;
@@ -178,15 +179,29 @@ public class MyServer {
 											addPersonToMasterAndTreeFile((Person)objectInputStream.readObject());
 //											Person person = (Person) objectInputStream.readObject();
 //											System.out.println(person.getFirstName());
-											
-											
 											break;
 										case 2: 
 											addRelationFamlily((GraphFamily) objectInputStream.readObject());
 											
 											break;
-										case 3:
-											addRegistryUser((Password) objectInputStream.readObject());
+										case 3://boton iniciar
+											if(isRegistry((Password) objectInputStream.readObject())) {
+												//hacemos proceso de registro
+												dataOutputStream.writeBoolean(true);
+											}else {
+												dataOutputStream.writeBoolean(false);
+											}
+											break;
+										case 4:
+											if(registryNewUser((Password) objectInputStream.readObject())) {
+												//hacemos proceso de registro
+												dataOutputStream.writeBoolean(true);
+											}else {
+												dataOutputStream.writeBoolean(false);
+											}
+											break;
+										case 5:
+											dataOutputStream.writeUTF(recoveredPassWord((Password) objectInputStream.readObject()));
 											break;
 									default:
 											break;
@@ -211,6 +226,7 @@ public class MyServer {
 	
 	
 	
+
 	public Map<Long,RelationType> relationsFamilies(Long idPerson) throws IOException{
 		Map<Long, RelationType> aux = new HashMap<>();
 		for (int i = 0; i < familiesRelationsShip.numberRelationsInFile(); i++) {
@@ -222,9 +238,84 @@ public class MyServer {
 		return aux;
 	}
 	
+	//--------------AREA DE REGISTRO-----------------------------
 	
-	public void addRegistryUser(Password password)  {
+	/**
+	 * Valida si un usuario existe en la base de datos.
+	 * @param password
+	 */
+	public boolean isRegistry(Password password)  {
 		try {
+			String user = complementDatas.stringSize(password.getUser(), 30);
+			String passwordUser = complementDatas.stringSize(password.getPassword(), 30);
+			Information<String> informationFound = myBinarySearchTreePassword.search(user) ;
+			if(informationFound != null) {
+				Password passwordMasterFile = this.myMasterPasswordFile.readIndex(informationFound.getIndexInMasterFile());
+				if(passwordMasterFile.getUser().equals(user) == true && passwordMasterFile.getPassword().equals(passwordUser)) {
+					return true;
+				}else {
+					return false;
+				}
+			}else {
+				return false;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public String recoveredPassWord(Password password) {
+		try {
+			String user = complementDatas.stringSize(password.getUser(), 30);
+			Information<String> informationFound = myBinarySearchTreePassword.search(user) ;
+			if(informationFound != null) {
+				return this.myMasterPasswordFile.readIndex(informationFound.getIndexInMasterFile()).getPassword().replace("_", "");
+			}else {
+				return ConstantsUI.EXCEPTION_USER_NOT_REGISTRY;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ConstantsUI.EXCEPTION_USER_NOT_REGISTRY;
+	}
+	/**
+	 * Registra un nuevo usuario a la aplicacion.
+	 * @param password usuario y contraseña  del cliente
+	 * @return true si se pudo agregar, false si ya existia.
+	 */
+	
+	private boolean registryNewUser(Password password) {
+		try {
+			String user = complementDatas.stringSize(password.getUser(), 30);
+			Information<String> informationFound = myBinarySearchTreePassword.search(user) ;
+			if(informationFound == null) {
+				myBinarySearchTreePassword.add(new Information<String>(password.getUser(), this.myMasterPasswordFile.add(password)));
+					return true;
+			}else {
+				return false;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	/**
+	 * Aun NO SE USA
+	 * @param password
+	 */
+	public void loggin(Password password) {
+		try {
+			//aca se deberia inicializar el arbol que coincida con el usuario
+			String user = complementDatas.stringSize(password.getUser(), 30);
+//			String passwordUser = complementDatas.stringSize(password.getPassword(), 30);
+//			Information<String> information = myBinarySearchTreePassword.search(user) ;
 			myBinarySearchTreePassword.add(new Information<String>(password.getUser(), this.myMasterPasswordFile.add(password)));
 			System.out.println(password);
 		} catch (IOException e) {
@@ -233,6 +324,8 @@ public class MyServer {
 			e.printStackTrace();
 		}
 	}
+	//---------------------FIN AREA DE REGISTRO------------------------------------
+	
 	public Person readObject(ObjectInputStream objectInputStream) throws ClassNotFoundException, IOException {
 		return (Person) objectInputStream.readObject();
 	}
@@ -248,6 +341,7 @@ public class MyServer {
 	
 	public void addPersonToMasterAndTreeFile(Person person) {
 		try {
+			System.out.println(person);
 			long indexMasterFile = this.myMasterPersonFile.add(person);
 			this.myBinarySearchTree.add(new Information<String>(person.getFirstName(),indexMasterFile));
 			System.out.println(person);

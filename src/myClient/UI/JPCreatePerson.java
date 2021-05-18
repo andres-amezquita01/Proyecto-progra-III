@@ -48,7 +48,7 @@ public class JPCreatePerson extends JPanel{
 		jtPersonId.setBorder(BorderFactory.createTitledBorder(ConstantsUI.ITEM_PERSON_ID));
 //		    TextPrompt placeholder = new TextPrompt("Apellido Paterno", jTcodeStudent);
 		@SuppressWarnings("unused")
-		PlaceHolder holder = new PlaceHolder(jtPersonId, "N° identificacion, solo numeros por favor.");
+		PlaceHolder holder = new PlaceHolder(jtPersonId,ConstantsUI.PLACE_HOLDER_NUMBER_ID);
 		mcbSelectGender = new MyComboBox("");
 		mcbSelectGender.setBorder(BorderFactory.createTitledBorder(ConstantsUI.T_BOX_GENDER));
 		addItemGender();
@@ -87,7 +87,7 @@ public class JPCreatePerson extends JPanel{
         };;
         
     	jBCancelCreate = new RoundedJButton(15, 15, ConstantsUI.BUTTON_CANCEL_CREATE, ConstantsUI.COLOR_DARCK_BLUE, Color.WHITE, 
-				ConstantsUI.FONT_MAIN_WINDOW_LABELS, Commands.C_CREATE_PERSON.toString(), actionListener ){
+				ConstantsUI.FONT_MAIN_WINDOW_LABELS, Commands.C_CANCEL_CREATE_PERSON.toString(), actionListener ){
             private static final long serialVersionUID = 1L;
             @Override
             public JToolTip createToolTip() {

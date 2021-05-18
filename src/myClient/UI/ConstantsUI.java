@@ -39,7 +39,7 @@ public class ConstantsUI {
 	public  static  final String MENU_ITEM_REPORT_SIX = "btn_6";
 	public  static  final String MENU_ITEM_REPORT_SEVEN = "btn_7";
 	public  static  final String T_BOX_GENDER = "Gender";
-	//create student
+	//create person
 	public  static  final String BUTTON_CREATE = "Create";
 	public  static  final String BUTTON_MENU_SHOW_PANEL_CREATE_PERSON= "Crear persona";
 	public  static  final String BUTTON_OPTION_1 = "Opcion 1";
@@ -51,6 +51,7 @@ public class ConstantsUI {
 	public  static  final String ITEM_PERSON_VALUE = "Value";
 	public  static  final String ITEM_PERSON_PROFILE = "Profile";
 	public  static  final String ITEM_PERSON_PASSPORT = "Passport";
+	public  static  final String PLACE_HOLDER_NUMBER_ID= 	"N° identificacion, solo numeros por favor.";
 
 	//-----------LOGGIN----------
 	public static final String LOG_IN = "	   INICIAR SESION ";
@@ -59,8 +60,13 @@ public class ConstantsUI {
 	public static final String START = "Iniciar sesion";
 	public static final String REGISTRY = "Registrarse";
 	public static final String RECOVER_PASSWORD = "Recuperar contraseña";
+	public static final String REGISTRY_USER = "Usuario";
+	public static final String REGISTRY_PASSWORD = "Contraseña";
 
 
+	//-------------EXCEPTION----------------------
+	public static final String EXCEPTION_USER_NOT_REGISTRY= "El usuario es incorrecto.";
+	public static final String EXCEPTION_USER_DUPLICATE= "El usuario ya existe.";
 
 }	
 

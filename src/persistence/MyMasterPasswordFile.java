@@ -14,7 +14,8 @@ public class MyMasterPasswordFile extends RandomAccessFile{
 	private ComplementDatas complementDatas;
 	private static final int SIZE_USER = 30;
 	private static final int SIZE_PASSWORD = 30;
-	private static final int SIZE_REGISTRY = SIZE_USER + SIZE_PASSWORD;
+//	private static final int SIZE_REGISTRY = (SIZE_USER + SIZE_PASSWORD);
+	private static final int SIZE_REGISTRY = 64;
 
 	/**
 	 * Constructor de un objeto PersonFile que a su vez crea un archivo RandomAccesFile.
@@ -32,9 +33,13 @@ public class MyMasterPasswordFile extends RandomAccessFile{
 	 */
 	public long add(Password password) throws IOException {
 		this.seek(this.length());
+		long recordIndex = this.length()/SIZE_REGISTRY;
+		System.out.println("tamaño archivo" + this.length());
+		System.out.println("operacion" + this.length()/SIZE_REGISTRY);
+
 		this.writeUTF(complementDatas.stringSize(password.getUser(), SIZE_USER));
 		this.writeUTF(complementDatas.stringSize(password.getPassword(), SIZE_PASSWORD));
-		return this.length()/SIZE_REGISTRY;
+		return recordIndex;
 	}
 	/**
 	 * debemos leer en el mismo orden que añadimos
@@ -42,7 +47,7 @@ public class MyMasterPasswordFile extends RandomAccessFile{
 	 * @return Objeto leido.
 	 * @throws IOException 
 	 */
-	public Password read(long index) throws IOException {
+	public Password readIndex(long index) throws IOException {
 		this.seek(index * SIZE_REGISTRY);
 		Password password = new Password();
 		password.setUser(this.readUTF());

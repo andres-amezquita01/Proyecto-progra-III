@@ -21,6 +21,7 @@ import model.GraphFamily;
 import model.Password;
 import model.Person;
 import model.RelationType;
+import myClient.UI.ConstantsUI;
 import myClient.UI.FamilyRelations;
 import myClient.UI.JFMainWindow;
 
@@ -106,8 +107,31 @@ public class MyClient implements ActionListener{
 						case 3:
 							dataOutputStream.writeInt(flatAddPerson);
 							Password password = jfMainWindow.getUserCreated();
-							System.out.println(password);
+//							System.out.println(password);
 							objectOutputStream.writeObject(password);
+							if(dataInputStream.readBoolean()) {
+								jfMainWindow.setPane();
+							}else {
+								jfMainWindow.showExceptionUserNotRegistry();
+							}
+							flatAddPerson =0;
+							break;
+						case 4:
+							dataOutputStream.writeInt(flatAddPerson);
+							Password passwordCreated = jfMainWindow.getUserCreated();
+							objectOutputStream.writeObject(passwordCreated);
+							if(dataInputStream.readBoolean()) {
+								jfMainWindow.setPane();
+							}else {
+								jfMainWindow.showExceptionUserDuplicate();
+							}
+							flatAddPerson =0;
+							break;
+						case 5:
+							dataOutputStream.writeInt(flatAddPerson);
+							Password passwordRecovered = jfMainWindow.getUserCreated();
+							objectOutputStream.writeObject(passwordRecovered);
+							jfMainWindow.showPasswordRecovered(dataInputStream.readUTF());
 							flatAddPerson =0;
 							break;
 						default:
@@ -154,22 +178,28 @@ public class MyClient implements ActionListener{
 		case C_MENU_SHOW_CREATE_PERSON_PANEL:
 			jfMainWindow.showPanelPerson();
 			break;
-		case PANEL_ONE:
-			jfMainWindow.showPanel1();
+		case C_MENU_SHOW_SEARCH_RELATION_FAMILY_PANEL:
+			jfMainWindow.showPanelSearchFamilyRelation();
 			break;
-		case PANEL_TWO:
-			jfMainWindow.showPanel2();
-			break;
-		case C_LOGIN_ENTRY:
-			System.out.println("entro");
+		case C_LOGIN_BUTTON_ENTRY:
 			flatAddPerson = 3;
-			jfMainWindow.setPane();
 			break;
-		case C_LOGIN_RECOVER_PASSWORD:
-			System.out.println("recuperar contraseña");
-			break;
-		case C_LOGIN_REGISTRY:
+		case C_LOGIN_BUTTON_REGISTRY:
 			System.out.println("¿registrarse?");
+			Password passwordCreated = jfMainWindow.getUserCreated();
+			
+			if(passwordCreated.getUser().equals(ConstantsUI.REGISTRY_USER) !=true  && passwordCreated.getPassword().equals(ConstantsUI.PASSWORD) != true) {
+				flatAddPerson = 4;	
+			}else {
+				flatAddPerson = 0;
+				jfMainWindow.showExceptionUserDuplicate();
+			}
+			break;
+		case C_LOGIN_BUTTON_RECOVER_PASSWORD:
+			flatAddPerson = 5;
+			break;
+		case C_CANCEL_CREATE_PERSON:
+			System.out.println("cancelar persona");
 			break;
 		}		
 	}

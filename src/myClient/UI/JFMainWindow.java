@@ -9,6 +9,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -27,9 +28,8 @@ public class JFMainWindow extends JFrame {
 	private JPOption1 jPanel1;
 	private JPanel containerApp;
 	private static final String PANEL_CREATE_PERSON = "panel persona";
-	private static final String PANEL_LOGGIN = "panel loggin";
-	private static final String PANEL_1 = "1";
-	private static final String PANEL_2 = "2";
+//	private static final String PANEL_LOGGIN = "panel loggin";
+	private static final String PANEL_SEARCH_FAMILY_RELATION = "panel buscar relaciones familiares";
 
 
 	ActionListener actionListener;
@@ -77,7 +77,7 @@ public class JFMainWindow extends JFrame {
 		containerApp.add(jScroll, BorderLayout.CENTER);
 
 		container.add(jPcreateStudent, PANEL_CREATE_PERSON);
-		container.add(jPanel1, PANEL_2);
+		container.add(jPanel1, PANEL_SEARCH_FAMILY_RELATION);
 //		container.add(jpLoggin, PANEL_LOGGIN);
 		cardLayout.show(container, PANEL_CREATE_PERSON);
 		containerApp.add(container);
@@ -101,10 +101,21 @@ public class JFMainWindow extends JFrame {
 	public void showPanelPerson() {
 		cardLayout.show(container, PANEL_CREATE_PERSON);
 	}
-	public void showPanel1() {
-		cardLayout.show(container, PANEL_1);
+	public void showPanelSearchFamilyRelation() {
+		cardLayout.show(container, PANEL_SEARCH_FAMILY_RELATION);
 	}
-	public void showPanel2() {
-		cardLayout.show(container, PANEL_2);
+	public void showExceptionUserNotRegistry() {
+		JOptionPane.showMessageDialog(null, ConstantsUI.EXCEPTION_USER_NOT_REGISTRY);
 	}
+	public void showExceptionUserDuplicate() {
+		JOptionPane.showMessageDialog(null, ConstantsUI.EXCEPTION_USER_NOT_REGISTRY);
+	}
+	public void showPasswordRecovered(String passwordRecovered) {
+		JOptionPane.showMessageDialog(null, "contraseña recuperada\n " + passwordRecovered);
+		
+	}	
 }
+
+
+
+
