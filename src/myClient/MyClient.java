@@ -17,14 +17,13 @@ import java.util.Map.Entry;
 
 import javax.swing.JFrame;
 
-import exceptions.OnlyNumbersException;
 import model.GraphFamily;
 import model.MySimpleList;
 import model.Password;
 import model.Person;
 import model.RelationType;
 import myClient.UI.ConstantsUI;
-import myClient.UI.JPFamilyRelations;
+import myClient.UI.FamilyRelations;
 import myClient.UI.JFMainWindow;
 import myServer.RelationFamilies;
 import utilities.ComplementDatas;
@@ -40,7 +39,7 @@ public class MyClient implements ActionListener{
 	private int flatAddPerson;
 	private final static int PORT = 1111;
 	private Map<Long, String> mapFamiliesRelations;
-	private JPFamilyRelations familyRelations;
+	private FamilyRelations familyRelations;
 	
 	private int current;
 	private int iterator;
@@ -93,32 +92,18 @@ public class MyClient implements ActionListener{
 						
 						switch (flatAddPerson) {
 						case 1:
-							try {
-							Person personCreated = jfMainWindow.getPersonCreated();
 							dataOutputStream.writeInt(flatAddPerson);
-							objectOutputStream.writeObject((Person) personCreated);
-							familyRelations = new JPFamilyRelations(mapFamiliesRelations, this);
+							objectOutputStream.writeObject((Person) jfMainWindow.getPersonCreated());
+							familyRelations = new FamilyRelations(mapFamiliesRelations, this);
 							flatAddPerson =0;
-							}catch(OnlyNumbersException onlyNumbersException) {
-								jfMainWindow.showExceptionOnlyNumbers();
-								flatAddPerson =0;
-							}
 							break;
 						case 2:
-							try {
-							GraphFamily graphFamily = new GraphFamily(jfMainWindow.getPersonCreated().getId()
-									, RelationType.values()[familyRelations.getComboBoxOne().getSelectedIndex()],
-									(long) mapFamiliesRelations.keySet().toArray()[familyRelations.getComboBoxTwo().getSelectedIndex()]);
-							System.out.println(graphFamily);
 							dataOutputStream.writeInt(flatAddPerson);
-							objectOutputStream.writeObject(graphFamily);
+							objectOutputStream.writeObject(new GraphFamily(jfMainWindow.getPersonCreated().getId()
+							, RelationType.values()[familyRelations.getComboBoxOne().getSelectedIndex()],
+							(long) mapFamiliesRelations.keySet().toArray()[familyRelations.getComboBoxTwo().getSelectedIndex()]));
 							familyRelations.dispatchEvent(new WindowEvent(familyRelations, WindowEvent.WINDOW_CLOSING));
 							flatAddPerson =0;
-							}catch(OnlyNumbersException onlyNumbersException) {
-								jfMainWindow.showExceptionOnlyNumbers();
-								flatAddPerson =0;
-
-							}
 							break;
 						case 3:
 							dataOutputStream.writeInt(flatAddPerson);

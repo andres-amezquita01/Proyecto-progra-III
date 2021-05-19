@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * 
  * @author Darwin Vargas
- *clase que  crea las relaciones familiares de una persona dada con otra empleando grafos
+ *clase que me crea las relaciones familiares de una persona dada con otra empleando grafos
  */
 public class GraphFamily implements Serializable {
 

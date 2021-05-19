@@ -16,6 +16,7 @@ import myClient.items.RoundedJButton;
 
 /**
  * CREO QUE ESTE PANEL YA NO SE USA
+ * @author Andres Felipe Amezquita Gordillo
  *
  */
 public class JPOption1 extends JPanel{
