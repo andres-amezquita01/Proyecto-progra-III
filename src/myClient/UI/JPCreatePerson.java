@@ -14,6 +14,8 @@ import javax.swing.JToolTip;
 import com.placeholder.PlaceHolder;
 import com.toedter.calendar.JDateChooser;
 
+import exceptions.OnlyNumbersException;
+import exceptions.ValidatorExceptions;
 import model.Gender;
 import model.Person;
 import model.RelationType;
@@ -128,11 +130,9 @@ public class JPCreatePerson extends JPanel{
 		mcbSelectGender.addItem("Masculino");
 	}
 	
-	public Person createPerson()  {
-//		try {
-//			Utilities.validateNumberCode(jtPersonId.getText());
-//			Utilities.validateNumberCode(jtFirstName.getText());
-
+	public Person createPerson() throws OnlyNumbersException  {
+		try {
+			ValidatorExceptions.validateNumberCode(jtPersonId.getText());
 			return new Person(Integer.parseInt(jtPersonId.getText()),
 					jtFirstName.getText(), 
 					jtLastName.getText(), 
@@ -140,13 +140,10 @@ public class JPCreatePerson extends JPanel{
 					new ComplementDatas().parseStringToLocalDate(jChooserBirthDay.getCalendar()),
 					(int)(jSpinnerValue.getValue()),
 					jtProfile.getText(), null, jtPassPort.getText());
-//		} catch (OnlyNumbersException e) {
-			
-//			throw new OnlyNumbersException();
-//		}
+		} catch (OnlyNumbersException e) {
+			throw new OnlyNumbersException();
+		}
 	}
-	
-	
 	public void changeLanguage() {
 //		jtPersonId.setBorder(BorderFactory.createTitledBorder( HandlerLanguage.languageProperties.getProperty(ConstantsUI.ITEM_CODE_STUDENT )));
 //		mcbSelectGender.setBorder(BorderFactory.createTitledBorder(HandlerLanguage.languageProperties.getProperty(ConstantsUI.T_BOX_DEPARTMENT )));

@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import exceptions.OnlyNumbersException;
 import model.Password;
 import model.Person;
 
@@ -99,7 +100,7 @@ public class JFMainWindow extends JFrame {
 		this.setContentPane(containerApp);
 		this.setVisible(true);
 	}
-	public Person getPersonCreated() {
+	public Person getPersonCreated() throws OnlyNumbersException {
 		return jPcreateStudent.createPerson();
 	}
 	public Password getUserCreated() {
@@ -124,7 +125,9 @@ public class JFMainWindow extends JFrame {
 		JOptionPane.showMessageDialog(null, "contraseña recuperada\n " + passwordRecovered);
 		
 	}	
-	
+	public void showExceptionOnlyNumbers() {
+		JOptionPane.showMessageDialog(null, ConstantsUI.EXCEPTION_ONLY_NUMBERS);
+	}
 	public JPViewFamilyPerson getjPanel1() {
 		return jPanelViewFamilyPerson;
 	}

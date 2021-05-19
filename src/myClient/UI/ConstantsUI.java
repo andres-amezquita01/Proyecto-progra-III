@@ -46,12 +46,19 @@ public class ConstantsUI {
 	public  static  final String BUTTON_OPTION_2 = "Opcion 2";
 	public  static  final String BUTTON_CANCEL_CREATE = "Cancel created";
 	public  static  final String ITEM_PERSON_ID = "Numero de identificacion";
-	public  static  final String ITEM_PERSON_NAME = "Name";
-	public  static  final String ITEM_PERSON_LAST_NAME = "Last name";
+	public  static  final String ITEM_BIRTH_DAY = "Fecha de nacimiento";
+	public  static  final String ITEM_PERSON_NAME = "Nombre";
+	public  static  final String ITEM_PERSON_LAST_NAME = "Apellido";
 	public  static  final String ITEM_PERSON_VALUE = "Value";
 	public  static  final String ITEM_PERSON_PROFILE = "Profile";
 	public  static  final String ITEM_PERSON_PASSPORT = "Passport";
 	public  static  final String PLACE_HOLDER_NUMBER_ID= 	"N° identificacion, solo numeros por favor.";
+	
+	//--------------relation family-------------
+	public  static  final String BUTTON_ADD_RELATION_FAMILY = 	"Agregar Relacion Familiar";
+	public  static  final String BUTTON_BEFORE = 	"<";
+	public  static  final String BUTTON_AFTER = 	">";
+	public  static  final String RELATION_FAMILY = 	"Relacion familiar";
 
 	//-----------LOGGIN----------
 	public static final String LOG_IN = "	   INICIAR SESION ";
@@ -67,6 +74,7 @@ public class ConstantsUI {
 	//-------------EXCEPTION----------------------
 	public static final String EXCEPTION_USER_NOT_REGISTRY= "El usuario es incorrecto.";
 	public static final String EXCEPTION_USER_DUPLICATE= "El usuario ya existe.";
+	public static final String EXCEPTION_ONLY_NUMBERS= "Por favor, ingrese bien los datos,ID incorrecto.";
 
 }	
 

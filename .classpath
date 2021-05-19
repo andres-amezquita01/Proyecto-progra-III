@@ -6,8 +6,8 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Users/Darwin/Documents/GitHub/ProyectoFinlaProgra2/Proyecto-progra-III/resources/externalLibraries/jcalendar-1.4.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Darwin/Documents/GitHub/ProyectoFinlaProgra2/Proyecto-progra-III/resources/externalLibraries/PlaceHolder.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Darwin/Documents/GitHub/ProyectoFinlaProgra2/Proyecto-progra-III/resources/externalLibraries/MySimpleList.jar"/>
+	<classpathentry kind="lib" path="D:/Desktop/Universidad virtual/Cuarto semestre/programacion lll/progra valero/eclipse 4 semestre/Final-Project-III/resources/externalLibraries/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="D:/Desktop/Universidad virtual/Cuarto semestre/programacion lll/progra valero/eclipse 4 semestre/Final-Project-III/resources/externalLibraries/MySimpleList.jar"/>
+	<classpathentry kind="lib" path="D:/Desktop/Universidad virtual/Cuarto semestre/programacion lll/progra valero/eclipse 4 semestre/Final-Project-III/resources/externalLibraries/PlaceHolder.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
