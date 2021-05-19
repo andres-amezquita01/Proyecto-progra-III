@@ -54,7 +54,9 @@ public class JFMainWindow extends JFrame {
 		this.setLayout(new GridLayout(1, 1));
 		this.setSize(new Dimension(600,600));
 		jpLoggin = new JPLoggin(actionListener);
+		jPanelViewFamilyPerson = new JPViewFamilyPerson(actionListener);//---
 		this.add(jpLoggin);
+		
 	}
 	private void initComponents(ActionListener actionListener) {
 		this.setExtendedState(MAXIMIZED_BOTH);

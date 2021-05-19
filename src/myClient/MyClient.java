@@ -25,6 +25,8 @@ import model.RelationType;
 import myClient.UI.ConstantsUI;
 import myClient.UI.FamilyRelations;
 import myClient.UI.JFMainWindow;
+import myServer.RelationFamilies;
+import utilities.ComplementDatas;
 
 
 public class MyClient implements ActionListener{
@@ -75,24 +77,16 @@ public class MyClient implements ActionListener{
 	
 	
 	
+	@SuppressWarnings("unchecked")
 	public void initApp() {
 			try {
 				createSocket();
-//				createFlowsInAndOut();
 				objectOutputStream = new ObjectOutputStream(socketClient.getOutputStream());
-//				createFlowsInAndOut();
 				dataOutputStream = new DataOutputStream(socketClient.getOutputStream());
 				dataInputStream = new DataInputStream(socketClient.getInputStream());
 				initWindow();
-//				console = new Scanner(System.in);
 				readBasicInfoPerson(dataInputStream.readLong());
-				
 				objectInputStream = new ObjectInputStream(socketClient.getInputStream());
-
-//				for (Entry<Long, String> entry : mapFamiliesRelations.entrySet()) {
-//					String values = (entry.getKey() + "/" + entry.getValue()).replaceAll("_", "");
-//				    System.out.println(values);
-//				}
 				do {
 						dataOutputStream.writeInt(flatAddPerson);
 						
@@ -102,7 +96,6 @@ public class MyClient implements ActionListener{
 							objectOutputStream.writeObject((Person) jfMainWindow.getPersonCreated());
 							familyRelations = new FamilyRelations(mapFamiliesRelations, this);
 							flatAddPerson =0;
-//							new FamilyRelations(null);
 							break;
 						case 2:
 							dataOutputStream.writeInt(flatAddPerson);
@@ -115,7 +108,6 @@ public class MyClient implements ActionListener{
 						case 3:
 							dataOutputStream.writeInt(flatAddPerson);
 							Password password = jfMainWindow.getUserCreated();
-//							System.out.println(password);
 							objectOutputStream.writeObject(password);
 							if(dataInputStream.readBoolean()) {
 								jfMainWindow.setPane();
@@ -145,12 +137,12 @@ public class MyClient implements ActionListener{
 						case 6:
 							dataOutputStream.writeInt(flatAddPerson);
 							dataOutputStream.writeInt(jfMainWindow.getjPanel1().getComboBox().getSelectedIndex());
-							MySimpleList<Person> families = new MySimpleList<Person>();
+							MySimpleList<RelationFamilies<Person, Integer>> families = new MySimpleList<RelationFamilies<Person, Integer>>();
 							int sizeListFamilies = dataInputStream.readInt();
 							if (sizeListFamilies>0) {
 								for (int i = 0; i < sizeListFamilies; i++) {
-									updateRelatiob(RelationType.values()[dataInputStream.readInt()]);
-									families.add((Person) objectInputStream.readObject());
+									families.add((RelationFamilies<Person, Integer>) objectInputStream.readObject());
+//									updateRelatiob(RelationType.values()[dataInputStream.readInt()]);
 									updatePerson(families.getIndex(i));
 								}
 							}
@@ -165,17 +157,6 @@ public class MyClient implements ActionListener{
 						default:
 							break;
 						}
-						
-//						comunication =
-//								objectOutputStream.writeObject((Person) jfMainWindow.getPersonCreated());
-//								dataOutputStream.writeUTF(comunication);
-//				System.out.println(o);
-//				try {
-//					Thread.sleep(1000);
-//				} catch (InterruptedException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
 				}while(true);
 				
 			} catch (IOException | ClassNotFoundException e) {
@@ -193,11 +174,12 @@ public class MyClient implements ActionListener{
 	public void updateRelatiob(RelationType relationType) {
 		jfMainWindow.getjPanel1().getParentesco().setText(relationType.name());
 	}
-	public void updatePerson(Person person) {
-		jfMainWindow.getjPanel1().updateInfoPerson(person);
+	public void updatePerson(RelationFamilies<Person, Integer> relation) {
+		jfMainWindow.getjPanel1().updateInfoPerson(relation.getPerson());
+		jfMainWindow.getjPanel1().getParentesco().setText(RelationType.values()[relation.getIdTypeRelation()].name());
 	}
 	
-	public void afterFamily(MySimpleList<Person> list) {
+	public void afterFamily(MySimpleList<RelationFamilies<Person, Integer>> list) {
 		if (iterator < list.getSize()) {
 			updatePerson(list.getIndex(iterator-1));
 		}else {
@@ -206,7 +188,7 @@ public class MyClient implements ActionListener{
 		}
 	}
 	
-	public void beforeFamily(MySimpleList<Person> list) {
+	public void beforeFamily(MySimpleList<RelationFamilies<Person, Integer>> list) {
 		if (iterator>=0) {
 			updatePerson(list.getIndex(iterator+1));
 		}else {
@@ -219,6 +201,11 @@ public class MyClient implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
+		Object source = event.getSource();
+		if (source == jfMainWindow.getjPanel1().getComboBox()) {
+			iterator = 0;
+			flatAddPerson =6;
+		}else {
 		switch (Commands.valueOf(event.getActionCommand())) {
 		case C_CREATE_PERSON:
 			flatAddPerson = 1;
@@ -230,6 +217,7 @@ public class MyClient implements ActionListener{
 			jfMainWindow.showPanelPerson();
 			break;
 		case C_MENU_SHOW_SEARCH_RELATION_FAMILY_PANEL:
+			new ComplementDatas().fillComboBox(mapFamiliesRelations, jfMainWindow.getjPanel1().getComboBox());
 			jfMainWindow.showPanelSearchFamilyRelation();
 			break;
 		case C_LOGIN_BUTTON_ENTRY:
@@ -262,7 +250,8 @@ public class MyClient implements ActionListener{
 			current = 2;
 			flatAddPerson  = 6;
 			break;
-		}		
+			}	
+		}
 	}
 	public static void main(String[] args) {
 		new MyClient();

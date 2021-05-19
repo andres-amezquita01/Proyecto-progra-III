@@ -2,6 +2,7 @@ package myClient.UI;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.util.List;
 
@@ -41,6 +42,9 @@ public class JPViewFamilyPerson extends JPanel {
 		parentesco = new JTextField(20);
 		parentesco.setText("Parentesco");
 		parentesco.setEditable(false);
+		parentesco.setPreferredSize(new Dimension(100, 100));
+		parentesco.setFont(new Font("SansSerif", Font.BOLD, 20));
+		parentesco.setHorizontalAlignment(JTextField.CENTER);
 		this.add(parentesco, BorderLayout.SOUTH);
 		before = new JButton("<");
 		before.setActionCommand(Commands.BEFORE.toString());

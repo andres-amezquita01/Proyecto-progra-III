@@ -236,12 +236,13 @@ public class MyServer {
 											dataOutputStream.writeUTF(recoveredPassWord((Password) objectInputStream.readObject()));
 											break;
 										case 6:
-											MySimpleList<Information<Integer>> list = relationsFamilies((long) dataInputStream.readInt());
+											MySimpleList<RelationFamilies<Person,Integer>> list = relationsFamilies((long) dataInputStream.readInt());
 											dataOutputStream.writeInt(list.getSize());
 											if (list.getSize()>0) {
 												for (int i = 0; i < list.getSize(); i++) {
-													dataOutputStream.writeInt(list.getIndex(i).geKey());
-													objectOutputStream.writeObject((Person) searchPerson(list.getIndex(i).getIndexInMasterFile()));
+//													System.out.println("value relationn is: " + list.getIndex(i).geKey());
+													objectOutputStream.writeObject((RelationFamilies<Person, Integer>) list.getIndex(i));
+//													dataOutputStream.writeInt(list.getIndex(i).geKey());
 												}
 											}
 											
@@ -257,7 +258,7 @@ public class MyServer {
 //							dataOutputStream.close();
 //					} catch (IOException | ClassNotFoundException e) {
 					} catch (IOException  e) {
-
+//						e.printStackTrace();
 						writeInLog(e.getMessage());
 					} catch (ClassNotFoundException e) {
 						// TODO Auto-generated catch block
@@ -267,20 +268,22 @@ public class MyServer {
 		}).start();;
 	}
 	//---------version ultima----------------
-	public MySimpleList<Information<Integer>> relationsFamilies(Long idPerson) {
-		MySimpleList<Information<Integer>> list = new MySimpleList<>();
+	public MySimpleList<RelationFamilies<Person,Integer>> relationsFamilies(Long idPerson) {
+		MySimpleList<RelationFamilies<Person,Integer>> list = new MySimpleList<>();
 		try {
 			for (int i = 0; i < familiesRelationsShip.numberRelationsInFile(); i++) {
 				if (familiesRelationsShip.read(i).getIdPersonOne() == myBinarySearchTreeId.read(idPerson)
 						.getInformation().geKey()) {
-					list.add(new Information<Integer>(familiesRelationsShip.read(i).getRelationType().ordinal(),
-							familiesRelationsShip.read(i).getIdPersonTwo()));
+					list.add(new RelationFamilies<Person,Integer>(searchPerson(familiesRelationsShip.read(i).getIdPersonTwo()),
+							familiesRelationsShip.read(i).getRelationType().ordinal()
+							));
 				}
 			}
 			
 			
 		} catch (IOException e) {
-
+			System.out.println("dpdpdp´´dp");
+			e.printStackTrace();
 		}
 		return list;
 	}
@@ -406,6 +409,7 @@ public class MyServer {
 			System.out.println(person);
 			long indexMasterFile = this.myMasterPersonFile.add(person);
 			this.myBinarySearchTree.add(new Information<String>(person.getFirstName(),indexMasterFile));
+			this.myBinarySearchTreeId.add(new Information<Long>(person.getId(), indexMasterFile));
 			System.out.println(person);
 		} catch (IOException e) {
 			writeInLog(e.getMessage());

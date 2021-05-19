@@ -4,6 +4,10 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import javax.swing.JComboBox;
 
 /**
  * Clase con metodos auxiliares.
@@ -14,6 +18,13 @@ public class ComplementDatas {
 	public ComplementDatas() {
 		
 	}
+	
+	public void fillComboBox(Map<Long, String> map,JComboBox<String> comboBox) {
+		for (Entry<Long, String> entry : map.entrySet()) {
+			comboBox.addItem(entry.getValue() + "-> CON ID: -> " + entry.getKey());;
+		}
+	}
+	
 	/**
 	 * Valida que un string contenga la longitud deseada, si es mayor
 	 * se recorta hasta la longitud, si es menor se rellena con el caracter "_".

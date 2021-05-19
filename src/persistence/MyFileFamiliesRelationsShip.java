@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.Iterator;
 
 import model.Gender;
 import model.GraphFamily;
@@ -45,12 +46,24 @@ public class MyFileFamiliesRelationsShip extends RandomAccessFile {
 		return family;
 	}
 	
+	
+	public long sizeFile() throws IOException {
+		return this.length()/RECORD_SIZE;
+	}
+	
 	public static void main(String[] args) throws IOException {
 		
-//		System.out.println(new MyFileFamiliesRelationsShip("xd.d").add(new GraphFamily(21, RelationType.ESPOSO, 13)));
+//	System.out.println(new MyFileFamiliesRelationsShip("resources/out/graphRelationsFamilies/relations.graph").add(new GraphFamily(3, RelationType.HIJO, 2)));
 		
-		System.out.println(new MyFileFamiliesRelationsShip("resources/out/graphRelationsFamilies/relations.graph").read(1).toString());
-	
+//		System.out.println(new MyFileFamiliesRelationsShip("resources/out/graphRelationsFamilies/relations.graph").read(1).toString());
+		
+		
+		MyFileFamiliesRelationsShip familiesRelationsShip = new MyFileFamiliesRelationsShip("resources/out/graphRelationsFamilies/relations.graph");
+		
+		for (int i = 0; i < familiesRelationsShip.sizeFile(); i++) {
+			System.out.println(familiesRelationsShip.read(i).toString());
+		}
+		
 	}
 
 
