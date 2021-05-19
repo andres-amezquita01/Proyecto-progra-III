@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.ByteBuffer;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -20,6 +21,7 @@ import binarySearchTree.IConverterDatas;
 import binarySearchTree.Information;
 import binarySearchTree.MyBinarySearchTree;
 import model.GraphFamily;
+import model.MySimpleList;
 import model.Password;
 import model.Person;
 import model.RelationType;
@@ -36,7 +38,7 @@ public class MyServer {
 	private FileHandler fileHandler;
 	private Logger logger;
 	private MyBinarySearchTree<String> myBinarySearchTree;
-
+	private MyBinarySearchTree<Long> myBinarySearchTreeId;
 	private MyMasterPersonFile myMasterPersonFile;
 	private ComplementDatas complementDatas;
 	private MyFileFamiliesRelationsShip familiesRelationsShip;
@@ -113,6 +115,40 @@ public class MyServer {
 						return 30;
 					}
 				});
+		myBinarySearchTreeId = new MyBinarySearchTree<>(
+				"resources/out/trees/tree.integer", 
+				new Comparator<Long>() {
+					@Override
+					public int compare(Long o1, Long o2) {
+						return o1.compareTo(o2);
+					}
+				}, new IConverterDatas<Long>() {
+					@Override
+					public byte[] keyToByte(Long key) {
+						if(key != null) {
+						    ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
+						    buffer.putLong(key);
+						    return buffer.array();
+						}else {
+						    ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
+						    buffer.putInt(-1);
+						    return buffer.array();
+						}				
+					}
+
+					@Override
+					public Long byteToKey(byte[] byteArray) {
+						 ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
+						 buffer.put(byteArray);
+						 buffer.flip();//need flip 
+						 return buffer.getLong();
+					}
+
+					@Override
+					public int sizeKey() {
+						return Long.BYTES;
+					}
+				});
 		this.myMasterPasswordFile = new MyMasterPasswordFile("resources/out/passwords/myMasterFile.passwords");
 		writeInLog("cargando archivo maestro...");
 		this.myMasterPersonFile = new MyMasterPersonFile("resources/out/masterFile/myMasterFile.Person");
@@ -163,26 +199,22 @@ public class MyServer {
 //						DataInputStream objectIn = new DataInputStream(socketClient.getInputStream());
 						System.out.println("server start");
 						ObjectInputStream objectInputStream  = new ObjectInputStream(socketClient.getInputStream());
-//						ObjectOutputStream objectOutputStream = new ObjectOutputStream(socketClient.getOutputStream());
 						DataInputStream dataInputStream = new DataInputStream(socketClient.getInputStream());
 						DataOutputStream dataOutputStream = new DataOutputStream(socketClient.getOutputStream());
 						dataOutputStream.writeLong(myMasterPersonFile.numberPersonsInFile());
 						sendDataBasicPersons(dataOutputStream);
 //						DataOutputStream dataOutputStream = new DataOutputStream(socketClient.getOutputStream());
 						String message = "1)Agregar persona\n2)login";
+						ObjectOutputStream objectOutputStream = new ObjectOutputStream(socketClient.getOutputStream());
+
 							while(!message.equals("salir") ) {
-//								dataOutputStream.writeUTF(message);
-//								message = dataInputStream.readUTF();
 								int flat = dataInputStream.readInt();
 									switch(flat) {
 										case 1:
 											addPersonToMasterAndTreeFile((Person)objectInputStream.readObject());
-//											Person person = (Person) objectInputStream.readObject();
-//											System.out.println(person.getFirstName());
 											break;
 										case 2: 
 											addRelationFamlily((GraphFamily) objectInputStream.readObject());
-											
 											break;
 										case 3://boton iniciar
 											if(isRegistry((Password) objectInputStream.readObject())) {
@@ -203,6 +235,17 @@ public class MyServer {
 										case 5:
 											dataOutputStream.writeUTF(recoveredPassWord((Password) objectInputStream.readObject()));
 											break;
+										case 6:
+											MySimpleList<Information<Integer>> list = relationsFamilies((long) dataInputStream.readInt());
+											dataOutputStream.writeInt(list.getSize());
+											if (list.getSize()>0) {
+												for (int i = 0; i < list.getSize(); i++) {
+													dataOutputStream.writeInt(list.getIndex(i).geKey());
+													objectOutputStream.writeObject((Person) searchPerson(list.getIndex(i).getIndexInMasterFile()));
+												}
+											}
+											
+										break;
 									default:
 											break;
 									}
@@ -223,20 +266,39 @@ public class MyServer {
 				}
 		}).start();;
 	}
-	
-	
-	
-
-	public Map<Long,RelationType> relationsFamilies(Long idPerson) throws IOException{
-		Map<Long, RelationType> aux = new HashMap<>();
-		for (int i = 0; i < familiesRelationsShip.numberRelationsInFile(); i++) {
-			if (familiesRelationsShip.read(i).getIdPersonOne()==idPerson) {
-				aux.put(familiesRelationsShip.read(i).getIdPersonTwo(),
-						familiesRelationsShip.read(i).getRelationType());
+	//---------version ultima----------------
+	public MySimpleList<Information<Integer>> relationsFamilies(Long idPerson) {
+		MySimpleList<Information<Integer>> list = new MySimpleList<>();
+		try {
+			for (int i = 0; i < familiesRelationsShip.numberRelationsInFile(); i++) {
+				if (familiesRelationsShip.read(i).getIdPersonOne() == myBinarySearchTreeId.read(idPerson)
+						.getInformation().geKey()) {
+					list.add(new Information<Integer>(familiesRelationsShip.read(i).getRelationType().ordinal(),
+							familiesRelationsShip.read(i).getIdPersonTwo()));
+				}
 			}
+			
+			
+		} catch (IOException e) {
+
 		}
-		return aux;
+		return list;
 	}
+	
+	public Person searchPerson(long idPerson) throws IOException {
+		return myMasterPersonFile.read(myBinarySearchTreeId.search(idPerson).getIndexInMasterFile());
+	}
+	//-----------fin version ultima---------------
+//	public Map<Long,RelationType> relationsFamilies(Long idPerson) throws IOException{
+//		Map<Long, RelationType> aux = new HashMap<>();
+//		for (int i = 0; i < familiesRelationsShip.numberRelationsInFile(); i++) {
+//			if (familiesRelationsShip.read(i).getIdPersonOne()==idPerson) {
+//				aux.put(familiesRelationsShip.read(i).getIdPersonTwo(),
+//						familiesRelationsShip.read(i).getRelationType());
+//			}
+//		}
+//		return aux;
+//	}
 	
 	//--------------AREA DE REGISTRO-----------------------------
 	

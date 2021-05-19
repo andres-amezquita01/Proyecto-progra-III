@@ -25,8 +25,12 @@ public class JFMainWindow extends JFrame {
 	private JPanel container;
 	private JScrollPane jScroll;
 	private CardLayout cardLayout;
-	private JPOption1 jPanel1;
+//	private JPOption1 jPanel1;
 	private JPanel containerApp;
+	
+	private JPViewFamilyPerson jPanelViewFamilyPerson;
+
+	
 	private static final String PANEL_CREATE_PERSON = "panel persona";
 //	private static final String PANEL_LOGGIN = "panel loggin";
 	private static final String PANEL_SEARCH_FAMILY_RELATION = "panel buscar relaciones familiares";
@@ -58,9 +62,13 @@ public class JFMainWindow extends JFrame {
 		containerApp.setLayout(new BorderLayout());
 //		containerFinal.getRootPane().setBorder(BorderFactory.createMatteBorder(0, 30, 4, 30, Color.white));
 		this.setExtendedState(MAXIMIZED_BOTH);
+		
 		container = new JPanel();
-		jPanel1 = new JPOption1(actionListener);
+//		jPanel1 = new JPOption1(actionListener);
+		jPanelViewFamilyPerson = new JPViewFamilyPerson(actionListener);//---
 		cardLayout = new CardLayout();
+		
+		
 		container.setBackground(Color.WHITE);
 
 		jPcreateStudent = new JPCreatePerson(actionListener);
@@ -77,7 +85,7 @@ public class JFMainWindow extends JFrame {
 		containerApp.add(jScroll, BorderLayout.CENTER);
 
 		container.add(jPcreateStudent, PANEL_CREATE_PERSON);
-		container.add(jPanel1, PANEL_SEARCH_FAMILY_RELATION);
+		container.add(jPanelViewFamilyPerson, PANEL_SEARCH_FAMILY_RELATION);//---
 //		container.add(jpLoggin, PANEL_LOGGIN);
 		cardLayout.show(container, PANEL_CREATE_PERSON);
 		containerApp.add(container);
@@ -114,6 +122,10 @@ public class JFMainWindow extends JFrame {
 		JOptionPane.showMessageDialog(null, "contraseña recuperada\n " + passwordRecovered);
 		
 	}	
+	
+	public JPViewFamilyPerson getjPanel1() {
+		return jPanelViewFamilyPerson;
+	}
 }
 
 

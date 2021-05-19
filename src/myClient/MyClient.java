@@ -18,6 +18,7 @@ import java.util.Map.Entry;
 import javax.swing.JFrame;
 
 import model.GraphFamily;
+import model.MySimpleList;
 import model.Password;
 import model.Person;
 import model.RelationType;
@@ -37,7 +38,12 @@ public class MyClient implements ActionListener{
 	private final static int PORT = 1111;
 	private Map<Long, String> mapFamiliesRelations;
 	private FamilyRelations familyRelations;
+	
+	private int current;
+	private int iterator;
+
 	public MyClient() {
+		iterator = 0;
 		 initApp();
 	}
 	public void createObjectFlows() throws IOException {
@@ -81,6 +87,8 @@ public class MyClient implements ActionListener{
 //				console = new Scanner(System.in);
 				readBasicInfoPerson(dataInputStream.readLong());
 				
+				objectInputStream = new ObjectInputStream(socketClient.getInputStream());
+
 //				for (Entry<Long, String> entry : mapFamiliesRelations.entrySet()) {
 //					String values = (entry.getKey() + "/" + entry.getValue()).replaceAll("_", "");
 //				    System.out.println(values);
@@ -134,6 +142,26 @@ public class MyClient implements ActionListener{
 							jfMainWindow.showPasswordRecovered(dataInputStream.readUTF());
 							flatAddPerson =0;
 							break;
+						case 6:
+							dataOutputStream.writeInt(flatAddPerson);
+							dataOutputStream.writeInt(jfMainWindow.getjPanel1().getComboBox().getSelectedIndex());
+							MySimpleList<Person> families = new MySimpleList<Person>();
+							int sizeListFamilies = dataInputStream.readInt();
+							if (sizeListFamilies>0) {
+								for (int i = 0; i < sizeListFamilies; i++) {
+									updateRelatiob(RelationType.values()[dataInputStream.readInt()]);
+									families.add((Person) objectInputStream.readObject());
+									updatePerson(families.getIndex(i));
+								}
+							}
+							if (current == 1) {
+								afterFamily(families);
+							}else if(current==2) {
+								beforeFamily(families);
+							}
+							current = 0;
+							flatAddPerson = 0;
+							break;
 						default:
 							break;
 						}
@@ -150,7 +178,7 @@ public class MyClient implements ActionListener{
 //				}
 				}while(true);
 				
-			} catch (IOException e) {
+			} catch (IOException | ClassNotFoundException e) {
 				System.out.println("No hay un servidor disponible");
 			}
 	}
@@ -161,10 +189,33 @@ public class MyClient implements ActionListener{
 
 
 	}
-	
-	public static void main(String[] args) {
-		new MyClient();
+	//---------parte darwin---------------
+	public void updateRelatiob(RelationType relationType) {
+		jfMainWindow.getjPanel1().getParentesco().setText(relationType.name());
 	}
+	public void updatePerson(Person person) {
+		jfMainWindow.getjPanel1().updateInfoPerson(person);
+	}
+	
+	public void afterFamily(MySimpleList<Person> list) {
+		if (iterator < list.getSize()) {
+			updatePerson(list.getIndex(iterator-1));
+		}else {
+			iterator = 0;
+			updatePerson(list.getIndex(iterator));
+		}
+	}
+	
+	public void beforeFamily(MySimpleList<Person> list) {
+		if (iterator>=0) {
+			updatePerson(list.getIndex(iterator+1));
+		}else {
+			iterator =list.getSize();
+			updatePerson(list.getIndex(iterator));
+		}
+	}
+	
+	//------------------------
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
@@ -201,6 +252,20 @@ public class MyClient implements ActionListener{
 		case C_CANCEL_CREATE_PERSON:
 			System.out.println("cancelar persona");
 			break;
+		case AFTER:
+			iterator++;
+			current = 1;
+			flatAddPerson  = 6;
+			break;
+		case BEFORE:
+			iterator--;
+			current = 2;
+			flatAddPerson  = 6;
+			break;
 		}		
 	}
+	public static void main(String[] args) {
+		new MyClient();
+	}
+
 }
