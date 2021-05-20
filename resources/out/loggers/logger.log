@@ -772,3 +772,51 @@ May 20, 2021 1:55:45 AM myServer.MyServer writeInLog
 INFO: Esperando un cliente...
 May 20, 2021 1:57:04 AM myServer.MyServer writeInLog
 INFO: Connection reset
+may 20, 2021 2:24:28 AM myServer.MyServer writeInLog
+INFORMACIÓN: cargando binaryTree
+may 20, 2021 2:24:28 AM myServer.MyServer writeInLog
+INFORMACIÓN: cargando archivo maestro...
+may 20, 2021 2:24:28 AM myServer.MyServer writeInLog
+INFORMACIÓN: completado.
+may 20, 2021 2:24:28 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 20, 2021 2:24:35 AM myServer.MyServer writeInLog
+INFORMACIÓN: se ha conectado 127.0.0.1
+may 20, 2021 2:24:35 AM myServer.MyServer writeInLog
+INFORMACIÓN: desde: 127.0.0.1
+may 20, 2021 2:24:35 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 20, 2021 2:26:28 AM myServer.MyServer writeInLog
+INFORMACIÓN: Connection reset
+may 20, 2021 2:26:33 AM myServer.MyServer writeInLog
+INFORMACIÓN: se ha conectado 127.0.0.1
+may 20, 2021 2:26:33 AM myServer.MyServer writeInLog
+INFORMACIÓN: desde: 127.0.0.1
+may 20, 2021 2:26:33 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 20, 2021 2:27:58 AM myServer.MyServer writeInLog
+INFORMACIÓN: se ha conectado 127.0.0.1
+may 20, 2021 2:27:58 AM myServer.MyServer writeInLog
+INFORMACIÓN: desde: 127.0.0.1
+may 20, 2021 2:27:58 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 20, 2021 2:29:40 AM myServer.MyServer writeInLog
+INFORMACIÓN: Connection reset
+may 20, 2021 2:29:41 AM myServer.MyServer writeInLog
+INFORMACIÓN: Connection reset
+may 20, 2021 2:45:02 AM myServer.MyServer writeInLog
+INFORMACIÓN: cargando binaryTree
+may 20, 2021 2:45:02 AM myServer.MyServer writeInLog
+INFORMACIÓN: cargando archivo maestro...
+may 20, 2021 2:45:02 AM myServer.MyServer writeInLog
+INFORMACIÓN: completado.
+may 20, 2021 2:45:02 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 20, 2021 2:45:39 AM myServer.MyServer writeInLog
+INFORMACIÓN: se ha conectado 127.0.0.1
+may 20, 2021 2:45:39 AM myServer.MyServer writeInLog
+INFORMACIÓN: desde: 127.0.0.1
+may 20, 2021 2:45:39 AM myServer.MyServer writeInLog
+INFORMACIÓN: Esperando un cliente...
+may 20, 2021 2:46:22 AM myServer.MyServer writeInLog
+INFORMACIÓN: Connection reset

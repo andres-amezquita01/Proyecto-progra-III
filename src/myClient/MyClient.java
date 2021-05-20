@@ -15,6 +15,7 @@ import java.util.Map;
 
 import javax.swing.JOptionPane;
 
+import exceptions.OnlyNumbersException;
 import model.GraphFamily;
 import model.MySimpleList;
 import model.Password;
@@ -41,7 +42,7 @@ public class MyClient implements ActionListener{
 	private ObjectOutputStream objectOutputStream;
 	private JFMainWindow jfMainWindow;
 	private int flatEvent;
-	private final static int PORT = 1111;
+	private final static int PORT = 21215;
 	private Map<Long, String> mapFamiliesRelations;
 	private JPFamilyRelations familyRelations;
 	private int current;
@@ -102,7 +103,7 @@ public class MyClient implements ActionListener{
 	 * @throws IOException Excepcion por el envio de datos por medio de sockets
 	 */
 	public void createSocket() throws UnknownHostException, IOException {
-			socketClient =  new Socket("localhost", PORT);
+			socketClient =  new Socket("186.114.217.181", PORT);
 	}
 	
 	
@@ -140,22 +141,34 @@ public class MyClient implements ActionListener{
 						
 						switch (flatEvent) {
 						case 1:
-							System.out.println("ENTRO A CASO UNO");
-							dataOutputStream.writeInt(flatEvent);
-							objectOutputStream.writeObject((Person) jfMainWindow.getPersonCreated());
-							readBasicInfoPerson(dataInputStream.readLong());
-							jfMainWindow.getjPanel1().getComboBox().removeAllItems();;
-							complementDatas.fillComboBox(mapFamiliesRelations, jfMainWindow.getjPanel1().getComboBox());
-							familyRelations = new JPFamilyRelations(mapFamiliesRelations, this,Commands.ADD_RELATION_FAMILY.name());
-							flatEvent =0;
+//							System.out.println("ENTRO A CASO UNO");
+							try {
+								dataOutputStream.writeInt(flatEvent);
+								Person personcPerson = jfMainWindow.getPersonCreated();
+								objectOutputStream.writeObject((Person) personcPerson);
+								readBasicInfoPerson(dataInputStream.readLong());
+								jfMainWindow.getjPanel1().getComboBox().removeAllItems();;
+								complementDatas.fillComboBox(mapFamiliesRelations, jfMainWindow.getjPanel1().getComboBox());
+								familyRelations = new JPFamilyRelations(mapFamiliesRelations, this,Commands.ADD_RELATION_FAMILY.name());
+								flatEvent = 0;
+							}catch(OnlyNumbersException onlyNumbersException) {
+							flatEvent = 0;
+							jfMainWindow.showExceptionOnlyNumbers();
+							}
 							break;
 						case 2:
-							dataOutputStream.writeInt(flatEvent);
-							objectOutputStream.writeObject(new GraphFamily(jfMainWindow.getPersonCreated().getId()
-							, RelationType.values()[familyRelations.getComboBoxOne().getSelectedIndex()],
-							(long) mapFamiliesRelations.keySet().toArray()[familyRelations.getComboBoxTwo().getSelectedIndex()]));
-							familyRelations.dispatchEvent(new WindowEvent(familyRelations, WindowEvent.WINDOW_CLOSING));
-							flatEvent =0;
+							try {
+								dataOutputStream.writeInt(flatEvent);
+								Person personCreated = jfMainWindow.getPersonCreated();
+								objectOutputStream.writeObject(new GraphFamily(personCreated.getId()
+								, RelationType.values()[familyRelations.getComboBoxOne().getSelectedIndex()],
+								(long) mapFamiliesRelations.keySet().toArray()[familyRelations.getComboBoxTwo().getSelectedIndex()]));
+								familyRelations.dispatchEvent(new WindowEvent(familyRelations, WindowEvent.WINDOW_CLOSING));
+								flatEvent =0;
+							}catch(OnlyNumbersException onlyNumbersException) {
+							flatEvent = 0;
+							jfMainWindow.showExceptionOnlyNumbers();
+							}
 							break;
 						case 3:
 							dataOutputStream.writeInt(flatEvent);

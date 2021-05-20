@@ -53,9 +53,9 @@ public class MyServer {
 	 * en este caso los archivos correspondientes a la pesistencia 
 	 * @throws IOException
 	 */
-	public MyServer( ) throws IOException  {
+	public MyServer(int port ) throws IOException  {
 		createFileLogger();
-		createSockets();
+		createSockets(port);
 		try {
 			initTreeAndMasterFile();
 			
@@ -446,9 +446,9 @@ public class MyServer {
 		}
 	}
 	
-	private void createSockets() {
+	private void createSockets(int port) {
 		try {
-			serverSocket = new ServerSocket(PORT);
+			serverSocket = new ServerSocket(port);
 		} catch (IOException e) {
 			System.out.println("Error en creacion se socket, puerto ocupado");
 		}
@@ -470,7 +470,11 @@ public class MyServer {
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
-		new MyServer();
+		if(args.length != 0) {
+			new MyServer(Integer.parseInt(args[0]));
+		}else {
+			System.out.println("Por favor, ingrese un puerto de conexion");
+		}
 	}
 	
 	

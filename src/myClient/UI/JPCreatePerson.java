@@ -12,6 +12,9 @@ import javax.swing.JToolTip;
 
 import com.placeholder.PlaceHolder;
 import com.toedter.calendar.JDateChooser;
+
+import exceptions.OnlyNumbersException;
+import exceptions.ValidatorExceptions;
 import model.Gender;
 import model.Person;
 import myClient.Commands;
@@ -171,7 +174,18 @@ public class JPCreatePerson extends JPanel{
 	 * creamos la personas la cual tendra sus atributos 
 	 * @return devolvemos la persona
 	 */
-	public Person createPerson()  {
+//	public Person createPerson()  {
+//			return new Person(Integer.parseInt(jtPersonId.getText()),
+//					jtFirstName.getText(), 
+//					jtLastName.getText(), 
+//					Gender.values()[mcbSelectGender.getSelectedIndex()],
+//					new ComplementDatas().parseStringToLocalDate(jChooserBirthDay.getCalendar()),
+//					(int)(jSpinnerValue.getValue()),
+//					jtProfile.getText(), null, jtPassPort.getText());
+//	}
+	public Person createPerson() throws OnlyNumbersException  {
+		try {
+			ValidatorExceptions.validateNumberCode(jtPersonId.getText());
 			return new Person(Integer.parseInt(jtPersonId.getText()),
 					jtFirstName.getText(), 
 					jtLastName.getText(), 
@@ -179,6 +193,9 @@ public class JPCreatePerson extends JPanel{
 					new ComplementDatas().parseStringToLocalDate(jChooserBirthDay.getCalendar()),
 					(int)(jSpinnerValue.getValue()),
 					jtProfile.getText(), null, jtPassPort.getText());
+		} catch (OnlyNumbersException e) {
+			throw new OnlyNumbersException();
+		}
 	}
 	/**
 	 * Limpia las areas de texto
