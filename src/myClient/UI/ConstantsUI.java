@@ -49,6 +49,7 @@ public class ConstantsUI {
 	public  static  final String BUTTON_OPTION_1 = "Opcion 1";
 	public  static  final String BUTTON_OPTION_2 = "Opcion 2";
 	public  static  final String BUTTON_CANCEL_CREATE = "Cancel created";
+	public  static  final String BUTTON_EXIT_APP = "Salir";
 	public  static  final String ITEM_PERSON_ID = "Numero de identificacion";
 	public  static  final String ITEM_PERSON_NAME = "Name";
 	public  static  final String ITEM_PERSON_LAST_NAME = "Last name";

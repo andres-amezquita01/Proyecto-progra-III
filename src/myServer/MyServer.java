@@ -212,15 +212,12 @@ public class MyServer {
 				@Override
 				public void run() {	
 					try {
-//						DataOutputStream dataOut = new DataOutputStream(socketClient.getOutputStream());
-//						DataInputStream objectIn = new DataInputStream(socketClient.getInputStream());
 						System.out.println("server start");
 						ObjectInputStream objectInputStream  = new ObjectInputStream(socketClient.getInputStream());
 						DataInputStream dataInputStream = new DataInputStream(socketClient.getInputStream());
 						DataOutputStream dataOutputStream = new DataOutputStream(socketClient.getOutputStream());
 						dataOutputStream.writeLong(myMasterPersonFile.numberPersonsInFile());
 						sendDataBasicPersons(dataOutputStream);
-//						DataOutputStream dataOutputStream = new DataOutputStream(socketClient.getOutputStream());
 						String message = "1)Agregar persona\n2)login";
 						ObjectOutputStream objectOutputStream = new ObjectOutputStream(socketClient.getOutputStream());
 
@@ -229,6 +226,8 @@ public class MyServer {
 									switch(flat) {
 										case 1:
 											addPersonToMasterAndTreeFile((Person)objectInputStream.readObject());
+											dataOutputStream.writeLong(myMasterPersonFile.numberPersonsInFile());
+											sendDataBasicPersons(dataOutputStream);
 											break;
 										case 2: 
 											addRelationFamlily((GraphFamily) objectInputStream.readObject());
@@ -257,25 +256,22 @@ public class MyServer {
 											dataOutputStream.writeInt(list.getSize());
 											if (list.getSize()>0) {
 												for (int i = 0; i < list.getSize(); i++) {
-//													System.out.println("value relationn is: " + list.getIndex(i).geKey());
 													objectOutputStream.writeObject((RelationFamilies<Person, Integer>) list.getIndex(i));
-//													dataOutputStream.writeInt(list.getIndex(i).geKey());
 												}
 											}
-											
-										break;
-									default:
 											break;
+										case 9:
+											if (dataInputStream.readBoolean()) {
+												addRelationFamlily((GraphFamily) objectInputStream.readObject());
+											}
+										break;
 									}
 							}
-							System.out.println("ultimooo");
-//							String messageOut = "Vuelve pronto...";
 //							dataOutputStream.writeUTF(messageOut);
 //							objectInputStream.close();
 //							dataOutputStream.close();
 //					} catch (IOException | ClassNotFoundException e) {
 					} catch (IOException  e) {
-//						e.printStackTrace();
 						writeInLog(e.getMessage());
 					} catch (ClassNotFoundException e) {
 						e.printStackTrace();
@@ -304,7 +300,6 @@ public class MyServer {
 			
 			
 		} catch (IOException e) {
-			System.out.println("dpdpdp´´dp");
 			e.printStackTrace();
 		}
 		return list;
@@ -424,11 +419,9 @@ public class MyServer {
 	 */
 	public void addPersonToMasterAndTreeFile(Person person) {
 		try {
-			System.out.println(person);
 			long indexMasterFile = this.myMasterPersonFile.add(person);
 			this.myBinarySearchTree.add(new Information<String>(person.getFirstName(),indexMasterFile));
 			this.myBinarySearchTreeId.add(new Information<Long>(person.getId(), indexMasterFile));
-			System.out.println(person);
 		} catch (IOException e) {
 			writeInLog(e.getMessage());
 		} catch (Exception e) {

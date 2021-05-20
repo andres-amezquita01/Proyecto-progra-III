@@ -70,7 +70,7 @@ public class MyPanel extends JPanel{
 
 	public void updateInfoPerson(Person person) {
 		txtId.setText(person.getId()+"");
-		txtName.setText(person.getFirstName().replace("_", ""));
+		txtName.setText((person.getFirstName() + " " + person.getLastName()).replace("_", ""));
 		txtDateBirth.setText(person.getBirthDay().toString());
 		txtGender.setText(person.getGender().name());
 	}

@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -27,7 +28,8 @@ public class JPFamilyRelations extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private MyComboBox myComboBoxOne, myComboBox2;
+	private MyComboBox myComboBoxOne, myComboBox2,myComboBox3;
+
 	private JLabel jLabel;
 	private JLabel jLabelTwo;
 	private JPanel panel;
@@ -39,19 +41,33 @@ public class JPFamilyRelations extends JFrame {
 	 * @param map recibo esta estructura para añadir sus valores al combo Box
 	 * @param listener
 	 */
-	public JPFamilyRelations(Map<Long, String> map,ActionListener listener) {
+	public JPFamilyRelations(Map<Long, String> map,ActionListener listener,String command) {
+		initComponents(map, listener,null,command);
+	}
+
+	public JPFamilyRelations(Map<Long, String> map,ActionListener listener,Map<Long,String> map2,String command) {
+		initComponents(map, listener,map2,command);
+	}
+
+	
+	
+	public void initComponents(Map<Long, String> map,ActionListener listener,Map<Long,String> map2,String command) {
 		panel = new JPanel(); 
 		panel.setLayout(new FlowLayout());
 		panel.setBackground(Color.white);
 		myComboBoxOne = new MyComboBox("");
 		fillMycomboboxOne();
 		myComboBox2 = new MyComboBox("");
-		fillMycomboBoxTwo( map);
-		
+	
+		fillMycomboBox(map,myComboBox2);
+		if (map2!=null) {
+			myComboBox3 = new MyComboBox();
+			fillMycomboBox(map2, myComboBox3);
+		}
 		jLabel = new JLabel("Esta persona va a ser: ");
 		jLabelTwo = new JLabel("de: ");
 		buttonAddRelationFamily = new RoundedJButton(15, 15, ConstantsUI.BUTTON_ADD_RELATION_FAMILY, ConstantsUI.COLOR_DARCK_BLUE, Color.WHITE, 
-				ConstantsUI.FONT_MAIN_WINDOW_LABELS, Commands.ADD_RELATION_FAMILY.toString(), listener ){
+				ConstantsUI.FONT_MAIN_WINDOW_LABELS, command, listener ){
             private static final long serialVersionUID = 1L;
             @Override
             public JToolTip createToolTip() {
@@ -62,6 +78,9 @@ public class JPFamilyRelations extends JFrame {
                 return toolTip;
             }
         };;
+        if (map2!=null) {
+			panel.add(myComboBox3);
+		}
 		panel.add(jLabel);
 		panel.add(myComboBoxOne);
 		panel.add(jLabelTwo);
@@ -73,7 +92,7 @@ public class JPFamilyRelations extends JFrame {
 		this.setVisible(true);
 		this.setLocationRelativeTo(null);
 	}
-
+	
 	public MyComboBox getComboBoxOne() {
 		return myComboBoxOne;
 	}
@@ -98,6 +117,14 @@ public class JPFamilyRelations extends JFrame {
 		return buttonAddRelationFamily;
 	}
 	
+	public MyComboBox getMyComboBox3() {
+		return myComboBox3;
+	}
+
+	public void setMyComboBox3(MyComboBox myComboBox3) {
+		this.myComboBox3 = myComboBox3;
+	}
+	
 	
 	/**
 	 * agrego los items a mi combo box;
@@ -113,9 +140,9 @@ public class JPFamilyRelations extends JFrame {
 		myComboBoxOne.addItem("Hijo");
 
 	}
-	public void fillMycomboBoxTwo(Map<Long, String> map) {
+	public void fillMycomboBox(Map<Long, String> map,JComboBox<String> box) {
 		for (Entry<Long, String> entry : map.entrySet()) {
-		    myComboBox2.addItem(entry.getValue() + "-> CON ID: -> " + entry.getKey());;
+			box.addItem(entry.getValue() + "-> CON ID: -> " + entry.getKey());;
 		}
 	}
 	

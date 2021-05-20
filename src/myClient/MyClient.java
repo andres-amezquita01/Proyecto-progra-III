@@ -12,6 +12,9 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.swing.JOptionPane;
+
 import model.GraphFamily;
 import model.MySimpleList;
 import model.Password;
@@ -129,6 +132,7 @@ public class MyClient implements ActionListener{
 				initWindow();
 				readBasicInfoPerson(dataInputStream.readLong());
 				objectInputStream = new ObjectInputStream(socketClient.getInputStream());
+				boolean keepAliveApp = true;
 				do {
 						dataOutputStream.writeInt(flatEvent);
 						
@@ -136,7 +140,8 @@ public class MyClient implements ActionListener{
 						case 1:
 							dataOutputStream.writeInt(flatEvent);
 							objectOutputStream.writeObject((Person) jfMainWindow.getPersonCreated());
-							familyRelations = new JPFamilyRelations(mapFamiliesRelations, this);
+							readBasicInfoPerson(dataInputStream.readLong());
+							familyRelations = new JPFamilyRelations(mapFamiliesRelations, this,Commands.ADD_RELATION_FAMILY.name());
 							flatEvent =0;
 							break;
 						case 2:
@@ -195,11 +200,36 @@ public class MyClient implements ActionListener{
 							current = 0;
 							flatEvent = 0;
 							break;
+						case 7:
+							keepAliveApp = false;
+							break;
+						case 8:
+							familyRelations = new JPFamilyRelations(mapFamiliesRelations, this,
+									mapFamiliesRelations,Commands.ADD_RELATION_FAMILY_2.name());
+							flatEvent =0;
+							break;
+						case 9:
+							dataOutputStream.writeInt(flatEvent);
+							if (mapFamiliesRelations.keySet().toArray()[familyRelations.getComboBoxTwo().getSelectedIndex()]
+									!=mapFamiliesRelations.keySet().toArray()[familyRelations.getMyComboBox3().getSelectedIndex()]) {
+								dataOutputStream.writeBoolean(true);
+								objectOutputStream.writeObject(new GraphFamily((long) mapFamiliesRelations.keySet().toArray()[familyRelations.getMyComboBox3().getSelectedIndex()]
+										, RelationType.values()[familyRelations.getComboBoxOne().getSelectedIndex()],
+										(long) mapFamiliesRelations.keySet().toArray()[familyRelations.getComboBoxTwo().getSelectedIndex()]));
+										familyRelations.dispatchEvent(new WindowEvent(familyRelations, WindowEvent.WINDOW_CLOSING));
+								
+							}else {
+								dataOutputStream.writeBoolean(false);
+								JOptionPane.showMessageDialog(null, "No se puede registrar un familiar a la misma persona");
+							}
+							flatEvent=0;
+							break;
+						
 						default:
 							break;
 						}
-				}while(true);
-				
+				}while(keepAliveApp);
+				System.exit(0);
 			} catch (IOException | ClassNotFoundException e) {
 				System.out.println("No hay un servidor disponible");
 			}
@@ -276,12 +306,6 @@ public class MyClient implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent event) {
-//		Object source = event.getSource();
-//		if (source == jfMainWindow.getjPanel1().getComboBox()) {
-//			System.out.println("combobox");
-//			iterator = 0;
-//			flatEvent =6;
-//		}else {
 		switch (Commands.valueOf(event.getActionCommand())) {
 		case C_CREATE_PERSON:
 			flatEvent = 1;
@@ -303,9 +327,7 @@ public class MyClient implements ActionListener{
 			flatEvent = 3;
 			break;
 		case C_LOGIN_BUTTON_REGISTRY:
-			System.out.println("¿registrarse?");
 			Password passwordCreated = jfMainWindow.getUserCreated();
-			
 			if(passwordCreated.getUser().equals(ConstantsUI.REGISTRY_USER) !=true  && passwordCreated.getPassword().equals(ConstantsUI.PASSWORD) != true) {
 				flatEvent = 4;	
 			}else {
@@ -330,9 +352,17 @@ public class MyClient implements ActionListener{
 			flatEvent  = 6;
 			break;
 		case AUX:
-			System.out.println("combobox event");
 			iterator = 0;
 			flatEvent =6;
+			break;
+		case EXIT:
+			flatEvent = 7;
+			break;
+		case C_MENU_CREATE_RELATION_FAMILY:
+			flatEvent = 8;
+			break;
+		case ADD_RELATION_FAMILY_2:
+			flatEvent =9;
 			break;
 		default:
 			break;

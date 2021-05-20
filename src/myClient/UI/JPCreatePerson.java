@@ -37,7 +37,7 @@ public class JPCreatePerson extends JPanel{
 	private JSpinner jSpinnerValue;
 	private JTextField jtProfile;
 	private JTextField jtPassPort;
-	private RoundedJButton jBCreate, jBCancelCreate;
+	private RoundedJButton jBCreate, jBCancelCreate,exitApp;
 	
 	
 	/**
@@ -112,7 +112,25 @@ public class JPCreatePerson extends JPanel{
                 return toolTip;
             }
         };;
+        
+        
+    	exitApp = new RoundedJButton(15, 15, ConstantsUI.BUTTON_EXIT_APP, ConstantsUI.COLOR_DARCK_BLUE, Color.WHITE, 
+				ConstantsUI.FONT_MAIN_WINDOW_LABELS, Commands.EXIT.toString(), actionListener ){
+            private static final long serialVersionUID = 1L;
+            @Override
+            public JToolTip createToolTip() {
+                JToolTip toolTip = super.createToolTip();
+                toolTip.setBackground(ConstantsUI.COLOR_DARCK_BLUE);
+                toolTip.setForeground(Color.WHITE);
+                toolTip.setFont(ConstantsUI.RUBIK_BOLD_16);
+                return toolTip;
+            }
+        };;
+        
+        
+        
         jBCancelCreate.setBackground( Color.decode("#922B3E"));
+        exitApp.setBackground( Color.decode("#922B3E"));
         GridLayout gridLayoutButton = new GridLayout(1, 2);
         gridLayoutButton.setVgap( 15 );
         gridLayoutButton.setHgap(15);
@@ -121,6 +139,7 @@ public class JPCreatePerson extends JPanel{
         panelButton.setLayout(gridLayoutButton);
         panelButton.add(jBCancelCreate);
         panelButton.add(jBCreate);
+        panelButton.add(exitApp);
         
 		add(jtPersonId);
 		add(jtFirstName);
@@ -144,6 +163,9 @@ public class JPCreatePerson extends JPanel{
 		mcbSelectGender.addItem("Masculino");
 	}
 	
+	public void createButtons() {
+		
+	}
 	
 	/**
 	 * creamos la personas la cual tendra sus atributos 
