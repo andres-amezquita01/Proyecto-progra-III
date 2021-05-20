@@ -62,6 +62,27 @@ public class MyMasterPersonFile extends RandomAccessFile{
 //		addImage("resources/img/Desert.jpg");
 		return recordIndex;
 	}
+	
+	public void setName(long index, String newName) throws IOException {
+		System.out.println("seteo");
+//		this.seek((index * RECORD_SIZE) + 
+//				Long.BYTES 
+//				+Double.BYTES
+//				+Byte.BYTES
+//				+20
+//				);
+		this.seek(index * RECORD_SIZE);
+		this.readLong();
+		this.readDouble();
+		this.readByte();//volver el gender un arreglo y pasarle la posicion que estaba guardada, 0 hombre,1 mujer etc
+		this.readUTF();
+//		String oldName = (this.readUTF());
+		this.writeUTF(newName);
+//		System.out.println("old name " + oldName);
+//		person.setLastName(this.readUTF());
+//		person.setPassport(new String(readChar(LENGTH_PASSPORT)));//leer la secuencia de caracteres (un arreglo de bytes)
+//		person.setProfile(this.readUTF());
+	}
 	/**
 	 * debemos leer en el mismo orden que añadimos
 	 * @param index indice del registro en el archivo donde se va a leer.

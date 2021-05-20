@@ -245,17 +245,26 @@ public class MyClient implements ActionListener{
 							flatEvent=0;
 							break;
 						case 10://modificar datos
-							MySimpleList<Person> mySimpleList = new MySimpleList<>();
-							System.out.println("cantidad de personas " );
-
-							int quantityPersons = objectInputStream.readInt();
-							System.out.println("cantidad de personas " + quantityPersons);
-							for (int i = 0; i < quantityPersons; i++) {
-								mySimpleList.add((Person) objectInputStream.readObject());
-							} 
-							jfMainWindow.addElementToTableSetDatas(mySimpleList);
+//							System.out.println("entro datas");
+							jfMainWindow.fillTable(mapFamiliesRelations);
 							jfMainWindow.showPanelSetDatas();
+							
 
+							flatEvent = 0 ;
+							break;
+						case 11:
+							dataOutputStream.writeInt(flatEvent);
+							long id = jfMainWindow.getIDnewName();
+							String newName = jfMainWindow.getNewStringName();
+							dataOutputStream.writeLong(id);
+							dataOutputStream.writeUTF(newName);
+							boolean wanted = dataInputStream.readBoolean();
+							if(wanted) {
+								readBasicInfoPerson(dataInputStream.readLong());
+								jfMainWindow.fillTable(mapFamiliesRelations);
+								jfMainWindow.showPanelPerson();
+								jfMainWindow.showPanelSetDatas();
+							}
 							flatEvent = 0 ;
 							break;
 						default:
@@ -398,9 +407,10 @@ public class MyClient implements ActionListener{
 			flatEvent =9;
 			break;
 		case C_MENU_SET_DATAS:
-			System.out.println("entro datas");
-			jfMainWindow.showPanelSetDatas();
-//			flatEvent = 10;
+			flatEvent = 10;
+			break;
+		case C_BUTTON_SET_DATAS:
+			flatEvent = 11;
 			break;
 		default:
 			break;

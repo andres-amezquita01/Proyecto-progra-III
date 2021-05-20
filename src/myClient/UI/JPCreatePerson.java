@@ -79,7 +79,7 @@ public class JPCreatePerson extends JPanel{
 		jtLastName.setBorder(BorderFactory.createTitledBorder(ConstantsUI.ITEM_PERSON_LAST_NAME));
 
 		jChooserBirthDay = new JDateChooser();
-		
+		jChooserBirthDay.setBorder(BorderFactory.createTitledBorder(ConstantsUI.ITEM_BIRTH_DAY));
 		jSpinnerValue = new JSpinner();
 		jSpinnerValue.setBorder(BorderFactory.createTitledBorder(ConstantsUI.ITEM_PERSON_VALUE));
 

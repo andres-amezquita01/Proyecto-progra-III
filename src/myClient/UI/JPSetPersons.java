@@ -7,6 +7,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -61,6 +63,7 @@ public class JPSetPersons extends JPanel{
 		jsTable.setForeground(Color.white);
 		jsTable.setBorder(null);
 		jsTable.setAlignmentX(Component.LEFT_ALIGNMENT);
+//		centerTextInCell();
 		this.add(jPanelDatasSet);
 		this.add(jsTable);
 		this.setBorder(null);
@@ -85,9 +88,10 @@ public class JPSetPersons extends JPanel{
             }
         };;
 		jPanelDatasSet = new JPanel();
-		jPanelDatasSet.setLayout(new GridLayout(2, 1));
+		jPanelDatasSet.setLayout(new GridLayout(3, 1));
 		jPanelDatasSet.add(jtPersonId);
 		jPanelDatasSet.add(jtFirstNewName);
+		jPanelDatasSet.add(jBsetDatas);
 	}
 	public void addElementToTable(Object[] vector){
 		dtmElements.addRow(vector);
@@ -108,4 +112,19 @@ public class JPSetPersons extends JPanel{
 			jtElements.getColumnModel().getColumn(i).setCellRenderer(centerModel);  
 		}
 	}
+	
+	public Map<Long, String> getNewName(){
+		Map<Long, String> map = new HashMap<>();
+		map.put(Long.parseLong(this.jtPersonId.getText()), this.jtFirstNewName.getText());
+		return map;
+	}
+	
+	public long getIDnewName() {
+		return Long.parseLong(this.jtPersonId.getText());
+	}
+	
+	public String getNewStringName() {
+		return this.jtFirstNewName.getText();
+	}
+	
 }

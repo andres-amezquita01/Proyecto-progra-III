@@ -7,7 +7,11 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import javax.swing.BorderFactory;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -149,6 +153,19 @@ public class JFMainWindow extends JFrame {
 	public void showPanelSetDatas() {
 		cardLayout.show(container, PANEL_SET_PERSONS);
 	}
+	public void fillTable(Map<Long, String> map) {
+		jpSetPersons.cleanRowsTable();
+		for (Entry<Long, String> entry : map.entrySet()) {
+			String[] split = entry.getValue().split(" ");
+			Object[] object = {entry.getKey(),split[0],split[1]};
+			jpSetPersons.addElementToTable(object);
+		}
+	}
+	public void fillComboBox(Map<Long, String> map,JComboBox<String> comboBox) {
+		for (Entry<Long, String> entry : map.entrySet()) {
+			comboBox.addItem(entry.getValue() + "-> CON ID: -> " + entry.getKey());;
+		}
+	}
 	public void showExceptionUserNotRegistry() {
 		JOptionPane.showMessageDialog(null, ConstantsUI.EXCEPTION_USER_NOT_REGISTRY);
 	}
@@ -174,6 +191,20 @@ public class JFMainWindow extends JFrame {
 			jpSetPersons.addElementToTable(object);
 		}
 	}
+	
+	public Map<Long, String> getNewName(){
+		return jpSetPersons.getNewName();
+	}
+	
+	public long getIDnewName() {
+		return this.jpSetPersons.getIDnewName();
+	}
+	
+	public String getNewStringName() {
+		return this.jpSetPersons.getNewStringName();
+
+	}
+	
 }
 
 

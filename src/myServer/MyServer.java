@@ -265,12 +265,25 @@ public class MyServer {
 												addRelationFamlily((GraphFamily) objectInputStream.readObject());
 											}
 										break;
-										case 10:
-											MySimpleList<Person> mySimpleList = new MySimpleList<>();
-											MySimpleList<Long> mySimpleListIndexes = myBinarySearchTreeId.traverseInOrder();
-											dataOutputStream.writeInt(mySimpleList.getSize());
-											for (int i = 0; i < mySimpleListIndexes.getSize(); i++) {
-												objectOutputStream.writeObject(myMasterPersonFile.read(mySimpleListIndexes.getIndex(i)));
+										case 11:
+											long longId = dataInputStream.readLong();
+											String newName = dataInputStream.readUTF();
+											System.out.println("id " + longId + "new name " + newName);
+											long indexMasterFile = isInto(longId);
+											System.out.println("indice de archivo " + indexMasterFile);
+											System.out.println(myMasterPersonFile.read(indexMasterFile));
+											boolean found = indexMasterFile != -1;
+											dataOutputStream.writeBoolean(found);;
+											if(found) {
+												System.out.println("entro? 1");
+												dataOutputStream.writeLong(myMasterPersonFile.numberPersonsInFile());
+												//setear
+												System.out.println("entro? 2");
+												myMasterPersonFile.setName(indexMasterFile, newName);
+												System.out.println("entro? 3");
+												sendDataBasicPersons(dataOutputStream);
+												System.out.println("entro? 4");
+
 											}
 											break;
 									}
@@ -287,7 +300,10 @@ public class MyServer {
 				}
 		}).start();;
 	}
-
+	
+	public void uptade() {
+		
+	}
 	public MySimpleList<Person> getListMasterFile(){
 		MySimpleList<Person> mySimpleList = new MySimpleList<>();
 		try {
@@ -338,6 +354,16 @@ public class MyServer {
 	 */
 	public Person searchPerson(long idPerson) throws IOException {
 		return myMasterPersonFile.read(myBinarySearchTreeId.search(idPerson).getIndexInMasterFile());
+	}
+	
+	public long isInto(long idPerson) throws IOException {
+		Information<Long> found = myBinarySearchTreeId.search(idPerson);
+		if(found != null) {
+			return found.getIndexInMasterFile();
+		}else {
+			return -1;	
+		}
+		
 	}
 
 	/**

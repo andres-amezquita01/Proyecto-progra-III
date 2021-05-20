@@ -43,6 +43,6 @@ public class Information<T> implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return String.format(" key %s indexMasterFile %d", key,indexInMasterFile);
+		return String.format("  %s indexMasterFile %d", key,indexInMasterFile);
 	}
 }
