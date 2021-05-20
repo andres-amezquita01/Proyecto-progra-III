@@ -1,5 +1,6 @@
 package myServer;
 
+import java.io.IOException;
 import java.io.Serializable;
 /**
  * relaciones familiares que tiene una personas
@@ -8,6 +9,7 @@ import java.io.Serializable;
  * @param <Person> Persona 
  * @param <Integer> tipo de relacion 
  */
+
 public class RelationFamilies<Person,Integer> implements Serializable {
 
 	private Person person;
@@ -37,6 +39,9 @@ public class RelationFamilies<Person,Integer> implements Serializable {
 		this.idTypeRelation = idTypeRelation;
 	}
 	
+	public static void main(String[] args) {
+		
+	}
 	
 	
 }

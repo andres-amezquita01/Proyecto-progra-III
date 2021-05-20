@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -116,7 +117,7 @@ public class JFMainWindow extends JFrame {
 		container.add(jpSetPersons, PANEL_SET_PERSONS);
 		cardLayout.show(container, PANEL_CREATE_PERSON);
 		containerApp.add(container);
-
+		
 	}
 	
 	/**

@@ -268,30 +268,19 @@ public class MyServer {
 										case 11:
 											long longId = dataInputStream.readLong();
 											String newName = dataInputStream.readUTF();
-											System.out.println("id " + longId + "new name " + newName);
 											long indexMasterFile = isInto(longId);
-											System.out.println("indice de archivo " + indexMasterFile);
-											System.out.println(myMasterPersonFile.read(indexMasterFile));
 											boolean found = indexMasterFile != -1;
 											dataOutputStream.writeBoolean(found);;
 											if(found) {
-												System.out.println("entro? 1");
 												dataOutputStream.writeLong(myMasterPersonFile.numberPersonsInFile());
 												//setear
-												System.out.println("entro? 2");
 												myMasterPersonFile.setName(indexMasterFile, newName);
-												System.out.println("entro? 3");
 												sendDataBasicPersons(dataOutputStream);
-												System.out.println("entro? 4");
 
 											}
 											break;
 									}
 							}
-//							dataOutputStream.writeUTF(messageOut);
-//							objectInputStream.close();
-//							dataOutputStream.close();
-//					} catch (IOException | ClassNotFoundException e) {
 					} catch (IOException  e) {
 						writeInLog(e.getMessage());
 					} catch (ClassNotFoundException e) {
@@ -519,11 +508,7 @@ public class MyServer {
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
-//		if(args.length != 0) {
-//			new MyServer(Integer.parseInt(args[0]));
-//		}else {
-//			System.out.println("Por favor, ingrese un puerto de conexion");
-//		}
+
 		new MyServer(21215);
 	}
 	

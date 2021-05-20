@@ -11,6 +11,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import javax.swing.JOptionPane;
@@ -143,7 +144,6 @@ public class MyClient implements ActionListener{
 						
 						switch (flatEvent) {
 						case 1:
-//							System.out.println("ENTRO A CASO UNO");
 							try {
 								dataOutputStream.writeInt(flatEvent);
 								Person personcPerson = jfMainWindow.getPersonCreated();
@@ -212,6 +212,12 @@ public class MyClient implements ActionListener{
 									updatePerson(families.getIndex(i));
 								}
 							}
+							if (current == 9) {
+								for (int i = 0; i < families.getSize(); i++) {
+									System.out.println((families.getIndex(i).getPerson().getFirstName().replace("_", ""))+
+											families.getIndex(i).getIdTypeRelation());
+								}
+							}
 							if (current == 1) {
 								afterFamily(families);
 							}else if(current==2) {
@@ -245,7 +251,6 @@ public class MyClient implements ActionListener{
 							flatEvent=0;
 							break;
 						case 10://modificar datos
-//							System.out.println("entro datas");
 							jfMainWindow.fillTable(mapFamiliesRelations);
 							jfMainWindow.showPanelSetDatas();
 							
@@ -411,6 +416,10 @@ public class MyClient implements ActionListener{
 			break;
 		case C_BUTTON_SET_DATAS:
 			flatEvent = 11;
+			break;
+		case GRAPH_fAMILY:
+			flatEvent =6;
+			current = 9;
 			break;
 		default:
 			break;

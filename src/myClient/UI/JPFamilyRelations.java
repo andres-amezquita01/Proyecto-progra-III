@@ -138,6 +138,7 @@ public class JPFamilyRelations extends JFrame {
 		myComboBoxOne.addItem("Esposo");
 		myComboBoxOne.addItem("Nieto");
 		myComboBoxOne.addItem("Hijo");
+		myComboBoxOne.addItem("Madre");
 
 	}
 	public void fillMycomboBox(Map<Long, String> map,JComboBox<String> box) {

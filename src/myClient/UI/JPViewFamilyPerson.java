@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JToolTip;
@@ -27,6 +28,8 @@ public class JPViewFamilyPerson extends JPanel {
 	private MyPanel myPanel;
 	private MyComboBox myComboBox;
 	private RoundedJButton jButtonBefore, jButtonAfter;
+
+	private JButton viewGraph;
 	/**
 	 * inicializa el panel
 	 * @param listener manejador de eventos de mi panel
@@ -40,7 +43,9 @@ public class JPViewFamilyPerson extends JPanel {
 	 * @param listener manejador de eventos del panel
 	 */
 	private void initComponet(ActionListener listener) {
-		
+		JPanel aux = new JPanel();
+		aux.setLayout(new BorderLayout());
+		aux.setBackground(Color.white);
 		myComboBox = new MyComboBox("");
 		myComboBox.setBorder(BorderFactory.createTitledBorder(ConstantsUI.RELATION_FAMILY));
 		myComboBox.setActionCommand(Commands.AUX.toString());
@@ -57,7 +62,7 @@ public class JPViewFamilyPerson extends JPanel {
 		jTextFielParentesco.setFont(new Font("SansSerif", Font.BOLD, 20));
 //		jTextFielParentesco.all;
 
-		this.add(jTextFielParentesco, BorderLayout.SOUTH);
+		aux.add(jTextFielParentesco, BorderLayout.SOUTH);
 		jButtonBefore = new RoundedJButton(15, 15, ConstantsUI.BUTTON_BEFORE, ConstantsUI.COLOR_LIGTH_RED, Color.WHITE, 
 				ConstantsUI.FONT_MAIN_WINDOW_LABELS, Commands.BEFORE.toString(), listener ){
             private static final long serialVersionUID = 1L;
@@ -83,7 +88,15 @@ public class JPViewFamilyPerson extends JPanel {
                 return toolTip;
             }
         };
+        
+       viewGraph = new JButton("Ver Grafo Relaciones Familiares");
+       viewGraph.addActionListener(listener);
+       viewGraph.setActionCommand(Commands.GRAPH_fAMILY.name());
+//       aux.add(viewGraph,BorderLayout.EAST);
+      
+        
 		this.add(jButtonAfter,BorderLayout.EAST);
+		this.add(aux,BorderLayout.SOUTH);
 	}
 	public MyComboBox getComboBox() {
 		return myComboBox;
