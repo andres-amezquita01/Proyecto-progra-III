@@ -3,6 +3,8 @@ package binarySearchTree;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Comparator;
+
+import model.MySimpleList;
 import persistence.MyPersistenceBinarytree;
 /**
  * 
@@ -146,7 +148,186 @@ public class MyBinarySearchTree<T> implements Serializable {
 		return myPersistenceBinaryTree.getNumberOfNodes();
 	}
 	
+	/**
+	 * Elimina un elemento del arbol desreferenciandolo en persistencia.
+	 * @param information informacion a eliminar
+	 * @return true si la elimino, false si no.
+	 * @throws IOException
+	 */
+	public boolean delete(T information) throws IOException {
+		if(this.myPersistenceBinaryTree.length() == MyPersistenceBinarytree.SIZE_HEADER) {
+			return false;
+		}else {
+			this.root = myPersistenceBinaryTree.readByIndex(this.myPersistenceBinaryTree.getIndexRoot());
+			MyBSTNode<T> aux = root;
+			MyBSTNode<T> father = root;
+			boolean isLeft = true;
+			
+			while(comparator.compare(information, aux.information.key) != 0) {
+				father = aux;
+				if(comparator.compare(information, aux.information.key) < 0) {
+					isLeft = true;
+					//validar que no sea nulo
+					if(aux.leftSon != -1) {
+						aux = this.myPersistenceBinaryTree.readByIndex(aux.leftSon);
+						this.myPersistenceBinaryTree.recordByIndex(aux.index, aux);
+					}else {
+						aux = null;
+					}
+				}else {
+					isLeft = false;
+					//validar que no sea nulo
+					if(aux.rightSon != -1) {
+						aux = this.myPersistenceBinaryTree.readByIndex(aux.rightSon);
+						this.myPersistenceBinaryTree.recordByIndex(aux.index, aux);
+					}else {
+						aux = null;
+					}
+					
+				}
+				if(aux == null) {
+					return false;
+				}
+			}//fin while
+			
+			if(aux.leftSon == -1 && aux.rightSon == -1) {//es hoja
+				if(aux.leftSon == root.index) {//mirar bien si toca leer el left para comparar
+					root = null;
+				}else if(isLeft) {
+					father.leftSon = -1;
+					this.myPersistenceBinaryTree.recordByIndex(father.index, father);
+				}else {
+					father.rightSon = -1;
+					this.myPersistenceBinaryTree.recordByIndex(father.index, father);
+				}
+			}else if(aux.rightSon == -1) {
+				if(aux.index == root.index) {
+//					root.index = aux.leftSon;//tocaria cambiar el indice
+					root = this.myPersistenceBinaryTree.readByIndex(aux.leftSon);
+//					this.myPersistenceBinaryTree.recordByIndex(root.index, root);
+//					myPersistenceBinaryTree.setIndexRoot(root.index);
+				}else if(isLeft) {
+					father.leftSon = aux.leftSon;
+					this.myPersistenceBinaryTree.recordByIndex(father.index, father);
+				}else {
+					father.rightSon = aux.leftSon;
+					this.myPersistenceBinaryTree.recordByIndex(father.index, father);
+				}
+			}else if(aux.leftSon == -1) {
+				if(aux.index == root.index) {
+//					root.index = aux.rightSon;//leer y cambiar
+					root = this.myPersistenceBinaryTree.readByIndex(aux.rightSon);
+//					this.myPersistenceBinaryTree.recordByIndex(root.index, root);
+//					myPersistenceBinaryTree.setIndexRoot(root.index);
+				}else if(isLeft) {
+					father.leftSon = aux.rightSon;
+					this.myPersistenceBinaryTree.recordByIndex(father.index, father);
+				}else {
+					father.rightSon = aux.rightSon;
+					this.myPersistenceBinaryTree.recordByIndex(father.index, father);
+				}
+			}else {
+				MyBSTNode<T> nodeReplace = getNodeReplace(aux);
+				if(aux.index == root.index) {
+//					root.index = nodeReplace.index;//leer y cambiar
+					root = this.myPersistenceBinaryTree.readByIndex(nodeReplace.index);
+//					this.myPersistenceBinaryTree.recordByIndex(root.index, root);
+//					myPersistenceBinaryTree.setIndexRoot(root.index);
+				}else if(isLeft) {
+					father.leftSon = nodeReplace.index;
+					this.myPersistenceBinaryTree.recordByIndex(father.index, father);
+					
+				}else {
+					father.rightSon = nodeReplace.index;
+					this.myPersistenceBinaryTree.recordByIndex(father.index, father);
+				}
+				nodeReplace.leftSon = aux.leftSon;
+				this.myPersistenceBinaryTree.recordByIndex(nodeReplace.index, nodeReplace);
 
+			}
+			return true;
+		}
+	}
+	private MyBSTNode<T> getNodeReplace(MyBSTNode<T> nodeReplace) throws IOException{
+		MyBSTNode<T> replaceFather = nodeReplace;
+		MyBSTNode<T> replace = nodeReplace;
+		MyBSTNode<T> aux = this.myPersistenceBinaryTree.readByIndex(nodeReplace.index);
+		while(aux != null) {
+			replaceFather = replace;
+			replace = aux;
+			if(aux.leftSon != -1) {
+				aux = this.myPersistenceBinaryTree.readByIndex(aux.leftSon);
+			}else {
+				aux = null;
+			}
+		}
+		if(replace.index != nodeReplace.rightSon) {
+			replaceFather.leftSon = replace.rightSon;
+			replace.rightSon = nodeReplace.rightSon;
+			this.myPersistenceBinaryTree.recordByIndex(replaceFather.index, replaceFather);
+			this.myPersistenceBinaryTree.recordByIndex(replace.index, replace);
+
+			//grabar---
+		}
+		return replace;
+	}
+	/**
+	 * Recorre el arbol inOrden 
+	 * @return indices de referencia de los registros
+	 * @throws IOException
+	 */
+	public MySimpleList<Long> traverseInOrder() throws IOException{
+		MySimpleList<Long> aux = new MySimpleList<Long>();
+		
+		if(this.myPersistenceBinaryTree.length() != MyPersistenceBinarytree.SIZE_HEADER) {
+			this.root = myPersistenceBinaryTree.readByIndex(myPersistenceBinaryTree.getIndexRoot());
+			inOrder(this.root,aux);
+		}
+	    return aux;
+	}
+	/**
+	 * Metodo para recorrer inOrder el arbol
+	 * @param node nodo padre
+	 * @param list lista para guardar las referencias.
+	 * @throws IOException
+	 */
+	private void inOrder(MyBSTNode<T> node,MySimpleList<Long> list)throws IOException {
+	    if (node != null) {
+	    	if(node.leftSon!=-1)inOrder(myPersistenceBinaryTree.readByIndex(node.leftSon),list);
+	        	list.add(node.information.indexInMasterFile);
+	        if(node.rightSon != -1)inOrder(myPersistenceBinaryTree.readByIndex(node.rightSon),list);
+	    }
+	    
+	}
+	/**
+	 * Metodo para recorrer inOrder el arbol
+	 * @throws IOException
+	 */
+	public MySimpleList<T> traverseInOrderKeys() throws IOException{
+		MySimpleList<T> aux = new MySimpleList<T>();
+		
+		if(this.myPersistenceBinaryTree.length() != MyPersistenceBinarytree.SIZE_HEADER) {
+			this.root = myPersistenceBinaryTree.readByIndex(myPersistenceBinaryTree.getIndexRoot());
+			inOrderKeys(this.root,aux);
+		}
+	    return aux;
+	}
+	/**
+	 * Metodo para recorrer inOrder el arbol
+	 * @param node nodo padre
+	 * @param list lista para guardar las llaves.
+	 * @throws IOException
+	 */
+	private void inOrderKeys(MyBSTNode<T> node,MySimpleList<T> list)throws IOException {
+//	    System.out.println(node);
+		if (node != null) {
+	    	if(node.leftSon!=-1)inOrderKeys(myPersistenceBinaryTree.readByIndex(node.leftSon),list);
+	        	list.add(node.information.key);
+	        if(node.rightSon != -1)inOrderKeys(myPersistenceBinaryTree.readByIndex(node.rightSon),list);
+	    }
+	    
+	}
+	
 	
 	
 }
