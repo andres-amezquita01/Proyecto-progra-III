@@ -77,7 +77,7 @@ public class MyMasterPersonFile extends RandomAccessFile{
 		this.readByte();//volver el gender un arreglo y pasarle la posicion que estaba guardada, 0 hombre,1 mujer etc
 		this.readUTF();
 //		String oldName = (this.readUTF());
-		this.writeUTF(newName);
+		this.writeUTF(converter.stringSize(newName, LENGTH_NAME));
 //		System.out.println("old name " + oldName);
 //		person.setLastName(this.readUTF());
 //		person.setPassport(new String(readChar(LENGTH_PASSPORT)));//leer la secuencia de caracteres (un arreglo de bytes)
