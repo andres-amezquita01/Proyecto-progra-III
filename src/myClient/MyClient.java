@@ -43,6 +43,8 @@ public class MyClient implements ActionListener{
 	private JFMainWindow jfMainWindow;
 	private int flatEvent;
 	private final static int PORT = 21215;
+	private final static String HOST = "localhost";
+
 	private Map<Long, String> mapFamiliesRelations;
 	private JPFamilyRelations familyRelations;
 	private int current;
@@ -103,7 +105,7 @@ public class MyClient implements ActionListener{
 	 * @throws IOException Excepcion por el envio de datos por medio de sockets
 	 */
 	public void createSocket() throws UnknownHostException, IOException {
-			socketClient =  new Socket("186.114.217.181", PORT);
+			socketClient =  new Socket(HOST, PORT);
 	}
 	
 	
@@ -242,7 +244,20 @@ public class MyClient implements ActionListener{
 							}
 							flatEvent=0;
 							break;
-						
+						case 10://modificar datos
+							MySimpleList<Person> mySimpleList = new MySimpleList<>();
+							System.out.println("cantidad de personas " );
+
+							int quantityPersons = objectInputStream.readInt();
+							System.out.println("cantidad de personas " + quantityPersons);
+							for (int i = 0; i < quantityPersons; i++) {
+								mySimpleList.add((Person) objectInputStream.readObject());
+							} 
+							jfMainWindow.addElementToTableSetDatas(mySimpleList);
+							jfMainWindow.showPanelSetDatas();
+
+							flatEvent = 0 ;
+							break;
 						default:
 							break;
 						}
@@ -381,6 +396,11 @@ public class MyClient implements ActionListener{
 			break;
 		case ADD_RELATION_FAMILY_2:
 			flatEvent =9;
+			break;
+		case C_MENU_SET_DATAS:
+			System.out.println("entro datas");
+			jfMainWindow.showPanelSetDatas();
+//			flatEvent = 10;
 			break;
 		default:
 			break;

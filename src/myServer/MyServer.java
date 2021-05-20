@@ -265,6 +265,14 @@ public class MyServer {
 												addRelationFamlily((GraphFamily) objectInputStream.readObject());
 											}
 										break;
+										case 10:
+											MySimpleList<Person> mySimpleList = new MySimpleList<>();
+											MySimpleList<Long> mySimpleListIndexes = myBinarySearchTreeId.traverseInOrder();
+											dataOutputStream.writeInt(mySimpleList.getSize());
+											for (int i = 0; i < mySimpleListIndexes.getSize(); i++) {
+												objectOutputStream.writeObject(myMasterPersonFile.read(mySimpleListIndexes.getIndex(i)));
+											}
+											break;
 									}
 							}
 //							dataOutputStream.writeUTF(messageOut);
@@ -280,7 +288,22 @@ public class MyServer {
 		}).start();;
 	}
 
-
+	public MySimpleList<Person> getListMasterFile(){
+		MySimpleList<Person> mySimpleList = new MySimpleList<>();
+		try {
+			MySimpleList<Long> mySimpleListIndexes = myBinarySearchTreeId.traverseInOrder();
+			
+			for (int i = 0; i < mySimpleListIndexes.getSize(); i++) {
+				mySimpleList.add(myMasterPersonFile.read(mySimpleListIndexes.getIndex(i)));
+			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return mySimpleList;
+		
+	}
 	/**
 	 * metodo que  crea una lista de familiares asocidos a una persona identificada con un id Dado
 	 * @param idPerson id de la persona
@@ -470,11 +493,12 @@ public class MyServer {
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
-		if(args.length != 0) {
-			new MyServer(Integer.parseInt(args[0]));
-		}else {
-			System.out.println("Por favor, ingrese un puerto de conexion");
-		}
+//		if(args.length != 0) {
+//			new MyServer(Integer.parseInt(args[0]));
+//		}else {
+//			System.out.println("Por favor, ingrese un puerto de conexion");
+//		}
+		new MyServer(21215);
 	}
 	
 	

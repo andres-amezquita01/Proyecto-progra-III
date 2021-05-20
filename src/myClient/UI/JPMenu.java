@@ -20,7 +20,7 @@ public class JPMenu extends JPanel{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private RoundedJButton createPerson,option1,option2,option3;
+	private RoundedJButton createPerson,option1,option2,option3, jButtonSetPersons;
 	private JPCreatePerson jpcreatePerson;
 
 	
@@ -50,11 +50,13 @@ public class JPMenu extends JPanel{
 		option3 = new RoundedJButton(15, 15, "Agregar Una Relacion Familiar", ConstantsUI.COLOR_DARCK_BLUE, Color.WHITE, 
 				ConstantsUI.FONT_MAIN_WINDOW_LABELS, Commands.C_MENU_CREATE_RELATION_FAMILY.name(), listener );
 
-
+		jButtonSetPersons = new RoundedJButton(15, 15, ConstantsUI.SET_DATAS, ConstantsUI.COLOR_DARCK_BLUE, Color.WHITE, 
+				ConstantsUI.FONT_MAIN_WINDOW_LABELS, Commands.C_MENU_SET_DATAS.name(), listener );
 
 		this.add(createPerson);
 		this.add(option1);
 		this.add(option3);
+		this.add(jButtonSetPersons);
 
 	}
 

@@ -3,6 +3,7 @@ package myClient.UI;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.Vector;
 /**
  * constantes que manejo como buenas practicas, para los eventos y demas lugares donde necesite estos textos
  * @author Grupo 2 -- Darwin Vargas --Andres Amezquita Gordillo-- Andres Felipe Moreno
@@ -81,6 +82,13 @@ public class ConstantsUI {
 	public  static  final String BUTTON_AFTER = 	">";
 	public  static  final String RELATION_FAMILY = 	"Relacion familiar";
 	public  static  final String PARENTESCO = 	"Parentesco";
+	public static final String SET_DATAS = "Modificar datos";
+	
+	//--------------SET DATAS-------------------------
+	public  static  final String PERSON_ID_TO_SET_DATAS = "Numero de identificacion de la persona a modificar";
+	public  static  final String PERSON_NEW_NAME = "Nuevo nombre";
+	public static final Object[] TITLE_TABLE_DATAS = {"Numero ID","Nombre", "Apellido"};
+
 }
 
 

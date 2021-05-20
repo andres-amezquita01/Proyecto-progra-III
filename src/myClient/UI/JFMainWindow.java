@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import exceptions.OnlyNumbersException;
+import model.MySimpleList;
 import model.Password;
 import model.Person;
 
@@ -32,12 +33,13 @@ public class JFMainWindow extends JFrame {
 	private JScrollPane jScroll;
 	private CardLayout cardLayout;
 	private JPanel containerApp;
-	
+	private JPSetPersons jpSetPersons;
 	private JPViewFamilyPerson jPanelViewFamilyPerson;
 
 	
 	private static final String PANEL_CREATE_PERSON = "panel persona";
 	private static final String PANEL_SEARCH_FAMILY_RELATION = "panel buscar relaciones familiares";
+	private static final String PANEL_SET_PERSONS= "panel modificar datos";
 
 
 	ActionListener actionListener;
@@ -91,8 +93,8 @@ public class JFMainWindow extends JFrame {
 		
 		
 		container.setBackground(Color.WHITE);
-
 		jPcreatePerson = new JPCreatePerson(actionListener);
+		jpSetPersons = new JPSetPersons( actionListener);
 		container.setLayout(cardLayout);
 		container.add(jPcreatePerson, PANEL_CREATE_PERSON);
 
@@ -107,6 +109,7 @@ public class JFMainWindow extends JFrame {
 
 		container.add(jPcreatePerson, PANEL_CREATE_PERSON);
 		container.add(jPanelViewFamilyPerson, PANEL_SEARCH_FAMILY_RELATION);//---
+		container.add(jpSetPersons, PANEL_SET_PERSONS);
 		cardLayout.show(container, PANEL_CREATE_PERSON);
 		containerApp.add(container);
 
@@ -143,6 +146,9 @@ public class JFMainWindow extends JFrame {
 	public void showPanelSearchFamilyRelation() {
 		cardLayout.show(container, PANEL_SEARCH_FAMILY_RELATION);
 	}
+	public void showPanelSetDatas() {
+		cardLayout.show(container, PANEL_SET_PERSONS);
+	}
 	public void showExceptionUserNotRegistry() {
 		JOptionPane.showMessageDialog(null, ConstantsUI.EXCEPTION_USER_NOT_REGISTRY);
 	}
@@ -161,6 +167,12 @@ public class JFMainWindow extends JFrame {
 	}
 	public void clearPanelCreatePerson() {
 		jPcreatePerson.clear();
+	}
+	public void addElementToTableSetDatas(MySimpleList<Person> person) {
+		for (int i = 0; i < person.getSize(); i++) {
+			Object[] object = {person.getIndex(i).getId(),person.getIndex(i).getFirstName(), person.getIndex(i).getLastName()};
+			jpSetPersons.addElementToTable(object);
+		}
 	}
 }
 
