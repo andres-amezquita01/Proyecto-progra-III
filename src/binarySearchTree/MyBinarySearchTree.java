@@ -1,13 +1,9 @@
 package binarySearchTree;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Comparator;
-
 import persistence.MyPersistenceBinarytree;
-import utilities.ComplementDatas;
 /**
  * 
  * @author Grupo 2 -- Darwin Vargas --Andres Amezquita Gordillo-- Andres Felipe Moreno
@@ -16,6 +12,7 @@ import utilities.ComplementDatas;
  * @param <T>
  */
 public class MyBinarySearchTree<T> implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private MyBSTNode<T> root;
 	private Comparator<T> comparator;
 	private MyPersistenceBinarytree<T> myPersistenceBinaryTree;
@@ -40,7 +37,7 @@ public class MyBinarySearchTree<T> implements Serializable {
 	 * @throws Exception exeption la cual escribe los posibles errores en mi logger
 	 */
 	public void add(Information<T> information) throws IOException,Exception {
-		if(this.myPersistenceBinaryTree.length() == myPersistenceBinaryTree.SIZE_HEADER) {
+		if(this.myPersistenceBinaryTree.length() == MyPersistenceBinarytree.SIZE_HEADER) {
 			this.root = new MyBSTNode<T>(information);
 			long indexRoot = myPersistenceBinaryTree.record(root);
 			this.myPersistenceBinaryTree.setIndexRoot(indexRoot);
@@ -110,7 +107,6 @@ public class MyBinarySearchTree<T> implements Serializable {
 	 * @throws IOException manejo la exepcion del manejo de archivos
 	 */
 	private Information<T> search(T key,MyBSTNode<T> father) throws IOException{
-		MyBSTNode<T> aux = father;
 		Information<T> information = father.information;
 		if(father.index != -1) {
 			if(comparator.compare(father.information.key,key) == 0) {
@@ -138,9 +134,9 @@ public class MyBinarySearchTree<T> implements Serializable {
 
 	
 	/**
-	 * metodo que me lee un nodo de un archivo basandome en su respectivo indice
-	 * @param index indice del cual quiero obtener mi nodo
-	 * @return devuelvo el nodo en caso de que lo encuentre
+	 * metodo que me lee un nodo de un archivo basandose en su respectivo indice
+	 * @param index indice del cual se quiere obtener el nodo
+	 * @return devuelve el nodo en caso de que lo encuentre
 	 * @throws IOException excepcion del manejo de archivos
 	 */
 	public MyBSTNode<T> read(long index) throws IOException{

@@ -5,10 +5,11 @@ import java.io.Serializable;
 /**
  * 
  * @author Grupo 2 -- Darwin Vargas --Andres Amezquita Gordillo-- Andres Felipe Moreno
- *clase que contiene mi nodo de mi BST
+ *clase que contiene el nodo de la estructura del arbol binario de busqueda BST
  * @param <T>
  */
 public class MyBSTNode<T> implements Serializable {
+	private static final long serialVersionUID = 1L;
 	protected Information<T> information;
 	protected long leftSon;
 	protected long rightSon;

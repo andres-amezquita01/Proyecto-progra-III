@@ -1,7 +1,5 @@
 package persistence;
 
-import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -38,9 +36,6 @@ public class MyMasterPasswordFile extends RandomAccessFile{
 	public long add(Password password) throws IOException {
 		this.seek(this.length());
 		long recordIndex = this.length()/SIZE_REGISTRY;
-		System.out.println("tamaño archivo" + this.length());
-		System.out.println("operacion" + this.length()/SIZE_REGISTRY);
-
 		this.writeUTF(complementDatas.stringSize(password.getUser(), SIZE_USER));
 		this.writeUTF(complementDatas.stringSize(password.getPassword(), SIZE_PASSWORD));
 		return recordIndex;

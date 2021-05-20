@@ -25,7 +25,7 @@ public class JFMainWindow extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPMenu menu;
-	private JPCreatePerson jPcreateStudent;
+	private JPCreatePerson jPcreatePerson;
 	private JPLoggin jpLoggin;
 	private JPanel container;
 	private JScrollPane jScroll;
@@ -90,9 +90,9 @@ public class JFMainWindow extends JFrame {
 		
 		container.setBackground(Color.WHITE);
 
-		jPcreateStudent = new JPCreatePerson(actionListener);
+		jPcreatePerson = new JPCreatePerson(actionListener);
 		container.setLayout(cardLayout);
-		container.add(jPcreateStudent, PANEL_CREATE_PERSON);
+		container.add(jPcreatePerson, PANEL_CREATE_PERSON);
 
 		menu = new JPMenu(actionListener, container);
 		jScroll = new JScrollPane(container);
@@ -103,7 +103,7 @@ public class JFMainWindow extends JFrame {
 		containerApp.add(menu, BorderLayout.NORTH);
 		containerApp.add(jScroll, BorderLayout.CENTER);
 
-		container.add(jPcreateStudent, PANEL_CREATE_PERSON);
+		container.add(jPcreatePerson, PANEL_CREATE_PERSON);
 		container.add(jPanelViewFamilyPerson, PANEL_SEARCH_FAMILY_RELATION);//---
 		cardLayout.show(container, PANEL_CREATE_PERSON);
 		containerApp.add(container);
@@ -122,7 +122,7 @@ public class JFMainWindow extends JFrame {
 	
 	
 	public Person getPersonCreated() {
-		return jPcreateStudent.createPerson();
+		return jPcreatePerson.createPerson();
 	}
 	public Password getUserCreated() {
 		return jpLoggin.createPassword();
@@ -148,12 +148,15 @@ public class JFMainWindow extends JFrame {
 		JOptionPane.showMessageDialog(null, ConstantsUI.EXCEPTION_USER_NOT_REGISTRY);
 	}
 	public void showPasswordRecovered(String passwordRecovered) {
-		JOptionPane.showMessageDialog(null, "contraseña recuperada\n " + passwordRecovered);
+		JOptionPane.showMessageDialog(null,  passwordRecovered);
 		
 	}	
 	
 	public JPViewFamilyPerson getjPanel1() {
 		return jPanelViewFamilyPerson;
+	}
+	public void clearPanelCreatePerson() {
+		jPcreatePerson.clear();
 	}
 }
 

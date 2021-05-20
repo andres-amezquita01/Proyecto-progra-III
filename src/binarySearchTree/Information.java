@@ -8,14 +8,18 @@ import java.io.Serializable;
  * @param <T>
  */
 public class Information<T> implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected T key;
 	protected long indexInMasterFile;
 	
 	
 	/**
 	 * contructor de mi clase Informacion donde recibo los parametros descritos
-	 * @param key llave de mi clase que sera de algun valor T
-	 * @param indexMasterFile indice en el archivo maestro donde se encuentra mi valor T
+	 * @param key llave de la clase que sera de algun valor T
+	 * @param indexMasterFile indice en el archivo maestro donde se encuentra el valor T
 	 */
 	public Information(T key, long indexMasterFile) {
 		this.key = key;

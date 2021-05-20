@@ -11,12 +11,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
-
-import javax.swing.JFrame;
-
 import model.GraphFamily;
 import model.MySimpleList;
 import model.Password;
@@ -25,6 +20,7 @@ import model.RelationType;
 import myClient.UI.ConstantsUI;
 import myClient.UI.FamilyRelations;
 import myClient.UI.JFMainWindow;
+import myClient.UI.JPFamilyRelations;
 import myServer.RelationFamilies;
 import utilities.ComplementDatas;
 /**
@@ -41,10 +37,10 @@ public class MyClient implements ActionListener{
 	private ObjectInputStream objectInputStream;
 	private ObjectOutputStream objectOutputStream;
 	private JFMainWindow jfMainWindow;
-	private int flatAddPerson;
+	private int flatEvent;
 	private final static int PORT = 1111;
 	private Map<Long, String> mapFamiliesRelations;
-	private FamilyRelations familyRelations;
+	private JPFamilyRelations familyRelations;
 	private int current;
 	private int iterator;
 
@@ -134,25 +130,25 @@ public class MyClient implements ActionListener{
 				readBasicInfoPerson(dataInputStream.readLong());
 				objectInputStream = new ObjectInputStream(socketClient.getInputStream());
 				do {
-						dataOutputStream.writeInt(flatAddPerson);
+						dataOutputStream.writeInt(flatEvent);
 						
-						switch (flatAddPerson) {
+						switch (flatEvent) {
 						case 1:
-							dataOutputStream.writeInt(flatAddPerson);
+							dataOutputStream.writeInt(flatEvent);
 							objectOutputStream.writeObject((Person) jfMainWindow.getPersonCreated());
-							familyRelations = new FamilyRelations(mapFamiliesRelations, this);
-							flatAddPerson =0;
+							familyRelations = new JPFamilyRelations(mapFamiliesRelations, this);
+							flatEvent =0;
 							break;
 						case 2:
-							dataOutputStream.writeInt(flatAddPerson);
+							dataOutputStream.writeInt(flatEvent);
 							objectOutputStream.writeObject(new GraphFamily(jfMainWindow.getPersonCreated().getId()
 							, RelationType.values()[familyRelations.getComboBoxOne().getSelectedIndex()],
 							(long) mapFamiliesRelations.keySet().toArray()[familyRelations.getComboBoxTwo().getSelectedIndex()]));
 							familyRelations.dispatchEvent(new WindowEvent(familyRelations, WindowEvent.WINDOW_CLOSING));
-							flatAddPerson =0;
+							flatEvent =0;
 							break;
 						case 3:
-							dataOutputStream.writeInt(flatAddPerson);
+							dataOutputStream.writeInt(flatEvent);
 							Password password = jfMainWindow.getUserCreated();
 							objectOutputStream.writeObject(password);
 							if(dataInputStream.readBoolean()) {
@@ -160,10 +156,10 @@ public class MyClient implements ActionListener{
 							}else {
 								jfMainWindow.showExceptionUserNotRegistry();
 							}
-							flatAddPerson =0;
+							flatEvent =0;
 							break;
 						case 4:
-							dataOutputStream.writeInt(flatAddPerson);
+							dataOutputStream.writeInt(flatEvent);
 							Password passwordCreated = jfMainWindow.getUserCreated();
 							objectOutputStream.writeObject(passwordCreated);
 							if(dataInputStream.readBoolean()) {
@@ -171,17 +167,17 @@ public class MyClient implements ActionListener{
 							}else {
 								jfMainWindow.showExceptionUserDuplicate();
 							}
-							flatAddPerson =0;
+							flatEvent =0;
 							break;
 						case 5:
-							dataOutputStream.writeInt(flatAddPerson);
+							dataOutputStream.writeInt(flatEvent);
 							Password passwordRecovered = jfMainWindow.getUserCreated();
 							objectOutputStream.writeObject(passwordRecovered);
 							jfMainWindow.showPasswordRecovered(dataInputStream.readUTF());
-							flatAddPerson =0;
+							flatEvent =0;
 							break;
 						case 6:
-							dataOutputStream.writeInt(flatAddPerson);
+							dataOutputStream.writeInt(flatEvent);
 							dataOutputStream.writeInt(jfMainWindow.getjPanel1().getComboBox().getSelectedIndex());
 							MySimpleList<RelationFamilies<Person, Integer>> families = new MySimpleList<RelationFamilies<Person, Integer>>();
 							int sizeListFamilies = dataInputStream.readInt();
@@ -197,7 +193,7 @@ public class MyClient implements ActionListener{
 								beforeFamily(families);
 							}
 							current = 0;
-							flatAddPerson = 0;
+							flatEvent = 0;
 							break;
 						default:
 							break;
@@ -280,17 +276,18 @@ public class MyClient implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		Object source = event.getSource();
-		if (source == jfMainWindow.getjPanel1().getComboBox()) {
-			iterator = 0;
-			flatAddPerson =6;
-		}else {
+//		Object source = event.getSource();
+//		if (source == jfMainWindow.getjPanel1().getComboBox()) {
+//			System.out.println("combobox");
+//			iterator = 0;
+//			flatEvent =6;
+//		}else {
 		switch (Commands.valueOf(event.getActionCommand())) {
 		case C_CREATE_PERSON:
-			flatAddPerson = 1;
+			flatEvent = 1;
 			break;
 		case ADD_RELATION_FAMILY:
-			flatAddPerson =2;
+			flatEvent =2;
 			break;
 		case C_MENU_SHOW_CREATE_PERSON_PANEL:
 			jfMainWindow.showPanelPerson();
@@ -303,38 +300,45 @@ public class MyClient implements ActionListener{
 			jfMainWindow.showPanelSearchFamilyRelation();
 			break;
 		case C_LOGIN_BUTTON_ENTRY:
-			flatAddPerson = 3;
+			flatEvent = 3;
 			break;
 		case C_LOGIN_BUTTON_REGISTRY:
 			System.out.println("¿registrarse?");
 			Password passwordCreated = jfMainWindow.getUserCreated();
 			
 			if(passwordCreated.getUser().equals(ConstantsUI.REGISTRY_USER) !=true  && passwordCreated.getPassword().equals(ConstantsUI.PASSWORD) != true) {
-				flatAddPerson = 4;	
+				flatEvent = 4;	
 			}else {
-				flatAddPerson = 0;
+				flatEvent = 0;
 				jfMainWindow.showExceptionUserDuplicate();
 			}
 			break;
 		case C_LOGIN_BUTTON_RECOVER_PASSWORD:
-			flatAddPerson = 5;
+			flatEvent = 5;
 			break;
 		case C_CANCEL_CREATE_PERSON:
-			System.out.println("cancelar persona");
+			jfMainWindow.clearPanelCreatePerson();
 			break;
 		case AFTER:
 			iterator++;
 			current = 1;
-			flatAddPerson  = 6;
+			flatEvent  = 6;
 			break;
 		case BEFORE:
 			iterator--;
 			current = 2;
-			flatAddPerson  = 6;
+			flatEvent  = 6;
+			break;
+		case AUX:
+			System.out.println("combobox event");
+			iterator = 0;
+			flatEvent =6;
+			break;
+		default:
 			break;
 			}	
 		}
-	}
+//	}
 	
 	/**
 	 * main donde ejecuto mi cliente

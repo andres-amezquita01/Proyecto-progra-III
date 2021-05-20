@@ -72,7 +72,15 @@ public class ConstantsUI {
 	public static final String EXCEPTION_USER_NOT_REGISTRY= "El usuario es incorrecto.";
 	public static final String EXCEPTION_USER_DUPLICATE= "El usuario ya existe.";
 	public static final String BUTTON_ADD_RELATION_FAMILY = "añadir relacion";
-}	
+	public  static  final String ITEM_BIRTH_DAY = "Fecha de nacimiento";
+	
+	//------------------SEARCH-----------------
+	public  static  final String BUTTON_BEFORE = 	"<";
+	public  static  final String BUTTON_AFTER = 	">";
+	public  static  final String RELATION_FAMILY = 	"Relacion familiar";
+	public  static  final String PARENTESCO = 	"Parentesco";
+}
+
 
 
 

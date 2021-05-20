@@ -5,7 +5,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
@@ -13,10 +12,8 @@ import javax.swing.JToolTip;
 
 import com.placeholder.PlaceHolder;
 import com.toedter.calendar.JDateChooser;
-
 import model.Gender;
 import model.Person;
-import model.RelationType;
 import myClient.Commands;
 import myClient.items.MyComboBox;
 import myClient.items.RoundedJButton;
@@ -160,6 +157,16 @@ public class JPCreatePerson extends JPanel{
 					new ComplementDatas().parseStringToLocalDate(jChooserBirthDay.getCalendar()),
 					(int)(jSpinnerValue.getValue()),
 					jtProfile.getText(), null, jtPassPort.getText());
+	}
+	/**
+	 * Limpia las areas de texto
+	 */
+	public void clear() {
+		jtPersonId.setText("");
+		jtFirstName.setText("");
+		jtLastName.setText("");
+		jtProfile.setText("");
+		jtPassPort.setText("");
 	}
 	
 	

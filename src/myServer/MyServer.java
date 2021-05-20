@@ -27,7 +27,7 @@ import persistence.MyMasterPasswordFile;
 import persistence.MyMasterPersonFile;
 import utilities.ComplementDatas;
 /**
- * Servidor de mi apliacion donde manejamos la aceptacion de multiples usuarios ademas 
+ * Servidor de la apliacion donde manejamos la aceptacion de multiples usuarios ademas 
  * de todos los flujos de datos hacia este 
  * @author Grupo 2 -- Darwin Vargas --Andres Amezquita Gordillo-- Andres Felipe Moreno
  *
@@ -49,7 +49,7 @@ public class MyServer {
 	
 	
 	/**
-	 * contructor de mi clase servidor donde manejo al inicializacion de esta ademas de cargar 
+	 * contructor de la clase servidor donde maneja la inicializacion de esta ademas de cargar 
 	 * en este caso los archivos correspondientes a la pesistencia 
 	 * @throws IOException
 	 */
@@ -189,7 +189,7 @@ public class MyServer {
 	
 	
 	/**
-	 * envio la informacion basica de las personas a los clientes para que estos puedan ver las relaciones
+	 * envia la informacion basica de las personas a los clientes para que estos puedan ver las relaciones
 	 * familiares existentes
 	 * @param dataOutputStream datos que enviare 
 	 * @throws IOException
@@ -204,7 +204,7 @@ public class MyServer {
 	}
 	
 	/**
-	 * creo que la concurrencia que le permite a nuestro servidor atender las solicitudes de multiples clientes
+	 * crea que la concurrencia que le permite a nuestro servidor atender las solicitudes de multiples clientes
 	 * @param socketClient sockets de mi servidor
 	 */
 	private void createThread(Socket socketClient) {
@@ -286,9 +286,9 @@ public class MyServer {
 
 
 	/**
-	 * metodo que me crea una lista de familiares asocidos a una persona identificada con un id Dado
+	 * metodo que  crea una lista de familiares asocidos a una persona identificada con un id Dado
 	 * @param idPerson id de la persona
-	 * @return devuelvo  la lista
+	 * @return devuelve  la lista
 	 */
 	public MySimpleList<RelationFamilies<Person,Integer>> relationsFamilies(Long idPerson) {
 		MySimpleList<RelationFamilies<Person,Integer>> list = new MySimpleList<>();
@@ -312,11 +312,11 @@ public class MyServer {
 	
 	
 	/**
-	 * busco una persona con su id primero lo hago en en archivo de indices y apenas
-	 * lo encuentre Apunto al archivo maestro para la optimizacion de bsuqueda
-	 * @param idPerson id de la persona que quiero vivir
-	 * @return devuelvo la persona que encontre
-	 * @throws IOException manejo la excepcion por la manipulacion de archivos
+	 * busca una persona con su id primero lo hace en en archivo de indices y apenas
+	 * lo encuentre Apunta al archivo maestro para la optimizacion de busqueda
+	 * @param idPerson id de la persona que quiere obtener
+	 * @return devuelvo la persona que encontro
+	 * @throws IOException maneja la excepcion por la manipulacion de archivos
 	 */
 	public Person searchPerson(long idPerson) throws IOException {
 		return myMasterPersonFile.read(myBinarySearchTreeId.search(idPerson).getIndexInMasterFile());
@@ -351,9 +351,9 @@ public class MyServer {
 	
 	
 	/**
-	 * recupero la contraseña de un usuario dado
-	 * @param password
-	 * @return
+	 * recupera la contraseña de un usuario dado
+	 * @param password contraseña y usuario
+	 * @return  contraseña en caso de que se encuentre.
 	 */
 	public String recoveredPassWord(Password password) {
 		try {
@@ -399,24 +399,6 @@ public class MyServer {
 			e.printStackTrace();
 		}
 		return false;
-	}
-	/**
-	 * Aun NO SE USA
-	 * @param password
-	 */
-	public void loggin(Password password) {
-		try {
-			//aca se deberia inicializar el arbol que coincida con el usuario
-			String user = complementDatas.stringSize(password.getUser(), 30);
-//			String passwordUser = complementDatas.stringSize(password.getPassword(), 30);
-//			Information<String> information = myBinarySearchTreePassword.search(user) ;
-			myBinarySearchTreePassword.add(new Information<String>(password.getUser(), this.myMasterPasswordFile.add(password)));
-			System.out.println(password);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 	//---------------------FIN AREA DE REGISTRO------------------------------------
 	
@@ -490,14 +472,12 @@ public class MyServer {
 	}
 	
 	/**
-	 * incializoamos nuestro servidor 
+	 * incializamos nuestro servidor 
 	 * @param args
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
-		
 		new MyServer();
-		
 	}
 	
 	

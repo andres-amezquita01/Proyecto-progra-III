@@ -16,5 +16,6 @@ public enum Commands {
 	C_MENU_SEARCH_RELATIONS_FAMILIES,
 	
 	BEFORE, 
-	AFTER;
+	AFTER, 
+	AUX;
 }

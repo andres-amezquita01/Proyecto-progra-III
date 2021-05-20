@@ -17,7 +17,7 @@ public class RelationFamilies<Person,Integer> implements Serializable {
 	}
 	
 	/**
-	 * contrtuctor de mi clase
+	 * contrtuctor de la clase
 	 * @param person persona con la que se tiene alguna relacion
 	 * @param idTypeRelation tipo de relacion que se tiene con la persona mencionada
 	 */
