@@ -46,6 +46,7 @@ public class MyClient implements ActionListener{
 	private JPFamilyRelations familyRelations;
 	private int current;
 	private int iterator;
+	private ComplementDatas complementDatas;
 
 	
 	/**
@@ -53,6 +54,7 @@ public class MyClient implements ActionListener{
 	 * mi aplicacion ademas de inicializar mi aplicacion donde recibira una respuesta del servidor empleando sockets
 	 */
 	public MyClient() {
+		complementDatas = new ComplementDatas();
 		iterator = 0;
 		 initApp();
 	}
@@ -138,9 +140,12 @@ public class MyClient implements ActionListener{
 						
 						switch (flatEvent) {
 						case 1:
+							System.out.println("ENTRO A CASO UNO");
 							dataOutputStream.writeInt(flatEvent);
 							objectOutputStream.writeObject((Person) jfMainWindow.getPersonCreated());
 							readBasicInfoPerson(dataInputStream.readLong());
+							jfMainWindow.getjPanel1().getComboBox().removeAllItems();;
+							complementDatas.fillComboBox(mapFamiliesRelations, jfMainWindow.getjPanel1().getComboBox());
 							familyRelations = new JPFamilyRelations(mapFamiliesRelations, this,Commands.ADD_RELATION_FAMILY.name());
 							flatEvent =0;
 							break;
@@ -318,7 +323,7 @@ public class MyClient implements ActionListener{
 			break;
 		case C_MENU_SHOW_SEARCH_RELATION_FAMILY_PANEL:
 			if (familiCountManagaer==0) {
-				new ComplementDatas().fillComboBox(mapFamiliesRelations, jfMainWindow.getjPanel1().getComboBox());
+				complementDatas.fillComboBox(mapFamiliesRelations, jfMainWindow.getjPanel1().getComboBox());
 			}
 			familiCountManagaer++;
 			jfMainWindow.showPanelSearchFamilyRelation();
