@@ -8,7 +8,13 @@ import java.util.Comparator;
 
 import persistence.MyPersistenceBinarytree;
 import utilities.ComplementDatas;
-
+/**
+ * 
+ * @author Grupo 2 -- Darwin Vargas --Andres Amezquita Gordillo-- Andres Felipe Moreno
+ *Clase que me permite manejar mi arbol binario de busqueda el cual al manejar una lista de indices
+ *es mucho mas optimo que trabajar sobre el archivo maestro
+ * @param <T>
+ */
 public class MyBinarySearchTree<T> implements Serializable {
 	private MyBSTNode<T> root;
 	private Comparator<T> comparator;
@@ -29,9 +35,9 @@ public class MyBinarySearchTree<T> implements Serializable {
 	}
 	/**
 	 * Añade una llave y valor al arbol binario
-	 * @param information
-	 * @throws IOException
-	 * @throws Exception
+	 * @param information informacion a agregar
+	 * @throws IOException excepion de archivos
+	 * @throws Exception exeption la cual escribe los posibles errores en mi logger
 	 */
 	public void add(Information<T> information) throws IOException,Exception {
 		if(this.myPersistenceBinaryTree.length() == myPersistenceBinaryTree.SIZE_HEADER) {
@@ -46,10 +52,10 @@ public class MyBinarySearchTree<T> implements Serializable {
 	
 	/**
 	 * Añade recursivamente una informacion al arbol binario
-	 * @param information
-	 * @param father
-	 * @return
-	 * @throws Exception
+	 * @param information informacion a agregar
+	 * @param father nodo padre de referencia donde se agregara la informacion anterior
+	 * @return me devuleve un nodo con la informacion agregada
+	 * @throws Exception manejo la exepcion posible para escribirla en mi logger
 	 */
 	public MyBSTNode<T> add(Information<T> information,MyBSTNode<T> father) throws Exception{
 		if(comparator.compare(information.key, father.information.key) != 0) {//no esta duplicado
@@ -73,6 +79,14 @@ public class MyBinarySearchTree<T> implements Serializable {
 		}
 		return father;
 	}
+	
+	
+	/**
+	 * metodo fachada de busqueda basado en el metodo siguiente
+	 * @param key llave la cual quiero buscar en mi BSF
+	 * @return devuelvo la informacion concerniente a esa llave 
+	 * @throws IOException manejo la exepcion correspondiente al manejo de archivos
+	 */
 	public Information<T> search(T key) throws IOException {
 		if(myPersistenceBinaryTree.length() != MyPersistenceBinarytree.SIZE_HEADER) {
 		Information<T> found = search(key, this.myPersistenceBinaryTree.readByIndex(this.myPersistenceBinaryTree.getIndexRoot()));
@@ -86,6 +100,15 @@ public class MyBinarySearchTree<T> implements Serializable {
 		}
 		
 	}
+	
+	/**
+	 * metodo de busqueda implementado para mi BSF donde aplico la recursividad propuesta en sesiones anteriroes
+	 * para ahora implementarlo con manipulacion de archivos de acceso aleatorio 
+	 * @param key llave que quiero buscar 
+	 * @param father nodo padre desde donde quiero empezar a buscar
+	 * @return devuelvo una informacion si encuentro la llave buscada
+	 * @throws IOException manejo la exepcion del manejo de archivos
+	 */
 	private Information<T> search(T key,MyBSTNode<T> father) throws IOException{
 		MyBSTNode<T> aux = father;
 		Information<T> information = father.information;
@@ -112,22 +135,14 @@ public class MyBinarySearchTree<T> implements Serializable {
 			return null;
 		}
 	}
-	public ArrayList<T> traverseInOrder() throws IOException{
-		ArrayList<T> aux = new ArrayList<T>();
-		this.root = myPersistenceBinaryTree.readByIndex(0);
-		if(this.root != null) {
-			inOrder(this.root,aux);
-		}
-	    return aux;
-	}
-	private void inOrder(MyBSTNode<T> node,ArrayList<T> list)throws IOException {
-	    if (node != null) {
-	    	if(node.leftSon!=-1)inOrder(myPersistenceBinaryTree.readByIndex(node.leftSon),list);
-	        list.add(node.information.key);
-	        if(node.rightSon != -1)inOrder(myPersistenceBinaryTree.readByIndex(node.rightSon),list);
-	    }
-	    
-	}
+
+	
+	/**
+	 * metodo que me lee un nodo de un archivo basandome en su respectivo indice
+	 * @param index indice del cual quiero obtener mi nodo
+	 * @return devuelvo el nodo en caso de que lo encuentre
+	 * @throws IOException excepcion del manejo de archivos
+	 */
 	public MyBSTNode<T> read(long index) throws IOException{
 		return myPersistenceBinaryTree.readByIndex(index);
 	}
@@ -135,40 +150,7 @@ public class MyBinarySearchTree<T> implements Serializable {
 		return myPersistenceBinaryTree.getNumberOfNodes();
 	}
 	
-	public static void main(String[] args) throws Exception {
-		ComplementDatas complementDatas = new ComplementDatas();
-		MyBinarySearchTree<String> D = new MyBinarySearchTree<String>("resources/out/trees/byName.tree", new Comparator<String>() {
-			@Override
-			public int compare(String o1, String o2) {
-				return o1.compareTo(o2);
-			}
-		}, new IConverterDatas<String>() {
 
-			@Override
-			public byte[] keyToByte(String key) {
-				if(key != null) {
-					key = complementDatas.stringSize(key, 30);
-					return key.getBytes();
-				}else {
-					key = complementDatas.stringSize(" ", 30);
-					return key.getBytes();
-				}
-			}
-			@Override
-			public String byteToKey(byte[] byteArray) {
-				return new String(byteArray);
-			}
-			@Override
-			public int sizeKey() {
-				return 30;
-			}
-		});
-		
-//		D.add(new Information<String>("DarwinVargas", 111));
-//		
-		
-		System.out.println(D.read(3).information.key);
-	}
 	
 	
 }

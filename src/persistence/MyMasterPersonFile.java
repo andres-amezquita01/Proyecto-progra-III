@@ -20,7 +20,7 @@ import model.Person;
 import utilities.ComplementDatas;
 /**
  * Encargado de la persistencia de una persona.
- * @author Andres Felipe Amezquita Gordillo
+ * @author Grupo 2 -- Darwin Vargas --Andres Amezquita Gordillo-- Andres Felipe Moreno
  *
  */
 public class MyMasterPersonFile extends RandomAccessFile{

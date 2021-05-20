@@ -13,7 +13,11 @@ import javax.swing.JTextField;
 
 import model.Person;
 import myClient.Commands;
-
+/**
+ * panel que me permite visualizar las relaciones familiares de una persona dada
+ * @author Grupo 2 -- Darwin Vargas --Andres Amezquita Gordillo-- Andres Felipe Moreno
+ *
+ */
 public class JPViewFamilyPerson extends JPanel {
 
 	/**
@@ -27,11 +31,21 @@ public class JPViewFamilyPerson extends JPanel {
 	private JButton before,after;
 	private MyPanel myPanel;
 	
+	
+	/**
+	 * inicializo mi panel
+	 * @param listener manejador de eventos de mi panel
+	 */
 	public JPViewFamilyPerson(ActionListener listener) {
 		myPanel = new MyPanel();
 		initComponet(listener);
 	}
 
+	
+	/**
+	 * inicializamos los componenetes de mi respectivo panel
+	 * @param listener manejador de eventos de mi panel
+	 */
 	private void initComponet(ActionListener listener) {
 		
 		comboBox = new JComboBox<String>();

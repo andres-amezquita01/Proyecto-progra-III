@@ -11,7 +11,7 @@ import javax.swing.JComboBox;
 
 /**
  * Clase con metodos auxiliares.
- * @author Andres Felipe Amezquita Gordillo
+ * @author Grupo 2 -- Darwin Vargas --Andres Amezquita Gordillo-- Andres Felipe Moreno
  *
  */
 public class ComplementDatas {

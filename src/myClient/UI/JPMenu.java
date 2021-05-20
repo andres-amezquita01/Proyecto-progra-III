@@ -9,7 +9,11 @@ import javax.swing.JPanel;
 
 import myClient.Commands;
 import myClient.items.RoundedJButton;
-
+/**
+ * clase que nos permite crear un menu para la eleccion de las acciones que va a realiar el usuario
+ * @author Grupo 2 -- Darwin Vargas --Andres Amezquita Gordillo-- Andres Felipe Moreno
+ *
+ */
 public class JPMenu extends JPanel{
 
 	/**
@@ -19,13 +23,24 @@ public class JPMenu extends JPanel{
 	private RoundedJButton createPerson,option1,option2,option3;
 	private JPCreatePerson jpcreatePerson;
 
+	
+	/**
+	 * contructor de mi clase donde inializo los componentes de mi menu
+	 * @param listener manejador de eventos de mi clase
+	 * @param cont panel que va a contener los elementos de mi menu
+	 */
 	public JPMenu(ActionListener listener,JPanel cont) {
 		jpcreatePerson = new JPCreatePerson(listener);
-		new JPOption1(listener);
 		this.setBackground(Color.WHITE);
 		this.setLayout(new FlowLayout());
 		initComponenets(listener,cont);
 	}
+	
+	/**
+	 * componentes que van a ir en nuestra aplicacion
+	 * @param listener manejador de eventos que llevara mi menu
+	 * @param cont panel que contendra mi menu
+	 */
 
 	private void initComponenets(ActionListener listener,JPanel cont) {
 		createPerson = new RoundedJButton(15, 15, "Crear Persona", ConstantsUI.COLOR_DARCK_BLUE, Color.WHITE, 

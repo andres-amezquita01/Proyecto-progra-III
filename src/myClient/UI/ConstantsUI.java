@@ -3,7 +3,11 @@ package myClient.UI;
 
 import java.awt.Color;
 import java.awt.Font;
-
+/**
+ * constantes que manejo como buenas practicas, para los eventos y demas lugares donde necesite estos textos
+ * @author Grupo 2 -- Darwin Vargas --Andres Amezquita Gordillo-- Andres Felipe Moreno
+ *
+ */
 public class ConstantsUI {
 	
 	public  static  final String T_MAIN_WINDOW = "Person";

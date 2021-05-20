@@ -14,7 +14,12 @@ import javax.swing.JPanel;
 
 import model.RelationType;
 import myClient.Commands;
-
+/**
+ * clase que me permite pedirle al usuario que relacion familiar va a tener con una persona de la
+ * lista de familiares
+ * @author Grupo 2 -- Darwin Vargas --Andres Amezquita Gordillo-- Andres Felipe Moreno
+ *
+ */
 public class FamilyRelations extends JFrame {
 
 	private JComboBox<RelationType> comboBoxOne;
@@ -24,6 +29,12 @@ public class FamilyRelations extends JFrame {
 	private JPanel panel;
 	private JButton addRelationFamily;
 	
+	
+	/**
+	 * clase de mis relaciones familiares donde las puedo mostrar en el JComboBox
+	 * @param map mapa el cual me permite asociar una relacion de parentesco con una persona dada
+	 * @param listener
+	 */
 	public FamilyRelations(Map<Long, String> map,ActionListener listener) {
 		panel = new JPanel(); 
 		comboBoxOne = new JComboBox<>(RelationType.values());

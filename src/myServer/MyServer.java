@@ -10,9 +10,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
@@ -24,13 +21,17 @@ import model.GraphFamily;
 import model.MySimpleList;
 import model.Password;
 import model.Person;
-import model.RelationType;
 import myClient.UI.ConstantsUI;
 import persistence.MyFileFamiliesRelationsShip;
 import persistence.MyMasterPasswordFile;
 import persistence.MyMasterPersonFile;
 import utilities.ComplementDatas;
-
+/**
+ * Servidor de mi apliacion donde manejamos la aceptacion de multiples usuarios ademas 
+ * de todos los flujos de datos hacia este 
+ * @author Grupo 2 -- Darwin Vargas --Andres Amezquita Gordillo-- Andres Felipe Moreno
+ *
+ */
 public class MyServer {
 	private final static int PORT = 1111;
 	private ServerSocket serverSocket;
@@ -46,6 +47,12 @@ public class MyServer {
 	private MyMasterPasswordFile myMasterPasswordFile;
 	
 	
+	
+	/**
+	 * contructor de mi clase servidor donde manejo al inicializacion de esta ademas de cargar 
+	 * en este caso los archivos correspondientes a la pesistencia 
+	 * @throws IOException
+	 */
 	public MyServer( ) throws IOException  {
 		createFileLogger();
 		createSockets();
@@ -152,7 +159,6 @@ public class MyServer {
 		this.myMasterPasswordFile = new MyMasterPasswordFile("resources/out/passwords/myMasterFile.passwords");
 		writeInLog("cargando archivo maestro...");
 		this.myMasterPersonFile = new MyMasterPersonFile("resources/out/masterFile/myMasterFile.Person");
-//		System.out.println("dddd: " + myBinarySearchTree.read(0).getIndex());
 		writeInLog("completado.");
 		
 	}
@@ -162,7 +168,7 @@ public class MyServer {
 	}
 
 	/**
-	 * Inicializa el servidor.
+	 * Inicializa el servidor aca informo sobre los cambios que acontecen el el servidor.
 	 */
 	private void initApp() {
 		while(true) {
@@ -181,6 +187,13 @@ public class MyServer {
 		
 	}
 	
+	
+	/**
+	 * envio la informacion basica de las personas a los clientes para que estos puedan ver las relaciones
+	 * familiares existentes
+	 * @param dataOutputStream datos que enviare 
+	 * @throws IOException
+	 */
 	private void sendDataBasicPersons(DataOutputStream dataOutputStream) throws IOException {
 		for (int i = 0; i < myMasterPersonFile.numberPersonsInFile(); i++) {
 			Person person = myMasterPersonFile.read(i);
@@ -190,6 +203,10 @@ public class MyServer {
 		}
 	}
 	
+	/**
+	 * creo que la concurrencia que le permite a nuestro servidor atender las solicitudes de multiples clientes
+	 * @param socketClient sockets de mi servidor
+	 */
 	private void createThread(Socket socketClient) {
 			new Thread(new Runnable() {
 				@Override
@@ -261,13 +278,18 @@ public class MyServer {
 //						e.printStackTrace();
 						writeInLog(e.getMessage());
 					} catch (ClassNotFoundException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
 		}).start();;
 	}
-	//---------version ultima----------------
+
+
+	/**
+	 * metodo que me crea una lista de familiares asocidos a una persona identificada con un id Dado
+	 * @param idPerson id de la persona
+	 * @return devuelvo  la lista
+	 */
 	public MySimpleList<RelationFamilies<Person,Integer>> relationsFamilies(Long idPerson) {
 		MySimpleList<RelationFamilies<Person,Integer>> list = new MySimpleList<>();
 		try {
@@ -288,23 +310,18 @@ public class MyServer {
 		return list;
 	}
 	
+	
+	/**
+	 * busco una persona con su id primero lo hago en en archivo de indices y apenas
+	 * lo encuentre Apunto al archivo maestro para la optimizacion de bsuqueda
+	 * @param idPerson id de la persona que quiero vivir
+	 * @return devuelvo la persona que encontre
+	 * @throws IOException manejo la excepcion por la manipulacion de archivos
+	 */
 	public Person searchPerson(long idPerson) throws IOException {
 		return myMasterPersonFile.read(myBinarySearchTreeId.search(idPerson).getIndexInMasterFile());
 	}
-	//-----------fin version ultima---------------
-//	public Map<Long,RelationType> relationsFamilies(Long idPerson) throws IOException{
-//		Map<Long, RelationType> aux = new HashMap<>();
-//		for (int i = 0; i < familiesRelationsShip.numberRelationsInFile(); i++) {
-//			if (familiesRelationsShip.read(i).getIdPersonOne()==idPerson) {
-//				aux.put(familiesRelationsShip.read(i).getIdPersonTwo(),
-//						familiesRelationsShip.read(i).getRelationType());
-//			}
-//		}
-//		return aux;
-//	}
-	
-	//--------------AREA DE REGISTRO-----------------------------
-	
+
 	/**
 	 * Valida si un usuario existe en la base de datos.
 	 * @param password
@@ -332,6 +349,12 @@ public class MyServer {
 		return false;
 	}
 	
+	
+	/**
+	 * recupero la contraseña de un usuario dado
+	 * @param password
+	 * @return
+	 */
 	public String recoveredPassWord(Password password) {
 		try {
 			String user = complementDatas.stringSize(password.getUser(), 30);
@@ -354,6 +377,12 @@ public class MyServer {
 	 * @return true si se pudo agregar, false si ya existia.
 	 */
 	
+	
+	/**
+	 * registro un nuevo usuario
+	 * @param password contraseña del usuario que agregare 
+	 * @return
+	 */
 	private boolean registryNewUser(Password password) {
 		try {
 			String user = complementDatas.stringSize(password.getUser(), 30);
@@ -395,7 +424,10 @@ public class MyServer {
 		return (Person) objectInputStream.readObject();
 	}
 	
-	
+	/**
+	 * agrego una relacion familiar
+	 * @param family relacion familiar que deseo agregar
+	 */
 	public void addRelationFamlily(GraphFamily family) {
 		try {
 			familiesRelationsShip.add(family);
@@ -404,6 +436,10 @@ public class MyServer {
 		}
 	}
 	
+	/**
+	 * añado una persona al archivo maestro
+	 * @param person persona que quiero agregar al archivo maestro
+	 */
 	public void addPersonToMasterAndTreeFile(Person person) {
 		try {
 			System.out.println(person);
@@ -453,6 +489,11 @@ public class MyServer {
 		logger.info(message);
 	}
 	
+	/**
+	 * incializoamos nuestro servidor 
+	 * @param args
+	 * @throws IOException
+	 */
 	public static void main(String[] args) throws IOException {
 		
 		new MyServer();

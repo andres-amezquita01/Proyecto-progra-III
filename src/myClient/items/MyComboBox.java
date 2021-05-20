@@ -19,8 +19,9 @@ import myClient.UI.ConstantsUI;
 
 /**
  * 
- * @author Andres Felipe Amezquita Gordillo
- *
+ * @author Grupo 2 -- Darwin Vargas --Andres Amezquita Gordillo-- Andres Felipe Moreno
+ *manejo mi combo box donde manipulo mi Jcombo box de tal manera que 
+ *pueda personalizarse de una manera muy especifica
  */
 public class MyComboBox extends JComboBox<String>{
 	/**
@@ -29,6 +30,10 @@ public class MyComboBox extends JComboBox<String>{
 	private static final long serialVersionUID = 1L;
 	private int arcW;
 	private int arcH;
+	
+	/**
+	 * contructor donde hago los cambios correspondientes a mi JComboBoxs
+	 */
 	public MyComboBox() {
 		super();
 		setBackground(Color.WHITE);
@@ -38,6 +43,12 @@ public class MyComboBox extends JComboBox<String>{
 		
 	}
 
+	
+	/**
+	 * Contructir donde le puedo agregar un evento a mi combo box
+	 * @param actionCommand nombre del evento que quiero asiganarle a mi JComboBox
+	 * @param actionListener listener que se empleara para los eventos de mi combo box
+	 */
 	public MyComboBox(String actionCommand, ActionListener actionListener) {
 		super();
 		this.arcW = arcW;
@@ -92,6 +103,11 @@ public class MyComboBox extends JComboBox<String>{
 		
 	}
 	
+	
+	/**
+	 * contructor donde puedo agregarle a mi combo box unos estilos personalizados
+	 * @param n
+	 */
 	public MyComboBox(String n) {
 		super();
 		this.arcW = arcW;

@@ -1,5 +1,9 @@
 package myClient;
-
+/**
+ * comandos para los eventos que se manejan en el Cliente
+ * @author Grupo 2 -- Darwin Vargas --Andres Amezquita Gordillo-- Andres Felipe Moreno
+ *
+ */
 public enum Commands {
 	C_CREATE_PERSON,
 	C_CANCEL_CREATE_PERSON,

@@ -22,6 +22,13 @@ import myClient.items.MyComboBox;
 import myClient.items.RoundedJButton;
 import utilities.ComplementDatas;
 
+
+/**
+ * panel donde pedimos la informacion de una persona al usuario para que esta la pueda crear
+ * al crearla se registrara en todos los archivos tanto de indices como en el archivo maestro
+ * @author Grupo 2 -- Darwin Vargas --Andres Amezquita Gordillo-- Andres Felipe Moreno
+ *
+ */
 public class JPCreatePerson extends JPanel{
 	private static final long serialVersionUID = 1L;
 	private JPanel panelButton;
@@ -34,10 +41,21 @@ public class JPCreatePerson extends JPanel{
 	private JTextField jtProfile;
 	private JTextField jtPassPort;
 	private RoundedJButton jBCreate, jBCancelCreate;
+	
+	
+	/**
+	 * contructor de mi clase donde la inicializo
+	 * @param actionListener manejador de eventos de mi clase
+	 */
 	public JPCreatePerson(ActionListener actionListener) {
 		setBackground(Color.white);
 		initComponents(actionListener);
 	}
+	
+	/**
+	 *inicializamos  todos  mis componentes que van a ir en el panel de crear personna 
+	 * @param actionListener
+	 */
 	private void initComponents(  ActionListener actionListener ) {
 		GridLayout gridLayout = new GridLayout(9, 1);
 		gridLayout.setVgap( 15 );
@@ -46,7 +64,6 @@ public class JPCreatePerson extends JPanel{
 
 		jtPersonId = new JTextField();
 		jtPersonId.setBorder(BorderFactory.createTitledBorder(ConstantsUI.ITEM_PERSON_ID));
-//		    TextPrompt placeholder = new TextPrompt("Apellido Paterno", jTcodeStudent);
 		@SuppressWarnings("unused")
 		PlaceHolder holder = new PlaceHolder(jtPersonId,ConstantsUI.PLACE_HOLDER_NUMBER_ID);
 		mcbSelectGender = new MyComboBox("");
@@ -122,17 +139,20 @@ public class JPCreatePerson extends JPanel{
 	}
 	
 	
-	
+	/**
+	 * añadimos el genero a nuestro panel
+	 */
 	public void addItemGender() {
 		mcbSelectGender.addItem("Femenino");
 		mcbSelectGender.addItem("Masculino");
 	}
 	
+	
+	/**
+	 * creamos la personas la cual tendra sus atributos 
+	 * @return devolvemos la persona
+	 */
 	public Person createPerson()  {
-//		try {
-//			Utilities.validateNumberCode(jtPersonId.getText());
-//			Utilities.validateNumberCode(jtFirstName.getText());
-
 			return new Person(Integer.parseInt(jtPersonId.getText()),
 					jtFirstName.getText(), 
 					jtLastName.getText(), 
@@ -140,20 +160,7 @@ public class JPCreatePerson extends JPanel{
 					new ComplementDatas().parseStringToLocalDate(jChooserBirthDay.getCalendar()),
 					(int)(jSpinnerValue.getValue()),
 					jtProfile.getText(), null, jtPassPort.getText());
-//		} catch (OnlyNumbersException e) {
-			
-//			throw new OnlyNumbersException();
-//		}
 	}
 	
 	
-	public void changeLanguage() {
-//		jtPersonId.setBorder(BorderFactory.createTitledBorder( HandlerLanguage.languageProperties.getProperty(ConstantsUI.ITEM_CODE_STUDENT )));
-//		mcbSelectGender.setBorder(BorderFactory.createTitledBorder(HandlerLanguage.languageProperties.getProperty(ConstantsUI.T_BOX_DEPARTMENT )));
-//		jBCreate.setText(HandlerLanguage.languageProperties.getProperty(ConstantsUI.BUTTON_CREATE));
-//		jBCancelCreate.setText(HandlerLanguage.languageProperties.getProperty(ConstantsUI.BUTTON_CANCEL_CREATE));
-
-
-	}
-		
-	}
+}

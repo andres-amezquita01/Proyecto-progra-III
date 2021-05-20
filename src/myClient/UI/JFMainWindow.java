@@ -16,6 +16,11 @@ import javax.swing.JScrollPane;
 import model.Password;
 import model.Person;
 
+/**
+ * clase donde manejamos el frame principal de la aplicacion el cual me permite la interaccion con el usuario
+ * @author Grupo 2 -- Darwin Vargas --Andres Amezquita Gordillo-- Andres Felipe Moreno
+ *
+ */
 public class JFMainWindow extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -25,31 +30,39 @@ public class JFMainWindow extends JFrame {
 	private JPanel container;
 	private JScrollPane jScroll;
 	private CardLayout cardLayout;
-//	private JPOption1 jPanel1;
 	private JPanel containerApp;
 	
 	private JPViewFamilyPerson jPanelViewFamilyPerson;
 
 	
 	private static final String PANEL_CREATE_PERSON = "panel persona";
-//	private static final String PANEL_LOGGIN = "panel loggin";
 	private static final String PANEL_SEARCH_FAMILY_RELATION = "panel buscar relaciones familiares";
 
 
 	ActionListener actionListener;
 
+	
+	
+	/**
+	 * contructor de mi clase donde inializo y ubico los paneles correspondientes a mi apliacion
+	 * @param controllerApp manejador de eventos que va a tenr mi frame principal
+	 */
 	public JFMainWindow(ActionListener controllerApp) {
 		this.actionListener = controllerApp;
 		this.setTitle(ConstantsUI.T_MAIN_WINDOW);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-//		this.setMinimumSize(new Dimension(650, 400));
 		this.setLocationRelativeTo(null);
 		this.setLayout(new BorderLayout());
 		getRootPane().setBorder(BorderFactory.createMatteBorder(0, 30, 4, 30, Color.white));
 		initRegistry(actionListener);
-//		initComponents(controllerApp);
 
 	}
+	
+	
+	/**
+	 * metodo que me permite modificar el layout de mi frame principa, ademas donde instancio mi respectivo login y demas
+	 * @param actionListener Eventos que tendra mi frame algunos de sus paneles tambien tendran asociado este mismo listenersSS
+	 */
 	private void initRegistry(ActionListener actionListener) {
 		this.setLayout(new GridLayout(1, 1));
 		this.setSize(new Dimension(600,600));
@@ -58,15 +71,19 @@ public class JFMainWindow extends JFrame {
 		this.add(jpLoggin);
 		
 	}
+	
+	
+	/**
+	 * metodo que me inicializa el frame principal despues de que mi usuario haga el respectivo login 
+	 * @param actionListener manejador de eventos para mi frame
+	 */
 	private void initComponents(ActionListener actionListener) {
 		this.setExtendedState(MAXIMIZED_BOTH);
 		containerApp = new JPanel();
 		containerApp.setLayout(new BorderLayout());
-//		containerFinal.getRootPane().setBorder(BorderFactory.createMatteBorder(0, 30, 4, 30, Color.white));
 		this.setExtendedState(MAXIMIZED_BOTH);
 		
 		container = new JPanel();
-//		jPanel1 = new JPOption1(actionListener);
 		jPanelViewFamilyPerson = new JPViewFamilyPerson(actionListener);//---
 		cardLayout = new CardLayout();
 		
@@ -88,23 +105,33 @@ public class JFMainWindow extends JFrame {
 
 		container.add(jPcreateStudent, PANEL_CREATE_PERSON);
 		container.add(jPanelViewFamilyPerson, PANEL_SEARCH_FAMILY_RELATION);//---
-//		container.add(jpLoggin, PANEL_LOGGIN);
 		cardLayout.show(container, PANEL_CREATE_PERSON);
 		containerApp.add(container);
 
 	}
+	
+	/**
+	 * cuando se inicia sesion le permito al usuario poder acceder al frame principal mediante este metodo
+	 */
 	public void setPane() {
 		this.setVisible(false);
 		initComponents(actionListener);
 		this.setContentPane(containerApp);
 		this.setVisible(true);
 	}
+	
+	
 	public Person getPersonCreated() {
 		return jPcreateStudent.createPerson();
 	}
 	public Password getUserCreated() {
 		return jpLoggin.createPassword();
 	}
+	
+	/**
+	 * me muestra un cardLayout en mi frame principal
+	 * @param string
+	 */
 	public void showPanels(String string) {
 		cardLayout.show(container, string);
 	}

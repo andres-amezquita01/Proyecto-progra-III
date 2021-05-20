@@ -1,7 +1,11 @@
 package model;
 
 import java.io.Serializable;
-
+/**
+ * clase donde estara el usuario y contraseña de mi cliente 
+ * @author Grupo 2 -- Darwin Vargas --Andres Amezquita Gordillo-- Andres Felipe Moreno
+ *
+ */
 public class Password implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String user;
@@ -9,8 +13,13 @@ public class Password implements Serializable {
 	public Password() {
 		
 	}
+	
+	/**
+	 * Contructor donde creo que mi clase Password
+	 * @param user usuario de mi sistemas
+	 * @param password contraseña del usuario de mi sistema
+	 */
 	public Password(String user, String password) {
-		super();
 		this.user = user;
 		this.password = password;
 	}

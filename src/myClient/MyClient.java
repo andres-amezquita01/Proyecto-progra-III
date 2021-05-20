@@ -27,7 +27,12 @@ import myClient.UI.FamilyRelations;
 import myClient.UI.JFMainWindow;
 import myServer.RelationFamilies;
 import utilities.ComplementDatas;
-
+/**
+ * Cliente de mi aplicacion donde manejo todo lo concerniente al manejo, recepcion y envio de datos 
+ * por parte del cliente 
+ * @author Grupo 2 -- Darwin Vargas --Andres Amezquita Gordillo-- Andres Felipe Moreno
+ *
+ */
 
 public class MyClient implements ActionListener{
 	private Socket socketClient;
@@ -40,34 +45,71 @@ public class MyClient implements ActionListener{
 	private final static int PORT = 1111;
 	private Map<Long, String> mapFamiliesRelations;
 	private FamilyRelations familyRelations;
-	
 	private int current;
 	private int iterator;
 
+	
+	/**
+	 * contructor donde inicializo una variable iterator que me permite un manejo correcto de los eventos de 
+	 * mi aplicacion ademas de inicializar mi aplicacion donde recibira una respuesta del servidor empleando sockets
+	 */
 	public MyClient() {
 		iterator = 0;
 		 initApp();
 	}
+	
+	/**
+	 * creo mis ObjetcInput y Output para la recepcion y envio de objetos en mi aplicacion
+	 * @throws IOException  manejo la exepcion por el manejo de flujo de datos de este tipo
+	 */
 	public void createObjectFlows() throws IOException {
 		objectInputStream = new ObjectInputStream(socketClient.getInputStream());
 		objectOutputStream = new ObjectOutputStream(socketClient.getOutputStream());
 	}
+	
+	/**
+	 * metodo que me cierra el flujo de datos esto para evitar errores de cualquier tipo en mi aplicacion 
+	 * @throws IOException manejo la exepcion por el manejo de flujo de datos de este tipo
+	 */
 	public void closeObjectFlows() throws IOException {
 		objectOutputStream.close();
 		objectInputStream.close();
 	}
+	
+	/**
+	 * creo las entradas y salidas del flujo de datos para valores generalmente de tipo primitivo
+	 * @throws IOException manejo la exepcion por el manejo de flujo de datos de este tipo
+	 */
 	public void createFlowsInAndOut() throws IOException {
 		 dataInputStream = new DataInputStream(socketClient.getInputStream());
 		 dataOutputStream = new DataOutputStream(socketClient.getOutputStream());
 	}
+	
+	/**
+	 * cierro el flujo de datos para mis valores primitivos 
+	 * @throws IOException manejo la exepcion por el manejo de flujo de datos de este tipo
+	 */
 	public void closeFlowsInAndOut() throws IOException {
 		 dataOutputStream.close();
 		dataInputStream.close();
 	}
+	
+	
+	/**
+	 * creo el socket de mi cliente el cual recibe como parametro la ip del servidor y el puerto
+	 * @throws UnknownHostException excepcion por el manejo de sockets
+	 * @throws IOException Excepcion por el envio de datos por medio de sockets
+	 */
 	public void createSocket() throws UnknownHostException, IOException {
 			socketClient =  new Socket("localhost", PORT);
 	}
 	
+	
+	/**
+	 * leo la informacion basica de una familia esye metodo lo uso para mostrar las personas disponibles en mi apliacion
+	 * @param index posicion de la persona la cual quiero añadir para luego mostrar
+	 * @throws IOException execpion por el manejo de datos 
+	 */
 	public void readBasicInfoPerson(long index) throws IOException {
 		mapFamiliesRelations = new HashMap<Long, String>();
 		for (int i = 0; i < index; i++) {
@@ -77,6 +119,10 @@ public class MyClient implements ActionListener{
 	
 	
 	
+	/**
+	 * inicializo mi app aca hago todos los procesos de interaccion de informacion con el servidor y donde 
+	 * manipulo los archivos de mi persistencia y los muestro y escribo o actualizo si es necesario
+	 */
 	@SuppressWarnings("unchecked")
 	public void initApp() {
 			try {
@@ -142,7 +188,6 @@ public class MyClient implements ActionListener{
 							if (sizeListFamilies>0) {
 								for (int i = 0; i < sizeListFamilies; i++) {
 									families.add((RelationFamilies<Person, Integer>) objectInputStream.readObject());
-//									updateRelatiob(RelationType.values()[dataInputStream.readInt()]);
 									updatePerson(families.getIndex(i));
 								}
 							}
@@ -164,21 +209,41 @@ public class MyClient implements ActionListener{
 			}
 	}
 	
+	/**
+	 * inicializo el frame principal de mi aplicacion
+	 */
 	public void initWindow() {
 		this.jfMainWindow = new JFMainWindow(this);
 		this.jfMainWindow.setVisible(true);
 
 
 	}
-	//---------parte darwin---------------
+	
+	
+	/**
+	 * actualizo las relaciones familaires de una persona con base en el item de mi JcomboBox seleccionado
+	 * @param relationType tipo de relacion que quiero mostrar
+	 */
 	public void updateRelatiob(RelationType relationType) {
 		jfMainWindow.getjPanel1().getParentesco().setText(relationType.name());
 	}
+	
+	
+	/**
+	 * Actualizo la informacion relacionada con las conexiones familiares  de la persona actual en mi combo box
+	 * @param relation relacion la cual tiene una persona y el tipo de relacion con la persona actual de JComboBox
+	 */
 	public void updatePerson(RelationFamilies<Person, Integer> relation) {
 		jfMainWindow.getjPanel1().updateInfoPerson(relation.getPerson());
 		jfMainWindow.getjPanel1().getParentesco().setText(RelationType.values()[relation.getIdTypeRelation()].name());
 	}
 	
+	
+	/**
+	 * metodo para mostrar el siguiente familiar relacionado con una persona para esto necesito
+	 * tener una lista de familiares asociados a esa persona dada
+	 * @param list lista de relaciones familiares de una persona
+	 */
 	public void afterFamily(MySimpleList<RelationFamilies<Person, Integer>> list) {
 		if (iterator < list.getSize()) {
 			updatePerson(list.getIndex(iterator-1));
@@ -188,6 +253,12 @@ public class MyClient implements ActionListener{
 		}
 	}
 	
+	
+	/**
+	 * metodo para mostrar el anterior familiar relacionado con una persona para esto necesito
+	 * tener una lista de familiares asociados a esa persona dada
+	 * @param list lista de relaciones familiares de una persona
+	 */
 	public void beforeFamily(MySimpleList<RelationFamilies<Person, Integer>> list) {
 		if (iterator>=0) {
 			updatePerson(list.getIndex(iterator+1));
@@ -199,6 +270,14 @@ public class MyClient implements ActionListener{
 	
 	//------------------------
 
+	
+	
+	private int familiCountManagaer;
+	/**
+	 * metodo sobreescrito de mi manejador de eventos donde los defino y con base en ellos 
+	 * manejo los eventos necesarios para responder a las acciones del usuario correctamente
+	 */
+	
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		Object source = event.getSource();
@@ -217,7 +296,10 @@ public class MyClient implements ActionListener{
 			jfMainWindow.showPanelPerson();
 			break;
 		case C_MENU_SHOW_SEARCH_RELATION_FAMILY_PANEL:
-			new ComplementDatas().fillComboBox(mapFamiliesRelations, jfMainWindow.getjPanel1().getComboBox());
+			if (familiCountManagaer==0) {
+				new ComplementDatas().fillComboBox(mapFamiliesRelations, jfMainWindow.getjPanel1().getComboBox());
+			}
+			familiCountManagaer++;
 			jfMainWindow.showPanelSearchFamilyRelation();
 			break;
 		case C_LOGIN_BUTTON_ENTRY:
@@ -253,6 +335,11 @@ public class MyClient implements ActionListener{
 			}	
 		}
 	}
+	
+	/**
+	 * main donde ejecuto mi cliente
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		new MyClient();
 	}

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * 
- * @author Darwin Vargas
+ * @author Grupo 2 -- Darwin Vargas --Andres Amezquita Gordillo-- Andres Felipe Moreno
  *clase que me crea las relaciones familiares de una persona dada con otra empleando grafos
  */
 public class GraphFamily implements Serializable {

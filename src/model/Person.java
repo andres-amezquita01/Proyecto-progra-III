@@ -3,7 +3,11 @@ package model;
 import java.awt.Image;
 import java.io.Serializable;
 import java.time.LocalDate;
-
+/**
+ * 
+ * @author Grupo 2 -- Darwin Vargas --Andres Amezquita Gordillo-- Andres Felipe Moreno
+ *clase donde tengo mi persona con su caracteristicas esta personas en un momento
+ */
 public class Person implements Serializable{
 	/**
 	 * 
@@ -23,6 +27,19 @@ public class Person implements Serializable{
 		
 	}
 	
+	
+	/**
+	 * creo mi persona con las caracteristicas propuestas
+	 * @param id identificacion puede ser la cedula 
+	 * @param firstName primer nombre de mi persona
+	 * @param lastName apellido (s) de mi persona
+	 * @param gender Genero de mi persona
+	 * @param birthDay cumpleaños de mi persona
+	 * @param value salario de la persona
+	 * @param profile perfil de la persona o descripcion de esta
+	 * @param photo foto de la persona en formato url
+	 * @param passport pasaporte de mi persona
+	 */
 	public Person(long id, String firstName, String lastName, Gender gender, LocalDate birthDay, double value,
 			String profile, Image photo, String passport) {
 		super();

@@ -8,7 +8,11 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import model.Password;
 import utilities.ComplementDatas;
-
+/**
+ * clase donde se encuentra mi archivo de contraseñas
+ * @author Grupo 2 -- Darwin Vargas --Andres Amezquita Gordillo-- Andres Felipe Moreno
+ *
+ */
 public class MyMasterPasswordFile extends RandomAccessFile{
 	private final static String MODE_FILE_READ_AND_WRITE = "rw";
 	private ComplementDatas complementDatas;

@@ -8,6 +8,12 @@ import javax.swing.JTextField;
 import model.Person;
 import utilities.ComplementDatas;
 
+/**
+ * panel donde se encuentra los elementos de mi panel para mostrar los datos de una  persona 
+ * en las relaciones familiares
+ * @author Grupo 2 -- Darwin Vargas --Andres Amezquita Gordillo-- Andres Felipe Moreno
+ *
+ */
 public class MyPanel extends JPanel{
 
 	/**
@@ -17,11 +23,19 @@ public class MyPanel extends JPanel{
 	private JLabel lblId, lblName, lblDateBirth, lblGender;
 	private JTextField txtId, txtName, txtDateBirth, txtGender;
 	private ComplementDatas complementDatas;
+	
+	/**
+	 * contructor de mi panel donde inicializo mis componenetes y le creo un layout
+	 */
 	public MyPanel() {
 		complementDatas = new ComplementDatas();
 		setLayout(new GridLayout(4, 2));
 		initComponents();
 	}
+	
+	/**
+	 * incializo los componetes que tendra mi panel
+	 */
 
 	private void initComponents() {
 		lblId = new JLabel("Id");
@@ -105,6 +119,11 @@ public class MyPanel extends JPanel{
 		this.txtName = txtName;
 	}
 
+	
+	/**
+	 * edito los elemetos de la relacion de la persona actual 
+	 * @param person persona que quiero mostrar
+	 */
 	public void updateInfoPerson(Person person) {
 		txtId.setText(person.getId()+"");
 		txtName.setText(person.getFirstName().replace("_", ""));

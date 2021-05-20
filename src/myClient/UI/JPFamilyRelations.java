@@ -16,42 +16,40 @@ import javax.swing.JToolTip;
 import myClient.Commands;
 import myClient.items.MyComboBox;
 import myClient.items.RoundedJButton;
-
+/**
+ * 
+ * @author Grupo 2 -- Darwin Vargas --Andres Amezquita Gordillo-- Andres Felipe Moreno
+ *clase que me crea el frame de mis relacione familiares
+ */
 public class JPFamilyRelations extends JFrame {
 
 /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	//	private JComboBox<RelationType> comboBoxOne;
-	//	private JComboBox<String> comboBoxTwo;
 	private MyComboBox myComboBoxOne, myComboBox2;
 	private JLabel jLabel;
 	private JLabel jLabelTwo;
 	private JPanel panel;
-//	private JButton addRelationFamily;
 	private RoundedJButton buttonAddRelationFamily;
+	
+	
+	/**
+	 * contructor de mi clase
+	 * @param map recibo esta estructura para añadir sus valores al combo Box
+	 * @param listener
+	 */
 	public JPFamilyRelations(Map<Long, String> map,ActionListener listener) {
 		panel = new JPanel(); 
 		panel.setLayout(new FlowLayout());
 		panel.setBackground(Color.white);
-//		comboBoxOne = new JComboBox<>(RelationType.values());
-//		addRelationFamily = new JButton("Agregar Relacion Familiar");
-//		comboBoxTwo = new JComboBox<>();
-		//-----------
 		myComboBoxOne = new MyComboBox("");
 		fillMycomboboxOne();
 		myComboBox2 = new MyComboBox("");
 		fillMycomboBoxTwo( map);
 		
 		jLabel = new JLabel("Esta persona va a ser: ");
-//		for (Entry<Long, String> entry : map.entrySet()) {
-//		    comboBoxTwo.addItem(entry.getValue() + "-> CON ID: -> " + entry.getKey());;
-//		}
 		jLabelTwo = new JLabel("de: ");
-//		addRelationFamily.addActionListener(listener);
-//		addRelationFamily.setActionCommand(Commands.ADD_RELATION_FAMILY.name());
-		
 		buttonAddRelationFamily = new RoundedJButton(15, 15, ConstantsUI.BUTTON_ADD_RELATION_FAMILY, ConstantsUI.COLOR_DARCK_BLUE, Color.WHITE, 
 				ConstantsUI.FONT_MAIN_WINDOW_LABELS, Commands.ADD_RELATION_FAMILY.toString(), listener ){
             private static final long serialVersionUID = 1L;
@@ -65,18 +63,14 @@ public class JPFamilyRelations extends JFrame {
             }
         };;
 		panel.add(jLabel);
-//		panel.add(comboBoxOne);
 		panel.add(myComboBoxOne);
 		panel.add(jLabelTwo);
 		panel.add(myComboBox2);
-//		panel.add(comboBoxTwo);
-//		panel.add(addRelationFamily);
 		panel.add(buttonAddRelationFamily);
 		this.setBackground(Color.white);
 		this.add(panel);
 		this.setSize(800,200);
 		this.setVisible(true);
-//		this.setSize(700,100);
 		this.setLocationRelativeTo(null);
 	}
 
@@ -104,6 +98,10 @@ public class JPFamilyRelations extends JFrame {
 		return buttonAddRelationFamily;
 	}
 	
+	
+	/**
+	 * agrego los items a mi combo box;
+	 */
 	public void fillMycomboboxOne() {
 		myComboBoxOne.addItem("Primo");
 		myComboBoxOne.addItem("Tio");
@@ -114,7 +112,6 @@ public class JPFamilyRelations extends JFrame {
 		myComboBoxOne.addItem("Nieto");
 		myComboBoxOne.addItem("Hijo");
 
-		//PRIMO,TIO,PADRE,ABUELO,HERMANO,ESPOSO,NIETO,HIJO
 	}
 	public void fillMycomboBoxTwo(Map<Long, String> map) {
 		for (Entry<Long, String> entry : map.entrySet()) {
@@ -122,11 +119,5 @@ public class JPFamilyRelations extends JFrame {
 		}
 	}
 	
-//	
-//	public static void main(String[] args) {
-//		Map<Long, String> map = new HashMap<Long, String>();
-//		map.put((long) 1111, "Carlos");
-//		map.put((long) 11121, "Pedro");
-//		new FamilyRelations(map);
-//	}
+
 }

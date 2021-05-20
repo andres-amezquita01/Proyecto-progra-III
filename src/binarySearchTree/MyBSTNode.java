@@ -2,6 +2,12 @@ package binarySearchTree;
 
 import java.io.Serializable;
 
+/**
+ * 
+ * @author Grupo 2 -- Darwin Vargas --Andres Amezquita Gordillo-- Andres Felipe Moreno
+ *clase que contiene mi nodo de mi BST
+ * @param <T>
+ */
 public class MyBSTNode<T> implements Serializable {
 	protected Information<T> information;
 	protected long leftSon;

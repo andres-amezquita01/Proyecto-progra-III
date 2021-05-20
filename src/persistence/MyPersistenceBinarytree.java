@@ -7,7 +7,12 @@ import java.io.RandomAccessFile;
 import binarySearchTree.IConverterDatas;
 import binarySearchTree.Information;
 import binarySearchTree.MyBSTNode;
-
+/**
+ * clase de la persistencia de mi estructura de indices en este caso UN BST
+ * @author Grupo 2 -- Darwin Vargas --Andres Amezquita Gordillo-- Andres Felipe Moreno
+ *
+ * @param <T> parametro del tipo de indice
+ */
 public class MyPersistenceBinarytree<T> extends RandomAccessFile{
 //	private final static int LONG_NULL = -1;
 	private int keySize;//tamaño de la clave que voy a almacenar.
@@ -88,14 +93,7 @@ public class MyPersistenceBinarytree<T> extends RandomAccessFile{
 		return myBSTNode;
 	}
 	
-//	public void writeHeader(long indexRoot, long sizeKey) throws IOException {
-//		this.seek(0);
-//		this.writeLong(indexRoot);
-//		this.writeLong(0);
-//		this.writeLong(sizeKey);
-//
-//	}
-	
+
 	public void setIndexRoot(long indexRoot) throws IOException {
 		this.seek(0);
 		this.writeLong(indexRoot);

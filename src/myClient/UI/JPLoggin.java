@@ -17,7 +17,11 @@ import com.placeholder.PlaceHolder;
 import model.Password;
 import myClient.Commands;
 import myClient.items.RoundedJButton;
-
+/**
+ * Clase donde manejamos el loggin de mi aplicacion para un usuario dado 
+ * @author Grupo 2 -- Darwin Vargas --Andres Amezquita Gordillo-- Andres Felipe Moreno
+ *
+ */
 public class JPLoggin extends JPanel{
 	private static final long serialVersionUID = 1L;
 	private JLabel labelLogin;
@@ -27,9 +31,19 @@ public class JPLoggin extends JPanel{
 	private RoundedJButton buttonCheckIn;
 	private RoundedJButton buttonRecoveredPassWord;
 	
+	
+	/**
+	 * contructor donde se inicializan los componentes
+	 * @param controller manejador de eventos de mi login 
+	 */
 	public JPLoggin(ActionListener controller) {
 		initComponents(controller);
 	}
+	
+	/**
+	 * metodo que nos permite inicializar los componentes del loggin de mim aplicacion 
+	 * @param controller
+	 */
 	private void initComponents(ActionListener controller) {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.setBackground(ConstantsUI.COLOR_LIGTH_RED);
@@ -125,6 +139,11 @@ public class JPLoggin extends JPanel{
 			add(box);
 
 		}
+	
+	/**
+	 * creamos  la contraseña de mi usuario
+	 * @return devuelvo esa contraseña creada
+	 */
 	public Password createPassword() {
 		return new Password(textUser.getText(), textPass.getText());
 	}

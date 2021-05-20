@@ -12,7 +12,7 @@ import model.RelationType;
 import utilities.ComplementDatas;
 /**
  * 
- * @author Darwin Vargas
+ * @author Grupo 2 -- Darwin Vargas --Andres Amezquita Gordillo-- Andres Felipe Moreno
  *clase quen me escribe las relaciones familiares representadas en un grafo 
  */
 public class MyFileFamiliesRelationsShip extends RandomAccessFile {
